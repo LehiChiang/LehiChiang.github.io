@@ -1,0 +1,913 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/icon-small-black.png">
+  <link rel="icon" type="image/png" href="/img/icon-small-black.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="Lehi J.">
+  <meta name="author" content="Lehi Chiang">
+  <meta name="keywords" content="AI,Java,Python">
+  <title>机器学习项目（一）：泰坦尼克号的幸存者 - Lehi J.</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/gruvbox-dark.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Lehi J." type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Lehi J.</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/pass_img/Titanic.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      Lehi Chiang
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-10-17 22:48" pubdate>
+        2020年10月17日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      20
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">用机器学习判断泰坦尼克上的乘客是否幸存？</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <div style="color:white">
+</div>
+
+<p style="text-indent: 2em;">
+</p>
+<p class="note note-primary">
+    这里我们以泰坦尼克号幸存者数据集进行第一个机器学习项目
+</p>
+
+<p>数据集的下载地址为：</p>
+<p><a href="titanic_train.csv">titanic_train.csv</a></p>
+<p>导包，导入数据集并分割数据集</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> pandas
+<span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> train_test_split
+
+titanic = pandas.read_csv(<span class="hljs-string">'./titanic_train.csv'</span>)</code></pre></div>
+
+<p>输出输出的前几行，查看各列属性等</p>
+<div class="hljs"><pre><code class="hljs python">titanic.head()</code></pre></div>
+
+<img src="/2020/10/17/%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E9%A1%B9%E7%9B%AE%EF%BC%9A%E6%B3%B0%E5%9D%A6%E5%B0%BC%E5%85%8B%E5%8F%B7%E7%9A%84%E5%B9%B8%E5%AD%98%E8%80%85/head.JPG" srcset="/img/loading.gif" alt="数据前5行" style="zoom:100%;display: flex;margin: 0 auto;">
+
+<br>
+
+<br>
+
+
+<p>下面简单介绍一下各列属性的含义，详细信息请见链接：<a href="https://www.kaggle.com/c/titanic/data" target="_blank" rel="noopener">https://www.kaggle.com/c/titanic/data</a></p>
+<table>
+<tbody>
+<tr><th><b>Variable</b></th><th><b>Definition</b></th><th><b>Key</b></th></tr>
+<tr>
+<td>survival</td>
+<td>Survival</td>
+<td>0 = No, 1 = Yes</td>
+</tr>
+<tr>
+<td>pclass</td>
+<td>Ticket class</td>
+<td>1 = 1st, 2 = 2nd, 3 = 3rd</td>
+</tr>
+<tr>
+<td>sex</td>
+<td>Sex</td>
+<td></td>
+</tr>
+<tr>
+<td>Age</td>
+<td>Age in years</td>
+<td></td>
+</tr>
+<tr>
+<td>sibsp</td>
+<td># of siblings / spouses aboard the Titanic</td>
+<td></td>
+</tr>
+<tr>
+<td>parch</td>
+<td># of parents / children aboard the Titanic</td>
+<td></td>
+</tr>
+<tr>
+<td>ticket</td>
+<td>Ticket number</td>
+<td></td>
+</tr>
+<tr>
+<td>fare</td>
+<td>Passenger fare</td>
+<td></td>
+</tr>
+<tr>
+<td>cabin</td>
+<td>Cabin number</td>
+<td></td>
+</tr>
+<tr>
+<td>embarked</td>
+<td>Port of Embarkation</td>
+<td>C = Cherbourg, Q = Queenstown, S = Southampton</td>
+</tr>
+</tbody>
+</table>
+
+
+
+<p>下一步分离数据特征和预测目标</p>
+<div class="hljs"><pre><code class="hljs python">y = titanic[<span class="hljs-string">'Survived'</span>]
+x = titanic.drop([<span class="hljs-string">'Survived'</span>], axis=<span class="hljs-number">1</span>)
+
+print(x.shape)
+print(y.shape)</code></pre></div>
+
+<div class="hljs"><pre><code class="hljs python">(<span class="hljs-number">891</span>, <span class="hljs-number">11</span>)
+(<span class="hljs-number">891</span>,)</code></pre></div>
+
+
+
+<p>统计缺失数据，数据类型等情况。</p>
+<div class="hljs"><pre><code class="hljs python">print(x.info())</code></pre></div>
+
+<div class="hljs"><pre><code class="hljs python">&lt;<span class="hljs-class"><span class="hljs-keyword">class</span> '<span class="hljs-title">pandas</span>.<span class="hljs-title">core</span>.<span class="hljs-title">frame</span>.<span class="hljs-title">DataFrame</span>'&gt;</span>
+<span class="hljs-class"><span class="hljs-title">RangeIndex</span>:</span> <span class="hljs-number">891</span> entries, <span class="hljs-number">0</span> to <span class="hljs-number">890</span>
+Data columns (total <span class="hljs-number">11</span> columns):
+ <span class="hljs-comment">#   Column       Non-Null Count  Dtype  </span>
+---  ------       --------------  -----  
+ <span class="hljs-number">0</span>   PassengerId  <span class="hljs-number">891</span> non-null    int64  
+ <span class="hljs-number">1</span>   Pclass       <span class="hljs-number">891</span> non-null    int64  
+ <span class="hljs-number">2</span>   Name         <span class="hljs-number">891</span> non-null    object 
+ <span class="hljs-number">3</span>   Sex          <span class="hljs-number">891</span> non-null    object 
+ <span class="hljs-number">4</span>   Age          <span class="hljs-number">714</span> non-null    float64
+ <span class="hljs-number">5</span>   SibSp        <span class="hljs-number">891</span> non-null    int64  
+ <span class="hljs-number">6</span>   Parch        <span class="hljs-number">891</span> non-null    int64  
+ <span class="hljs-number">7</span>   Ticket       <span class="hljs-number">891</span> non-null    object 
+ <span class="hljs-number">8</span>   Fare         <span class="hljs-number">891</span> non-null    float64
+ <span class="hljs-number">9</span>   Cabin        <span class="hljs-number">204</span> non-null    object 
+ <span class="hljs-number">10</span>  Embarked     <span class="hljs-number">889</span> non-null    object 
+dtypes: float64(<span class="hljs-number">2</span>), int64(<span class="hljs-number">4</span>), object(<span class="hljs-number">5</span>)
+memory usage: <span class="hljs-number">76.7</span>+ KB
+<span class="hljs-literal">None</span></code></pre></div>
+
+
+
+<p>从上面的输出信息可以看到：</p>
+<ol>
+<li>数据中一共有11个属性列，891个训练样本。</li>
+<li>这些数据类型中有2个属性的数据类型为<code>float</code>，4个属性的数据类型为<code>int</code>，5个属性的数据类型为字符串类型，即为分类变量。</li>
+<li>这些属性列中，<code>Age</code>属性，<code>Cabin</code>属性和<code>Embarked</code>属性列有空值，需要进一步处理。</li>
+</ol>
+<p>下面对空值进行处理，数据类型和文本类型的处理手段不同。<br><code>Age</code>属性使用已有的年龄属性的平均值进行填充。<br>字符串类型的空值统一标记为<code>Unknown</code>。</p>
+<div class="hljs"><pre><code class="hljs python">x[<span class="hljs-string">'Age'</span>].fillna(x[<span class="hljs-string">'Age'</span>].mean(), inplace=<span class="hljs-literal">True</span>)
+x.fillna(<span class="hljs-string">'Unknown'</span>, inplace=<span class="hljs-literal">True</span>)
+
+print(x.info())</code></pre></div>
+
+<div class="hljs"><pre><code class="hljs python">&lt;<span class="hljs-class"><span class="hljs-keyword">class</span> '<span class="hljs-title">pandas</span>.<span class="hljs-title">core</span>.<span class="hljs-title">frame</span>.<span class="hljs-title">DataFrame</span>'&gt;</span>
+<span class="hljs-class"><span class="hljs-title">RangeIndex</span>:</span> <span class="hljs-number">891</span> entries, <span class="hljs-number">0</span> to <span class="hljs-number">890</span>
+Data columns (total <span class="hljs-number">11</span> columns):
+ <span class="hljs-comment">#   Column       Non-Null Count  Dtype  </span>
+---  ------       --------------  -----  
+ <span class="hljs-number">0</span>   PassengerId  <span class="hljs-number">891</span> non-null    int64  
+ <span class="hljs-number">1</span>   Pclass       <span class="hljs-number">891</span> non-null    int64  
+ <span class="hljs-number">2</span>   Name         <span class="hljs-number">891</span> non-null    object 
+ <span class="hljs-number">3</span>   Sex          <span class="hljs-number">891</span> non-null    object 
+ <span class="hljs-number">4</span>   Age          <span class="hljs-number">891</span> non-null    float64
+ <span class="hljs-number">5</span>   SibSp        <span class="hljs-number">891</span> non-null    int64  
+ <span class="hljs-number">6</span>   Parch        <span class="hljs-number">891</span> non-null    int64  
+ <span class="hljs-number">7</span>   Ticket       <span class="hljs-number">891</span> non-null    object 
+ <span class="hljs-number">8</span>   Fare         <span class="hljs-number">891</span> non-null    float64
+ <span class="hljs-number">9</span>   Cabin        <span class="hljs-number">891</span> non-null    object 
+ <span class="hljs-number">10</span>  Embarked     <span class="hljs-number">891</span> non-null    object 
+dtypes: float64(<span class="hljs-number">2</span>), int64(<span class="hljs-number">4</span>), object(<span class="hljs-number">5</span>)
+memory usage: <span class="hljs-number">76.7</span>+ KB
+<span class="hljs-literal">None</span></code></pre></div>
+
+
+<p>可以看到数据被补全了，可以进行下一步操作。</p>
+<p>下一步分割数据集，<code>25%</code>的数据用于测试集，<code>75%</code>的数据用于训练集。</p>
+<div class="hljs"><pre><code class="hljs python">X_train, X_test, y_train, y_test = train_test_split(x, y, train_size=<span class="hljs-number">.75</span>, random_state=<span class="hljs-number">33</span>)</code></pre></div>
+
+<p>下一步要处理的是分类变量，即建立分类变量的编码问题，这里选择使用<code>DictVectorizer</code>。</p>
+<p><code>DictVectorizer</code>的处理对象是符号化(非数字化)的但是具有一定结构的特征数据，如字典等，将符号转成数字<code>0/1</code>表示。</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">from</span> sklearn.feature_extraction <span class="hljs-keyword">import</span> DictVectorizer
+vec = DictVectorizer()
+X_train = vec.fit_transform(X_train.to_dict(orient=<span class="hljs-string">'record'</span>))
+X_test = vec.transform(X_test.to_dict(orient=<span class="hljs-string">'record'</span>))
+
+print(len(vec.feature_names_))</code></pre></div>
+
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-number">1352</span></code></pre></div>
+
+<p>输出建立分类变量的数据</p>
+<div class="hljs"><pre><code class="hljs python">print(X_train.toarray()[:<span class="hljs-number">10</span>, :<span class="hljs-number">5</span>])</code></pre></div>
+
+<div class="hljs"><pre><code class="hljs python">[[<span class="hljs-number">47.</span>          <span class="hljs-number">0.</span>          <span class="hljs-number">0.</span>          <span class="hljs-number">0.</span>          <span class="hljs-number">0.</span>        ]
+ [<span class="hljs-number">40.</span>          <span class="hljs-number">0.</span>          <span class="hljs-number">0.</span>          <span class="hljs-number">0.</span>          <span class="hljs-number">0.</span>        ]
+ [<span class="hljs-number">29.69911765</span>  <span class="hljs-number">0.</span>          <span class="hljs-number">0.</span>          <span class="hljs-number">0.</span>          <span class="hljs-number">0.</span>        ]
+ [<span class="hljs-number">22.</span>          <span class="hljs-number">0.</span>          <span class="hljs-number">0.</span>          <span class="hljs-number">0.</span>          <span class="hljs-number">0.</span>        ]
+ [<span class="hljs-number">23.5</span>         <span class="hljs-number">0.</span>          <span class="hljs-number">0.</span>          <span class="hljs-number">0.</span>          <span class="hljs-number">0.</span>        ]
+ [<span class="hljs-number">47.</span>          <span class="hljs-number">0.</span>          <span class="hljs-number">0.</span>          <span class="hljs-number">0.</span>          <span class="hljs-number">0.</span>        ]
+ [<span class="hljs-number">27.</span>          <span class="hljs-number">0.</span>          <span class="hljs-number">0.</span>          <span class="hljs-number">0.</span>          <span class="hljs-number">0.</span>        ]
+ [<span class="hljs-number">24.</span>          <span class="hljs-number">0.</span>          <span class="hljs-number">0.</span>          <span class="hljs-number">0.</span>          <span class="hljs-number">0.</span>        ]
+ [<span class="hljs-number">29.69911765</span>  <span class="hljs-number">0.</span>          <span class="hljs-number">0.</span>          <span class="hljs-number">0.</span>          <span class="hljs-number">0.</span>        ]
+ [<span class="hljs-number">29.69911765</span>  <span class="hljs-number">0.</span>          <span class="hljs-number">0.</span>          <span class="hljs-number">0.</span>          <span class="hljs-number">0.</span>        ]]</code></pre></div>
+
+
+<p>我们不难发现，<code>DictVectorizer</code>对非数字化的处理方式是，借助原特征的名称，组合成新的特征，并采用<code>0/1</code>的方式进行量化，而数值型的特征转化比较方便，一般情况维持原值即可。</p>
+<p>对数据处理完毕后，开始对模型进行训练。这里我们使用随机森林模型对所有特征进行预测，并作性能评估。这里使用循环的方法找到最佳的参数<code>max_depth</code>。</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">from</span> sklearn.ensemble <span class="hljs-keyword">import</span> RandomForestClassifier
+
+maxid, maxval = <span class="hljs-number">0</span>, <span class="hljs-number">0</span>
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">10</span>, <span class="hljs-number">45</span>):
+    forest = RandomForestClassifier(max_depth=i, random_state=<span class="hljs-number">33</span>)
+    forest.fit(X_train, y_train)
+    score = forest.score(X_test, y_test)
+    <span class="hljs-keyword">if</span> maxval &lt; score:
+        maxval = score
+        maxid = i
+print(maxid, maxval)</code></pre></div>
+
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-number">28</span> <span class="hljs-number">0.874439461883408</span></code></pre></div>
+
+
+
+<p>这里，我们选择<code>max_depth=10</code>为树的最大深度。开始训练模型：</p>
+<div class="hljs"><pre><code class="hljs python">best_forest = RandomForestClassifier(max_depth=<span class="hljs-number">10</span>, random_state=<span class="hljs-number">33</span>)
+best_forest.fit(X_train, y_train)
+score = best_forest.score(X_test, y_test)
+print(score)</code></pre></div>
+
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-number">0.8026905829596412</span></code></pre></div>
+
+<p>总体来讲，良好的数据特征组合不需太多便可以使得模型的性能表现突出。比如，我们“良/恶性乳腺癌肿瘤预测”问题中，仅仅使用两个描述肿瘤形态的特征便可以取得很高的识别率。冗余的特征虽然不会影响到模型的性能，不过却使得CPU的计算做了无用功。比如，主成分分析主要用于去除多余的那些线性相关的特征组合，原因在于这些冗余的特征组合并不会对模型训练有更多贡献。而不良的特征自然会降低模型的精度。</p>
+<p>特征筛选与<code>PCA</code>这类通过选择主成分对特征进行重建的方法略有区别:对于<code>PCA</code>而言，我们经常无法解释重建之后的特征；但是特征筛选不存在对特征值的修改，而更加侧重于寻找那些对模型的性能提升较大的少量特征。</p>
+<p>这里我们在代码中继续沿用 Titanic据集，这次试图通过特征筛选来寻找最佳的特征组合，并且达到提高预测准确性的目标。</p>
+<p>从<code>sklearn</code>中导入特征筛选器</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> feature_selection
+fs = feature_selection.SelectPercentile(feature_selection.chi2, percentile=<span class="hljs-number">20</span>)</code></pre></div>
+
+
+<div class="hljs"><pre><code class="hljs python">X_train_fs = fs.fit_transform(X_train, y_train)
+best_forest.fit(X_train_fs, y_train)
+fs_score = best_forest.score(fs.transform(X_test), y_test)
+print(fs_score)</code></pre></div>
+
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-number">0.8295964125560538</span></code></pre></div>
+
+<p>可以看到结果，在选择了前<code>20%</code>的属性进行模型的训练得到了一个比全属性进行训练更好的结果。准确率达到了<code>82.96%</code>。</p>
+<p>这样，我们就完成了一个简单的模型，虽然没有对模型做过多的优化，后续的优化环节，在后续的博客中进行介绍。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/kaggle/">kaggle</a>
+                    
+                      <a class="hover-with-bg" href="/tags/scikit-learn/">scikit-learn</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/10/18/%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%BA%8C%E4%B8%AA%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E9%A1%B9%E7%9B%AE%EF%BC%9A%E6%88%BF%E4%BB%B7%E9%A2%84%E6%B5%8B/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">机器学习项目（二）：房价预测</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/10/14/%E6%9B%B4%E5%A5%BD%EF%BC%8C%E6%9B%B4%E5%BF%AB%EF%BC%8C%E6%9B%B4%E5%BC%BA%E5%A3%AE%E7%9A%84YOLOv2/">
+                        <span class="hidden-mobile">更好，更快，更强壮的YOLOv2</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    function loadValine() {
+      addScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "6rS38oXgbqlO5KI3Wx39pRKE-gzGzoHsz",
+          app_key: "jAT77piz4ukjWTMHISbSLW0x",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    }
+    waitElementVisible('vcomments', loadValine);
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://valine.js.org" target="_blank" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+    <!-- APlayer 音乐播放器 -->
+    <div id="aplayer"></div>
+    <script defer src="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.js" ></script>
+<link  rel="stylesheet" href="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css" />
+<script type="text/javascript">
+  var oldLoadAp = window.onload;
+  window.onload = function () {
+    oldLoadAp && oldLoadAp();
+
+    new APlayer({
+      container: document.getElementById('aplayer'),
+      fixed: true,
+      autoplay: 'false' === 'true',
+      loop: 'all',
+      order: 'random',
+      theme: '#b7daff',
+      preload: 'none',
+      audio: [{"name":"让我留在你身边 (原唱作版)","artist":"唐汉霄","url":"/songs/让我留在你身边 (原唱作版).mp3","cover":"/img/cover/让我留在你身边.jpg"},{"name":"Shape of You","artist":"Ed Sheeran","url":"/songs/Ed Sheeran - Shape of You.mp3","cover":"/img/cover/shapeofyou.jpg"},{"name":"1845","artist":"Hotbloods","url":"/songs/1845.mp3","cover":"/img/cover/1845.jpg"},{"name":"月牙湾","artist":"F.I.R.飞儿乐团","url":"/songs/F.I.R.飞儿乐团-月牙湾.mp3","cover":"/img/cover/月牙湾.jpg"},{"name":"Walk Thru Fire","artist":"Vicetone / Meron Ryan","url":"/songs/Walk Thru Fire.mp3","cover":"/img/cover/wsf.jpg"},{"name":"Wrap Me In Plastic","artist":"CHROMANCE","url":"/songs/Wrap Me In Plastic - CHROMANCE.m4a","cover":"/img/cover/wmip.jpg"},{"name":"飞鸟和蝉","artist":"任然","url":"/songs/飞鸟和蝉-任然.m4a","cover":"/img/cover/飞鸟和蝉.jpg"},{"name":"可惜没如果","artist":"林俊杰","url":"/songs/林俊杰-可惜没如果.mp3","cover":"/img/cover/可惜没如果.jpg"},{"name":"莫问归期","artist":"蒋雪儿","url":"/songs/莫问归期-蒋雪儿.m4a","cover":"/img/cover/莫问归期.jpg"},{"name":"失恋阵线联盟","artist":"草蜢","url":"/songs/失恋阵线联盟.mp3","cover":"/img/cover/失恋阵线联盟.jpg"},{"name":"大城小爱","artist":"王力宏","url":"/songs/王力宏-大城小爱.mp3","cover":"/img/cover/大城小爱.png"}]
+    });
+  }
+</script>
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "用机器学习判断泰坦尼克上的乘客是否幸存？&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 200,
+      loop: true,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script>
+
+  
+
+
+
+  
+  
+    <script>
+      !function (e, t, a) {
+        function r() {
+          for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+          requestAnimationFrame(r)
+        }
+
+        function n() {
+          var t = "function" == typeof e.onclick && e.onclick;
+          e.onclick = function (e) {
+            t && t(), o(e)
+          }
+        }
+
+        function o(e) {
+          var a = t.createElement("div");
+          a.className = "heart", s.push({
+            el: a,
+            x: e.clientX - 5,
+            y: e.clientY - 5,
+            scale: 1,
+            alpha: 1,
+            color: c()
+          }), t.body.appendChild(a)
+        }
+
+        function i(e) {
+          var a = t.createElement("style");
+          a.type = "text/css";
+          try {
+            a.appendChild(t.createTextNode(e))
+          } catch (t) {
+            a.styleSheet.cssText = e
+          }
+          t.getElementsByTagName("head")[0].appendChild(a)
+        }
+
+        function c() {
+          return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+        }
+
+        var s = [];
+        e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+          setTimeout(e, 1e3 / 60)
+        }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
+      }(window, document);
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

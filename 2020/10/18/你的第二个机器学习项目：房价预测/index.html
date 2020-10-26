@@ -1,0 +1,900 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/icon-small-black.png">
+  <link rel="icon" type="image/png" href="/img/icon-small-black.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="Lehi J.">
+  <meta name="author" content="Lehi Chiang">
+  <meta name="keywords" content="AI,Java,Python">
+  <title>机器学习项目（二）：房价预测 - Lehi J.</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/gruvbox-dark.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Lehi J." type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Lehi J.</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/pass_img/housepricingbanner.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      Lehi Chiang
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-10-18 09:59" pubdate>
+        2020年10月18日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      21
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">你的第二个机器学习项目：房价预测</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <p>数据集的下载地址为：</p>
+<p><a href="train.csv">train.csv</a></p>
+<p><a href="test.csv">test.csv</a></p>
+<h3 id="首先导入我们程序所需要的几个包："><a href="#首先导入我们程序所需要的几个包：" class="headerlink" title="首先导入我们程序所需要的几个包："></a>首先导入我们程序所需要的几个包：</h3><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> train_test_split
+<span class="hljs-keyword">from</span> sklearn.impute <span class="hljs-keyword">import</span> SimpleImputer</code></pre></div>
+
+
+
+<h1 id="准备数据"><a href="#准备数据" class="headerlink" title="准备数据"></a>准备数据</h1><p>加载数据，输出训练集和测试集的形状。</p>
+<div class="hljs"><pre><code class="hljs python">x = pd.read_csv(<span class="hljs-string">'./data/train.csv'</span>, index_col=<span class="hljs-string">'Id'</span>)
+x_test = pd.read_csv(<span class="hljs-string">'./data/test.csv'</span>, index_col=<span class="hljs-string">'Id'</span>)
+print(<span class="hljs-string">'Train data size:&#123;&#125;'</span>.format(x.shape))
+print(<span class="hljs-string">'Test data size:&#123;&#125;'</span>.format(x_test.shape))</code></pre></div>
+
+<div class="hljs"><pre><code class="hljs python">Train data size:(<span class="hljs-number">1460</span>, <span class="hljs-number">80</span>)
+Test data size:(<span class="hljs-number">1459</span>, <span class="hljs-number">79</span>)</code></pre></div>
+
+<p>去掉输出值为空的行（样本），然后将输出值赋值给y变量，在训练集中删除输出值，使训练集和测试集的特征数量相等。<br>然后将训练数据分为训练集和验证集，分别占比<code>80%</code>和<code>20%</code>。</p>
+<div class="hljs"><pre><code class="hljs python">x.dropna(axis=<span class="hljs-number">0</span>, subset=[<span class="hljs-string">'SalePrice'</span>], inplace=<span class="hljs-literal">True</span>)
+y = x[<span class="hljs-string">'SalePrice'</span>]
+x.drop([<span class="hljs-string">'SalePrice'</span>], axis=<span class="hljs-number">1</span>, inplace=<span class="hljs-literal">True</span>)
+
+x_train, x_val, y_train, y_val = train_test_split(x, y, train_size=<span class="hljs-number">0.8</span>, test_size=<span class="hljs-number">0.2</span>, random_state=<span class="hljs-number">0</span>)
+print(<span class="hljs-string">'Train data size:&#123;&#125;'</span>.format(x_train.shape))
+print(<span class="hljs-string">'Test data size:&#123;&#125;'</span>.format(x_val.shape))</code></pre></div>
+
+
+
+<h1 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h1><p>统计包含空值的属性列</p>
+<div class="hljs"><pre><code class="hljs python">miss_count = x_train.isnull().sum()
+cols_with_missing = list(miss_count[miss_count &gt; <span class="hljs-number">0</span>].index)
+print(<span class="hljs-string">'Numbers of missing values:&#123;&#125;'</span>.format(len(cols_with_missing)))
+print(<span class="hljs-string">'Missing features:'</span>, cols_with_missing)</code></pre></div>
+
+<p>统计包含分类变量的属性列</p>
+<div class="hljs"><pre><code class="hljs python">categorical_features = (x_train.dtypes == <span class="hljs-string">'object'</span>)
+categorical_features_list = list(categorical_features[categorical_features].index)
+print(<span class="hljs-string">'Numbers of categorical features:&#123;&#125;'</span>.format(len(categorical_features_list)))
+print(<span class="hljs-string">'Categorical features:'</span>, categorical_features_list)</code></pre></div>
+
+
+
+<h2 id="在处理空值的方法中，主要有以下几种："><a href="#在处理空值的方法中，主要有以下几种：" class="headerlink" title="在处理空值的方法中，主要有以下几种："></a>在处理空值的方法中，主要有以下几种：</h2><h3 id="1-直接删掉空值属性；"><a href="#1-直接删掉空值属性；" class="headerlink" title="1.直接删掉空值属性；"></a>1.直接删掉空值属性；</h3><div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># Fill in the line below: get names of columns with missing values</span>
+column_missing = [col <span class="hljs-keyword">for</span> col <span class="hljs-keyword">in</span> x_train.columns <span class="hljs-keyword">if</span> x_train[col].isnull().any()] <span class="hljs-comment"># Your code here</span>
+
+<span class="hljs-comment"># Fill in the lines below: drop columns in training and validation data</span>
+reduced_x_train = x_train.drop(column_missing, axis=<span class="hljs-number">1</span>)
+reduced_x_val = x_val.drop(column_missing, axis=<span class="hljs-number">1</span>)</code></pre></div>
+
+<h3 id="2-特殊值填充属性中的空值，例如：中位数；"><a href="#2-特殊值填充属性中的空值，例如：中位数；" class="headerlink" title="2.特殊值填充属性中的空值，例如：中位数；"></a>2.特殊值填充属性中的空值，例如：中位数；</h3><div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># Fill in the lines below: imputation</span>
+my_impute = SimpleImputer(strategy=<span class="hljs-string">'median'</span>) <span class="hljs-comment"># Your code here</span>
+imputed_X_train = pd.DataFrame(my_impute.fit_transform(x_train))
+imputed_X_valid = pd.DataFrame(my_impute.transform(x_val))
+
+<span class="hljs-comment"># Fill in the lines below: imputation removed column names; put them back</span>
+imputed_X_train.columns = x_train.columns
+imputed_X_valid.columns = x_val.columns</code></pre></div>
+
+<h3 id="3-改进版的特殊值填充，设置标志位"><a href="#3-改进版的特殊值填充，设置标志位" class="headerlink" title="3. 改进版的特殊值填充，设置标志位"></a>3. 改进版的特殊值填充，设置标志位</h3><div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># Make copy to avoid changing original data (when imputing)</span>
+x_train_plus = x_train.copy()
+x_val_plus = x_val.copy()
+
+<span class="hljs-comment"># Make new columns indicating what will be imputed</span>
+<span class="hljs-keyword">for</span> col <span class="hljs-keyword">in</span> cols_with_missing:
+    x_train_plus[col + <span class="hljs-string">'_was_missing'</span>] = x_train_plus[col].isnull()
+    x_val_plus[col + <span class="hljs-string">'_was_missing'</span>] = x_val_plus[col].isnull()
+
+<span class="hljs-comment"># Imputation</span>
+my_imputer = SimpleImputer()
+imputed_x_train_plus = pd.DataFrame(my_imputer.fit_transform(x_train_plus))
+imputed_x_val_plus = pd.DataFrame(my_imputer.transform(x_val_plus))
+
+<span class="hljs-comment"># Imputation removed column names; put them back</span>
+imputed_x_train_plus.columns = x_train_plus.columns
+imputed_x_val_plus.columns = x_val_plus.columns</code></pre></div>
+
+
+
+<h2 id="在处理分类变量的方法中，主要有以下几种："><a href="#在处理分类变量的方法中，主要有以下几种：" class="headerlink" title="在处理分类变量的方法中，主要有以下几种："></a>在处理分类变量的方法中，主要有以下几种：</h2><h3 id="1-直接删掉分类变量的属性；"><a href="#1-直接删掉分类变量的属性；" class="headerlink" title="1.直接删掉分类变量的属性；"></a>1.直接删掉分类变量的属性；</h3><div class="hljs"><pre><code class="hljs python">drop_X_train = X_train.select_dtypes(exclude=[<span class="hljs-string">'object'</span>])
+drop_X_valid = X_valid.select_dtypes(exclude=[<span class="hljs-string">'object'</span>])</code></pre></div>
+
+<h3 id="2-使用Label-Encoding；"><a href="#2-使用Label-Encoding；" class="headerlink" title="2.使用Label Encoding；"></a>2.使用Label Encoding；</h3><p>在对特征进行编码时，要考虑训练集的分类变量范围是否和训练集的分类变量范围相同，不多不少。如果不相同的情况，则直接删除掉范围不同的属性。</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># All categorical columns</span>
+object_cols = [col <span class="hljs-keyword">for</span> col <span class="hljs-keyword">in</span> x.columns <span class="hljs-keyword">if</span> x_test[col].dtype == <span class="hljs-string">"object"</span>]
+
+<span class="hljs-comment"># Columns that can be safely label encoded</span>
+good_label_cols = [col <span class="hljs-keyword">for</span> col <span class="hljs-keyword">in</span> object_cols <span class="hljs-keyword">if</span> 
+                   set(x[col]) == set(x_test[col])]
+        
+<span class="hljs-comment"># Problematic columns that will be dropped from the dataset</span>
+bad_label_cols = list(set(object_cols)-set(good_label_cols))
+        
+print(<span class="hljs-string">'Categorical columns that will be label encoded:\n'</span>, good_label_cols)
+print(<span class="hljs-string">'\nCategorical columns that will be dropped from the dataset:\n'</span>, bad_label_cols)</code></pre></div>
+
+
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">from</span> sklearn.preprocessing <span class="hljs-keyword">import</span> LabelEncoder
+
+<span class="hljs-comment"># Drop categorical columns that will not be encoded</span>
+label_x_train = x_train.drop(bad_label_cols, axis=<span class="hljs-number">1</span>)
+label_x_val = x_val.drop(bad_label_cols, axis=<span class="hljs-number">1</span>)
+label_x_test = x_test.drop(bad_label_cols, axis=<span class="hljs-number">1</span>)
+print(label_x_train.shape)
+print(label_x_val.shape)
+print(label_x_test.shape)
+
+<span class="hljs-comment"># label_x_train = x_train.select_dtypes(include=['object'])</span>
+<span class="hljs-comment"># label_x_val = x_val.select_dtypes(include=['object'])</span>
+<span class="hljs-comment"># label_x_test = x_test.select_dtypes(include=['object'])</span>
+
+<span class="hljs-comment"># Apply label encoder to each column with categorical data</span>
+label_encoder = LabelEncoder()
+<span class="hljs-keyword">for</span> col <span class="hljs-keyword">in</span> good_label_cols:
+    label_x_train[col] = label_encoder.fit_transform(x_train[col])
+    label_x_val[col] = label_encoder.transform(x_val[col])
+    label_x_test[col] = label_encoder.transform(x_test[col])</code></pre></div>
+
+<h3 id="3-使用One-Hot-Encoding；"><a href="#3-使用One-Hot-Encoding；" class="headerlink" title="3.使用One-Hot Encoding；"></a>3.使用One-Hot Encoding；</h3><p>在使用<code>One-Hot</code>编码之前先查看每个属性的基数，我们只将基数小的属性进行<code>One-Hot</code>编码，基数较大的使用<code>Label Encoding</code>编码比较方便。</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># Get number of unique entries in each column with categorical data</span>
+object_nunique = list(map(<span class="hljs-keyword">lambda</span> col: label_x_train[col].nunique(), object_cols))
+d = dict(zip(object_cols, object_nunique))
+
+<span class="hljs-comment"># Print number of unique entries by column, in ascending order</span>
+sorted(d.items(), key=<span class="hljs-keyword">lambda</span> x: x[<span class="hljs-number">1</span>])</code></pre></div>
+
+
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># Columns that will be one-hot encoded</span>
+low_cardinality_cols = [col <span class="hljs-keyword">for</span> col <span class="hljs-keyword">in</span> object_cols <span class="hljs-keyword">if</span> x[col].nunique() &lt; <span class="hljs-number">10</span>]
+
+<span class="hljs-comment"># Columns that will be dropped from the dataset</span>
+high_cardinality_cols = list(set(object_cols)-set(low_cardinality_cols))
+
+print(<span class="hljs-string">'Categorical columns that will be one-hot encoded:'</span>, low_cardinality_cols)
+print(<span class="hljs-string">'\nCategorical columns that will be dropped from the dataset:'</span>, high_cardinality_cols)</code></pre></div>
+
+
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">from</span> sklearn.preprocessing <span class="hljs-keyword">import</span> OneHotEncoder
+
+<span class="hljs-comment"># Use as many lines of code as you need!</span>
+oh_encoder = OneHotEncoder(handle_unknown=<span class="hljs-string">'ignore'</span>, sparse=<span class="hljs-literal">False</span>)
+print(x[low_cardinality_cols].describe())
+print(x_test[low_cardinality_cols].describe())
+OH_col_train = pd.DataFrame(oh_encoder.fit_transform(x[low_cardinality_cols]))
+OH_col_valid = pd.DataFrame(oh_encoder.transform(x_test[low_cardinality_cols]))
+
+OH_col_train.index = x.index
+OH_col_valid.index = x_test.index
+
+num_x_train = x.drop(low_cardinality_cols, axis=<span class="hljs-number">1</span>)
+num_x_valid = x_test.drop(low_cardinality_cols, axis=<span class="hljs-number">1</span>)
+num_x_train = num_x_train.drop(high_cardinality_cols, axis=<span class="hljs-number">1</span>)
+num_x_valid = num_x_valid.drop(high_cardinality_cols, axis=<span class="hljs-number">1</span>)
+
+OH_x_train = pd.concat([num_x_train, OH_col_train], axis=<span class="hljs-number">1</span>)
+OH_x_valid = pd.concat([num_x_valid, OH_col_valid], axis=<span class="hljs-number">1</span>)</code></pre></div>
+
+
+
+<h1 id="管道搭建模型"><a href="#管道搭建模型" class="headerlink" title="管道搭建模型"></a>管道搭建模型</h1><div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># "Cardinality" means the number of unique values in a column</span>
+<span class="hljs-comment"># Select categorical columns with relatively low cardinality (convenient but arbitrary)</span>
+categorical_cols = [cname <span class="hljs-keyword">for</span> cname <span class="hljs-keyword">in</span> X_train_full.columns <span class="hljs-keyword">if</span>
+                    X_train_full[cname].nunique() &lt; <span class="hljs-number">10</span> <span class="hljs-keyword">and</span> 
+                    X_train_full[cname].dtype == <span class="hljs-string">"object"</span>]
+
+<span class="hljs-comment"># Select numerical columns</span>
+numerical_cols = [cname <span class="hljs-keyword">for</span> cname <span class="hljs-keyword">in</span> X_train_full.columns <span class="hljs-keyword">if</span> 
+                X_train_full[cname].dtype <span class="hljs-keyword">in</span> [<span class="hljs-string">'int64'</span>, <span class="hljs-string">'float64'</span>]]
+
+<span class="hljs-comment"># Keep selected columns only</span>
+my_cols = categorical_cols + numerical_cols
+X_train = X_train_full[my_cols].copy()
+X_valid = X_valid_full[my_cols].copy()
+X_test = X_test_full[my_cols].copy()</code></pre></div>
+
+
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">from</span> sklearn.compose <span class="hljs-keyword">import</span> ColumnTransformer
+<span class="hljs-keyword">from</span> sklearn.pipeline <span class="hljs-keyword">import</span> Pipeline
+<span class="hljs-keyword">from</span> sklearn.impute <span class="hljs-keyword">import</span> SimpleImputer
+<span class="hljs-keyword">from</span> sklearn.preprocessing <span class="hljs-keyword">import</span> OneHotEncoder
+
+<span class="hljs-comment"># Preprocessing for numerical data</span>
+numerical_transformer = SimpleImputer(strategy=<span class="hljs-string">'constant'</span>)
+
+<span class="hljs-comment"># Preprocessing for categorical data</span>
+categorical_transformer = Pipeline(steps=[
+    (<span class="hljs-string">'imputer'</span>, SimpleImputer(strategy=<span class="hljs-string">'most_frequent'</span>)),
+    (<span class="hljs-string">'onehot'</span>, OneHotEncoder(handle_unknown=<span class="hljs-string">'ignore'</span>))
+])
+
+<span class="hljs-comment"># Bundle preprocessing for numerical and categorical data</span>
+preprocessor = ColumnTransformer(
+    transformers=[
+        (<span class="hljs-string">'num'</span>, numerical_transformer, numerical_cols),
+        (<span class="hljs-string">'cat'</span>, categorical_transformer, categorical_cols)
+    ])</code></pre></div>
+
+
+
+<h1 id="使用XGBoost训练"><a href="#使用XGBoost训练" class="headerlink" title="使用XGBoost训练"></a>使用XGBoost训练</h1><div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># Define the model</span>
+my_model_2 = XGBRegressor(n_estimators=<span class="hljs-number">1000</span>, learning_rate=<span class="hljs-number">0.05</span>, n_jobs=<span class="hljs-number">4</span>)
+
+<span class="hljs-comment"># Fit the model</span>
+my_model_2.fit(X_train, 
+               y_train, 
+               early_stopping_rounds=<span class="hljs-number">5</span>, 
+               eval_set=[(X_valid, y_valid)],
+               verbose=<span class="hljs-literal">False</span>) <span class="hljs-comment"># Your code here</span>
+
+<span class="hljs-comment"># Get predictions</span>
+predictions_2 = my_model_2.predict(X_valid)
+
+<span class="hljs-comment"># Calculate MAE</span>
+mae_2 = mean_absolute_error(predictions_2, y_valid)
+
+<span class="hljs-comment"># print MAE</span>
+print(<span class="hljs-string">"Mean Absolute Error:"</span> , mae_2)</code></pre></div>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/kaggle/">kaggle</a>
+                    
+                      <a class="hover-with-bg" href="/tags/scikit-learn/">scikit-learn</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/10/18/%E5%AD%A6%E4%BC%9APython%E8%A3%85%E9%A5%B0%E5%99%A8%EF%BC%88%E7%AE%80%E6%98%93%E7%89%88%EF%BC%89/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">学会Python装饰器（简易版）</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/10/17/%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E9%A1%B9%E7%9B%AE%EF%BC%9A%E6%B3%B0%E5%9D%A6%E5%B0%BC%E5%85%8B%E5%8F%B7%E7%9A%84%E5%B9%B8%E5%AD%98%E8%80%85/">
+                        <span class="hidden-mobile">机器学习项目（一）：泰坦尼克号的幸存者</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    function loadValine() {
+      addScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "6rS38oXgbqlO5KI3Wx39pRKE-gzGzoHsz",
+          app_key: "jAT77piz4ukjWTMHISbSLW0x",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    }
+    waitElementVisible('vcomments', loadValine);
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://valine.js.org" target="_blank" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+    <!-- APlayer 音乐播放器 -->
+    <div id="aplayer"></div>
+    <script defer src="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.js" ></script>
+<link  rel="stylesheet" href="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css" />
+<script type="text/javascript">
+  var oldLoadAp = window.onload;
+  window.onload = function () {
+    oldLoadAp && oldLoadAp();
+
+    new APlayer({
+      container: document.getElementById('aplayer'),
+      fixed: true,
+      autoplay: 'false' === 'true',
+      loop: 'all',
+      order: 'random',
+      theme: '#b7daff',
+      preload: 'none',
+      audio: [{"name":"让我留在你身边 (原唱作版)","artist":"唐汉霄","url":"/songs/让我留在你身边 (原唱作版).mp3","cover":"/img/cover/让我留在你身边.jpg"},{"name":"Shape of You","artist":"Ed Sheeran","url":"/songs/Ed Sheeran - Shape of You.mp3","cover":"/img/cover/shapeofyou.jpg"},{"name":"1845","artist":"Hotbloods","url":"/songs/1845.mp3","cover":"/img/cover/1845.jpg"},{"name":"月牙湾","artist":"F.I.R.飞儿乐团","url":"/songs/F.I.R.飞儿乐团-月牙湾.mp3","cover":"/img/cover/月牙湾.jpg"},{"name":"Walk Thru Fire","artist":"Vicetone / Meron Ryan","url":"/songs/Walk Thru Fire.mp3","cover":"/img/cover/wsf.jpg"},{"name":"Wrap Me In Plastic","artist":"CHROMANCE","url":"/songs/Wrap Me In Plastic - CHROMANCE.m4a","cover":"/img/cover/wmip.jpg"},{"name":"飞鸟和蝉","artist":"任然","url":"/songs/飞鸟和蝉-任然.m4a","cover":"/img/cover/飞鸟和蝉.jpg"},{"name":"可惜没如果","artist":"林俊杰","url":"/songs/林俊杰-可惜没如果.mp3","cover":"/img/cover/可惜没如果.jpg"},{"name":"莫问归期","artist":"蒋雪儿","url":"/songs/莫问归期-蒋雪儿.m4a","cover":"/img/cover/莫问归期.jpg"},{"name":"失恋阵线联盟","artist":"草蜢","url":"/songs/失恋阵线联盟.mp3","cover":"/img/cover/失恋阵线联盟.jpg"},{"name":"大城小爱","artist":"王力宏","url":"/songs/王力宏-大城小爱.mp3","cover":"/img/cover/大城小爱.png"}]
+    });
+  }
+</script>
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "你的第二个机器学习项目：房价预测&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 200,
+      loop: true,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script>
+
+  
+
+
+
+  
+  
+    <script>
+      !function (e, t, a) {
+        function r() {
+          for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+          requestAnimationFrame(r)
+        }
+
+        function n() {
+          var t = "function" == typeof e.onclick && e.onclick;
+          e.onclick = function (e) {
+            t && t(), o(e)
+          }
+        }
+
+        function o(e) {
+          var a = t.createElement("div");
+          a.className = "heart", s.push({
+            el: a,
+            x: e.clientX - 5,
+            y: e.clientY - 5,
+            scale: 1,
+            alpha: 1,
+            color: c()
+          }), t.body.appendChild(a)
+        }
+
+        function i(e) {
+          var a = t.createElement("style");
+          a.type = "text/css";
+          try {
+            a.appendChild(t.createTextNode(e))
+          } catch (t) {
+            a.styleSheet.cssText = e
+          }
+          t.getElementsByTagName("head")[0].appendChild(a)
+        }
+
+        function c() {
+          return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+        }
+
+        var s = [];
+        e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+          setTimeout(e, 1e3 / 60)
+        }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
+      }(window, document);
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

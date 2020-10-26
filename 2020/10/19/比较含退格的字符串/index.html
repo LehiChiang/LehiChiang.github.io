@@ -1,0 +1,864 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/icon-small-black.png">
+  <link rel="icon" type="image/png" href="/img/icon-small-black.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="Lehi J.">
+  <meta name="author" content="Lehi Chiang">
+  <meta name="keywords" content="AI,Java,Python">
+  <title>比较含退格的字符串 - Lehi J.</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/gruvbox-dark.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Lehi J." type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Lehi J.</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/code.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      Lehi Chiang
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-10-19 23:15" pubdate>
+        2020年10月19日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      18
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">比较含退格的字符串</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <style>
+    .css-13ynzks-InfoWrap {
+        width: 100%;
+        border: 1px solid rgba(var(--grey-3-rgb),1);
+        padding: 12px 20px 20px;
+    }
+    .css-1493omj-TestcaseDiv {
+        color: rgba(var(--grey-7-rgb),1);
+    }
+    .css-q5jqx5-DescSpan {
+        color: rgba(var(--grey-6-rgb),1);
+    }
+</style>
+
+
+<h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>给定 <code>S</code> 和 <code>T</code> 两个字符串，当它们分别被输入到空白的文本编辑器后，判断二者是否相等，并返回结果。 <code>#</code> 代表退格字符。</p>
+<p><strong>注意：</strong>如果对空文本输入退格字符，文本继续为空。</p>
+<p>&nbsp;</p>
+
+<p><strong>示例 1：</strong></p>
+<div class="hljs"><pre><div style="color:white"><strong>输入：</strong>S = "ab#c", T = "ad#c"
+<strong>输出：</strong>true
+<strong>解释：</strong>S 和 T 都会变成 “ac”。
+</div></pre></div>
+
+
+<p><strong>示例 2：</strong></p>
+
+<div class="hljs"><pre><div style="color:white"><strong>输入：</strong>S = "ab##", T = "c#d#"
+<strong>输出：</strong>true
+<strong>解释：</strong>S 和 T 都会变成 “”。
+</div></pre></div>
+
+
+<p><strong>示例 3：</strong></p>
+
+<div class="hljs"><pre><div style="color:white"><strong>输入：</strong>S = "a##c", T = "#a#c"
+<strong>输出：</strong>true
+<strong>解释：</strong>S 和 T 都会变成 “c”。
+</div></pre></div>
+
+
+<p><strong>示例 4：</strong></p>
+
+<div class="hljs"><pre><div style="color:white"><strong>输入：</strong>S = "a#c", T = "b"
+<strong>输出：</strong>false
+<strong>解释：</strong>S 会变成 “c”，但 T 仍然是 “b”。</div></pre></div>
+
+
+<p>&nbsp;</p>
+
+<p><strong>提示：</strong></p>
+
+<ol>
+    <li><code>1 &lt;= S.length &lt;= 200</code></li>
+    <li><code>1 &lt;= T.length &lt;= 200</code></li>
+    <li><code>S</code> 和 <code>T</code> 只含有小写字母以及字符 <code>'#'</code>。</li>
+</ol>
+
+
+<p>&nbsp;</p>
+
+<p><strong>进阶：</strong></p>
+
+<ul>
+    <li>你可以用 <code>O(N)</code> 的时间复杂度和 <code>O(1)</code> 的空间复杂度解决该问题吗？</li>
+</ul>
+
+
+
+
+<h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><h2 id="方法一：直接比较法"><a href="#方法一：直接比较法" class="headerlink" title="方法一：直接比较法"></a>方法一：直接比较法</h2><p>最简单的方法就是直接将两字符串中的<code>#</code>和其前一个字符去掉，比较剩余的字符是否相等。若相等则返回<code>true</code>。</p>
+<p>我们如何在最好的时间内去掉<code>#</code>和其前一个字符呢？</p>
+<p>在不考虑空间开销的情况下，我们可以考虑构造两个辅助栈来完成操作。如果遇到<code>#</code>，那么就取出栈顶的元素，这样也就模拟了删掉<code>#</code>前一个字符的效果。那么最后栈中剩余的元素就是去掉退格字符后的所有剩余字符。然后就可以将两个栈中的字符依次比较是否相同。这种方法的代码如下：</p>
+<div class="hljs"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">backspaceCompare</span><span class="hljs-params">(String S, String T)</span> </span>&#123;
+        Stack&lt;Character&gt; stack1 = <span class="hljs-keyword">new</span> Stack&lt;&gt;();
+        Stack&lt;Character&gt; stack2 = <span class="hljs-keyword">new</span> Stack&lt;&gt;();
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>; i&lt;S.length(); i++)&#123;
+            <span class="hljs-keyword">if</span>(S.charAt(i)!=<span class="hljs-string">'#'</span>) stack1.add(S.charAt(i));
+            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(!stack1.isEmpty()) stack1.pop();
+        &#125;
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j=<span class="hljs-number">0</span>; j&lt;T.length(); j++)&#123;
+            <span class="hljs-keyword">if</span>(T.charAt(j)!=<span class="hljs-string">'#'</span>) stack2.add(T.charAt(j));
+            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(!stack2.isEmpty()) stack2.pop();
+        &#125;
+        <span class="hljs-keyword">return</span> stack1.equals(stack2);
+    &#125;
+&#125;</code></pre></div>
+
+
+
+<div class="css-13ynzks-InfoWrap ejyx8z41"><div><div class="css-1493omj-TestcaseDiv ejyx8z42"><strong>110 / 110</strong> 个通过测试用例</div><span class="css-q5jqx5-DescSpan ejyx8z43">状态：<i class="css-1qe57zj-Status ejyx8z44">通过</i></span></div><div><div><div class="css-1493omj-TestcaseDiv ejyx8z42">执行用时: <strong>3 ms</strong></div><div class="css-1493omj-TestcaseDiv ejyx8z42">内存消耗: <strong>36.3 MB</strong></div></div></div></div>
+
+
+
+<p>由于额外创建了两个辅助栈，所以时间复杂度还是有一些偏高。我们再尝试做一些改进：</p>
+<p><strong>那么本题，确实可以使用栈的思路，但是没有必要使用栈，因为最后比较的时候还要比较栈里的元素，有点麻烦</strong>。为了减轻开销，可以使用拼接字符串的方式将剩余的字符进行拼接，最后进行比较的是便是两个字符串。这样就会比比较两个集合的元素是否相同还要更快。</p>
+<p>我们使用<code>Java</code>中的<code>StringBuffe</code>r类来实现字符串的拼接。如果没有遇到#字符，则将该字符拼接到<code>StringBuffer</code>的对象中，否则删除<code>StringBuffer</code>对象的最后一个字符。最后返回两者对象的字符串进行比较。代码实现如下：</p>
+<div class="hljs"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Main</span> </span>&#123;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">backspaceCompare</span><span class="hljs-params">(String S, String T)</span> </span>&#123;
+        build(S).equals(build(T));
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title">build</span><span class="hljs-params">(String str)</span> </span>&#123;
+        StringBuffer sb = <span class="hljs-keyword">new</span> StringBuffer();
+        <span class="hljs-keyword">int</span> len = str.length();
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;
+            <span class="hljs-keyword">if</span> (str.charAt(i) != <span class="hljs-string">'#'</span>)
+                sb.append(str.charAt(i));
+            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (sb.length() &gt; <span class="hljs-number">0</span>)
+                sb.deleteCharAt(sb.length() - <span class="hljs-number">1</span>);
+        &#125;
+        <span class="hljs-keyword">return</span> sb.toString();
+    &#125;
+&#125;</code></pre></div>
+
+
+
+<div class="css-13ynzks-InfoWrap ejyx8z41"><div><div class="css-1493omj-TestcaseDiv ejyx8z42"><strong>110 / 110</strong> 个通过测试用例</div><span class="css-q5jqx5-DescSpan ejyx8z43">状态：<i class="css-1qe57zj-Status ejyx8z44">通过</i></span></div><div><div><div class="css-1493omj-TestcaseDiv ejyx8z42">执行用时: <strong>1 ms</strong></div><div class="css-1493omj-TestcaseDiv ejyx8z42">内存消耗: <strong>36.4 MB</strong></div></div></div></div>
+
+
+
+<p>两次的结果进行对比可以看到，从时间复杂度上，改进之后的方法执行时间更短。但是两次方法的内存消耗没有什么大的变化。有没有一种方法，既可以保持这种优秀的执行时间还保证内存消耗的更少呢？下面就介绍这种双指针的方法来减少内存消耗。</p>
+<h2 id="方法二：双指针法："><a href="#方法二：双指针法：" class="headerlink" title="方法二：双指针法："></a>方法二：双指针法：</h2><p>同时从后向前遍历<code>S</code>和T（<code>i</code>初始为<code>S</code>末尾，<code>j</code>初始为<code>T</code>末尾），记录<code>#</code>的数量，模拟消除的操作，如果<code>#</code>用完了，就开始比较<code>S[i]</code>和<code>S[j]</code>。</p>
+<p>具体地，我们定义 <code>skip</code> 表示当前待删除的字符的数量。每次我们遍历到一个字符：</p>
+<ul>
+<li><p>若该字符为退格符，则我们需要多删除一个普通字符，我们让 <code>skip</code> 加 <code>1</code>；</p>
+</li>
+<li><p>若该字符为普通字符：</p>
+<ul>
+<li><p>若 <code>skip</code>为 <code>0</code>，则说明当前字符不需要删去；</p>
+</li>
+<li><p>若<code>skip</code>不为 <code>0</code>，则说明当前字符需要删去，我们让<code>skip</code> 减 <code>1</code>。</p>
+</li>
+</ul>
+</li>
+</ul>
+<img src="/2020/10/19/%E6%AF%94%E8%BE%83%E5%90%AB%E9%80%80%E6%A0%BC%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/motion.gif" srcset="/img/loading.gif" alt="比较含退格的字符串" style="zoom:100%;display: flex;margin: 0 auto;">
+
+<p>如果<code>S[i]</code>和<code>S[j]</code>不相同返回<code>false</code>，如果有一个指针（<code>i</code>或者<code>j</code>）先走到的字符串头部位置，也返回<code>false</code>。</p>
+<h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><div class="hljs"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">backspaceCompare</span><span class="hljs-params">(String S, String T)</span> </span>&#123;
+        <span class="hljs-keyword">int</span> skipS = <span class="hljs-number">0</span>, skipT = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">int</span> i = S.length()-<span class="hljs-number">1</span>, j = T.length()-<span class="hljs-number">1</span>;
+        <span class="hljs-keyword">while</span>(<span class="hljs-keyword">true</span>)&#123;
+            <span class="hljs-keyword">while</span>(i&gt;=<span class="hljs-number">0</span>)&#123;
+                <span class="hljs-keyword">if</span>(S.charAt(i) == <span class="hljs-string">'#'</span>) skipS++;
+                <span class="hljs-keyword">else</span>&#123;
+                    <span class="hljs-keyword">if</span>(skipS&gt;<span class="hljs-number">0</span>) skipS--;
+                    <span class="hljs-keyword">else</span> <span class="hljs-keyword">break</span>;
+                &#125;
+                i--;
+            &#125;
+            <span class="hljs-keyword">while</span>(j&gt;=<span class="hljs-number">0</span>)&#123;
+                <span class="hljs-keyword">if</span>(T.charAt(j) == <span class="hljs-string">'#'</span>) skipT++;
+                <span class="hljs-keyword">else</span>&#123;
+                    <span class="hljs-keyword">if</span>(skipT&gt;<span class="hljs-number">0</span>) skipT--;
+                    <span class="hljs-keyword">else</span> <span class="hljs-keyword">break</span>;
+                &#125;
+                j--;
+            &#125;
+
+            <span class="hljs-keyword">if</span>(i&lt;<span class="hljs-number">0</span> || j&lt;<span class="hljs-number">0</span>) <span class="hljs-keyword">break</span>;
+            <span class="hljs-keyword">if</span>(S.charAt(i)!=T.charAt(j)) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+            i--;j--;
+        &#125;
+        <span class="hljs-keyword">if</span>(i == -<span class="hljs-number">1</span> &amp;&amp; j == -<span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+    &#125;
+&#125;</code></pre></div>
+
+<p><strong>复杂度分析</strong></p>
+<p>时间复杂度：<em>O</em>(<em>N</em>+<em>M</em>)，其中 <em>N</em> 和 <em>M</em> 分别为字符串 <em>S</em> 和 <em>T</em> 的长度。我们需要遍历两字符串各一次。</p>
+<p>空间复杂度：<em>O</em>(1)。对于每个字符串，我们只需要定义一个指针和一个计数器即可。</p>
+<div class="css-13ynzks-InfoWrap ejyx8z41"><div><div class="css-1493omj-TestcaseDiv ejyx8z42"><strong>110 / 110</strong> 个通过测试用例</div><span class="css-q5jqx5-DescSpan ejyx8z43">状态：<i class="css-1qe57zj-Status ejyx8z44">通过</i></span></div><div><div><div class="css-1493omj-TestcaseDiv ejyx8z42">执行用时: <strong>0 ms</strong></div><div class="css-1493omj-TestcaseDiv ejyx8z42">内存消耗: <strong>36.4 MB</strong></div></div></div></div>
+
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%AE%97%E6%B3%95/%E5%88%9D%E7%BA%A7/">初级</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/10/24/%E5%88%92%E5%88%86%E5%AD%97%E6%AF%8D%E5%8C%BA%E9%97%B4%E9%97%AE%E9%A2%98/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">划分字母区间问题</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/10/18/%E5%AD%A6%E4%BC%9APython%E8%A3%85%E9%A5%B0%E5%99%A8%EF%BC%88%E7%AE%80%E6%98%93%E7%89%88%EF%BC%89/">
+                        <span class="hidden-mobile">学会Python装饰器（简易版）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    function loadValine() {
+      addScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "6rS38oXgbqlO5KI3Wx39pRKE-gzGzoHsz",
+          app_key: "jAT77piz4ukjWTMHISbSLW0x",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    }
+    waitElementVisible('vcomments', loadValine);
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://valine.js.org" target="_blank" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+    <!-- APlayer 音乐播放器 -->
+    <div id="aplayer"></div>
+    <script defer src="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.js" ></script>
+<link  rel="stylesheet" href="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css" />
+<script type="text/javascript">
+  var oldLoadAp = window.onload;
+  window.onload = function () {
+    oldLoadAp && oldLoadAp();
+
+    new APlayer({
+      container: document.getElementById('aplayer'),
+      fixed: true,
+      autoplay: 'false' === 'true',
+      loop: 'all',
+      order: 'random',
+      theme: '#b7daff',
+      preload: 'none',
+      audio: [{"name":"让我留在你身边 (原唱作版)","artist":"唐汉霄","url":"/songs/让我留在你身边 (原唱作版).mp3","cover":"/img/cover/让我留在你身边.jpg"},{"name":"Shape of You","artist":"Ed Sheeran","url":"/songs/Ed Sheeran - Shape of You.mp3","cover":"/img/cover/shapeofyou.jpg"},{"name":"1845","artist":"Hotbloods","url":"/songs/1845.mp3","cover":"/img/cover/1845.jpg"},{"name":"月牙湾","artist":"F.I.R.飞儿乐团","url":"/songs/F.I.R.飞儿乐团-月牙湾.mp3","cover":"/img/cover/月牙湾.jpg"},{"name":"Walk Thru Fire","artist":"Vicetone / Meron Ryan","url":"/songs/Walk Thru Fire.mp3","cover":"/img/cover/wsf.jpg"},{"name":"Wrap Me In Plastic","artist":"CHROMANCE","url":"/songs/Wrap Me In Plastic - CHROMANCE.m4a","cover":"/img/cover/wmip.jpg"},{"name":"飞鸟和蝉","artist":"任然","url":"/songs/飞鸟和蝉-任然.m4a","cover":"/img/cover/飞鸟和蝉.jpg"},{"name":"可惜没如果","artist":"林俊杰","url":"/songs/林俊杰-可惜没如果.mp3","cover":"/img/cover/可惜没如果.jpg"},{"name":"莫问归期","artist":"蒋雪儿","url":"/songs/莫问归期-蒋雪儿.m4a","cover":"/img/cover/莫问归期.jpg"},{"name":"失恋阵线联盟","artist":"草蜢","url":"/songs/失恋阵线联盟.mp3","cover":"/img/cover/失恋阵线联盟.jpg"},{"name":"大城小爱","artist":"王力宏","url":"/songs/王力宏-大城小爱.mp3","cover":"/img/cover/大城小爱.png"}]
+    });
+  }
+</script>
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "比较含退格的字符串&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 200,
+      loop: true,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script>
+
+  
+
+
+
+  
+  
+    <script>
+      !function (e, t, a) {
+        function r() {
+          for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+          requestAnimationFrame(r)
+        }
+
+        function n() {
+          var t = "function" == typeof e.onclick && e.onclick;
+          e.onclick = function (e) {
+            t && t(), o(e)
+          }
+        }
+
+        function o(e) {
+          var a = t.createElement("div");
+          a.className = "heart", s.push({
+            el: a,
+            x: e.clientX - 5,
+            y: e.clientY - 5,
+            scale: 1,
+            alpha: 1,
+            color: c()
+          }), t.body.appendChild(a)
+        }
+
+        function i(e) {
+          var a = t.createElement("style");
+          a.type = "text/css";
+          try {
+            a.appendChild(t.createTextNode(e))
+          } catch (t) {
+            a.styleSheet.cssText = e
+          }
+          t.getElementsByTagName("head")[0].appendChild(a)
+        }
+
+        function c() {
+          return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+        }
+
+        var s = [];
+        e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+          setTimeout(e, 1e3 / 60)
+        }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
+      }(window, document);
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

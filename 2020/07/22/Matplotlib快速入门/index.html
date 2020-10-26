@@ -1,0 +1,998 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/icon-small-black.png">
+  <link rel="icon" type="image/png" href="/img/icon-small-black.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="Lehi J.">
+  <meta name="author" content="Lehi Chiang">
+  <meta name="keywords" content="AI,Java,Python">
+  <title>Matplotlib快速入门 - Lehi J.</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/gruvbox-dark.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Lehi J." type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Lehi J.</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/pass_img/matplotlib_bg.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      Lehi Chiang
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-07-22 16:13" pubdate>
+        2020年7月22日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      30
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">Matplotlib快速入门</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <h1 id="第一节-基本用法"><a href="#第一节-基本用法" class="headerlink" title="第一节 基本用法"></a>第一节 基本用法</h1><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+x = np.arange(<span class="hljs-number">10</span>)
+y = x * <span class="hljs-number">2</span> + <span class="hljs-number">4</span>
+plt.plot(x, y)
+plt.show()</code></pre></div>
+
+<img src="/2020/07/22/Matplotlib%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/pic1.png" srcset="/img/loading.gif" style="zoom:60%;">
+
+<p>注意要点：</p>
+<ol>
+<li><p>首先导入画图工具类，和numpy计算包产生x,y数据</p>
+</li>
+<li><p><strong><code>plt.plot()</code>绘制函数图像，每一个<code>plot()</code>都是对应的一个图形。</strong></p>
+</li>
+<li><p>最后通过<code>plt.show()</code>将图像展示出来</p>
+</li>
+</ol>
+<h1 id="第二节-figure图像"><a href="#第二节-figure图像" class="headerlink" title="第二节 figure图像"></a>第二节 figure图像</h1><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> math
+
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">drawcurve</span><span class="hljs-params">(x, y)</span>:</span>
+    <span class="hljs-keyword">return</span> math.pow(x,y)
+
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">drawcircle</span><span class="hljs-params">(x, r)</span>:</span>
+    <span class="hljs-keyword">return</span> math.sqrt(r**<span class="hljs-number">2</span> - x**<span class="hljs-number">2</span>), - math.sqrt(r**<span class="hljs-number">2</span> - x**<span class="hljs-number">2</span>)
+
+
+plt.figure(<span class="hljs-string">'Red Dotted Curve'</span>)
+x = np.linspace(<span class="hljs-number">-5</span>, <span class="hljs-number">5</span>, <span class="hljs-number">100</span>)
+convert = np.vectorize(drawcurve)
+y = convert(x, <span class="hljs-number">2</span>)+convert(x, <span class="hljs-number">3</span>)
+plt.plot(x,y, color=<span class="hljs-string">'red'</span>, linewidth=<span class="hljs-string">'2'</span>, linestyle=<span class="hljs-string">'--'</span>)
+
+plt.figure(<span class="hljs-string">'Circle'</span>)
+x = np.linspace(<span class="hljs-number">-5</span>, <span class="hljs-number">5</span>,<span class="hljs-number">1000</span>)
+convertCircle = np.vectorize(drawcircle)
+positive, negative = convertCircle(x, <span class="hljs-number">5</span>)
+plt.plot(x, positive, color=<span class="hljs-string">'blue'</span>, linewidth=<span class="hljs-string">'3'</span>, linestyle=<span class="hljs-string">'-'</span>)
+plt.plot(x, negative, color=<span class="hljs-string">'blue'</span>, linewidth=<span class="hljs-string">'3'</span>, linestyle=<span class="hljs-string">'-'</span>)
+
+plt.show()</code></pre></div>
+
+<div style="display:flex;justify-content: center;">
+<img src="/2020/07/22/Matplotlib%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/Red_Dotted_Curve.png" srcset="/img/loading.gif" style="zoom: 60%;">
+<img src="/2020/07/22/Matplotlib%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/Circle.png" srcset="/img/loading.gif" style="zoom: 60%;">
+</div>
+
+
+<p>注意要点：</p>
+<ol>
+<li>首先导入画图工具类，和numpy计算包产生x,y数据</li>
+<li>定义两个函数，<code>drawcurve</code>和<code>drawcircle</code>。分别对两个函数进行了向量化操作。</li>
+<li><strong><code>plt.figure()</code>会单独开辟出一个画图的窗体，每个f<code>igure()</code>都是独立的。</strong></li>
+</ol>
+<p><code>plt.figure</code> 调用方法：</p>
+<div class="hljs"><pre><code class="hljs python">plt.figure(num=<span class="hljs-literal">None</span>, figsize=<span class="hljs-literal">None</span>, dpi=<span class="hljs-literal">None</span>, 
+		   facecolor=<span class="hljs-literal">None</span>, edgecolor=<span class="hljs-literal">None</span>, frameon=<span class="hljs-literal">True</span>, 
+		   FigureClass=&lt;class 'matplotlib.figure.Figure'&gt;, 
+		   clear=<span class="hljs-literal">False</span>, **kwargs)</code></pre></div>
+
+<p>参考文档：<a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.figure.html#matplotlib.pyplot.figure" target="_blank" rel="noopener">matplotlib.pyplot.figure</a></p>
+<p>参数说明：</p>
+<ul>
+<li><code>num</code> 当给它一个数字时，就作为画板的编号，相当于 ID 号；当给它一个字符串时，就作为画板的名称</li>
+<li><code>figsize</code> 画板的宽、高，单位为英寸 (2.5cm)</li>
+<li><code>dpi</code> 指定在该画板上绘制的图像的分辨率，即每英寸多少个像素</li>
+<li><code>facecolor</code> 画板的背景颜色</li>
+<li><code>edgecolor</code> 画板的边框颜色</li>
+<li><code>frameon</code> 是否显示边框</li>
+</ul>
+<h1 id="第三节-设置坐标轴"><a href="#第三节-设置坐标轴" class="headerlink" title="第三节 设置坐标轴"></a>第三节 设置坐标轴</h1><p>还是根据上一个画曲线和画圆的例子来看，我们的横轴和数轴的竖轴不是成比例的。所有导致画出来的图型在横轴或竖轴上都有些拉伸，因此我们可以设置在横轴和竖轴上的刻度范围。</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+<span class="hljs-comment">#定义一个图像</span>
+plt.figure(<span class="hljs-string">'Demo of xlim,ylim'</span>)
+
+x = np.linspace(<span class="hljs-number">-5</span>, <span class="hljs-number">5</span>, <span class="hljs-number">100</span>)
+y = x**<span class="hljs-number">3</span>
+
+<span class="hljs-comment">#设置x轴和y轴的刻度范围</span>
+plt.xlim((<span class="hljs-number">-5</span>, <span class="hljs-number">5</span>))
+plt.ylim((<span class="hljs-number">-5</span>, <span class="hljs-number">5</span>))
+
+<span class="hljs-comment">#设置x轴和y轴的标签</span>
+plt.xlabel(<span class="hljs-string">'x = [-5,5]'</span>)
+plt.ylabel(<span class="hljs-string">'y'</span>)
+
+plt.plot(x, y, color=<span class="hljs-string">'red'</span>, linewidth=<span class="hljs-string">'2'</span>, linestyle=<span class="hljs-string">'--'</span>)
+plt.show()</code></pre></div>
+
+<img src="/2020/07/22/Matplotlib%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/Demo_of_xlim,ylim.png" srcset="/img/loading.gif" style="zoom:60%;">
+
+<p>x轴和y轴都限制在了【-5， 5】的范围，这样的图像画出来才更符合我们平时看到的图像，对吧！</p>
+<p>但是x轴和y轴的刻度是每两个数来显示的，我们可以自定义显示的刻度，下面我们来设置下坐标轴的刻度值，我们将设定为每一个显示一个刻度：</p>
+<div class="hljs"><pre><code class="hljs python">...
+
+<span class="hljs-comment">#设置x轴和y轴的标签</span>
+plt.xlabel(<span class="hljs-string">'x = [-3,3]'</span>)
+plt.ylabel(<span class="hljs-string">'y'</span>)
+
+<span class="hljs-comment">#设置x轴和y轴的刻度</span>
+plt.xticks(np.arange(<span class="hljs-number">-3</span>, <span class="hljs-number">4</span>))
+plt.yticks(np.arange(<span class="hljs-number">-3</span>, <span class="hljs-number">4</span>))
+
+...</code></pre></div>
+
+<img src="/2020/07/22/Matplotlib%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/Demo_of_xlim,ylim（1）.png" srcset="/img/loading.gif" style="zoom:60%;">
+
+<p>这样看起来是不是更好了，下面我们把坐标轴移动到中心：</p>
+<div class="hljs"><pre><code class="hljs python">...
+
+<span class="hljs-comment">#设置x轴和y轴的刻度</span>
+plt.xticks(np.arange(<span class="hljs-number">-3</span>, <span class="hljs-number">4</span>))
+plt.yticks(np.arange(<span class="hljs-number">-3</span>, <span class="hljs-number">4</span>))
+
+<span class="hljs-comment">#设置坐标轴</span>
+ax = plt.gca()
+ax.spines[<span class="hljs-string">'top'</span>].set_color(<span class="hljs-string">'none'</span>)
+ax.spines[<span class="hljs-string">'right'</span>].set_color(<span class="hljs-string">'none'</span>)
+ax.xaxis.set_ticks_position(<span class="hljs-string">'bottom'</span>)
+ax.yaxis.set_ticks_position(<span class="hljs-string">'left'</span>)
+ax.spines[<span class="hljs-string">'bottom'</span>].set_position((<span class="hljs-string">'data'</span>, <span class="hljs-number">0</span>))
+ax.spines[<span class="hljs-string">'left'</span>].set_position((<span class="hljs-string">'data'</span>, <span class="hljs-number">0</span>))
+
+...</code></pre></div>
+
+<img src="/2020/07/22/Matplotlib%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/Demo_of_xlim,ylim（2）.png" srcset="/img/loading.gif" style="zoom:60%;">
+
+<p>这里介绍一下代码：</p>
+<p>plt.plot()实际上会通过plt.gca()获得当前的Axes对象ax，然后再调用ax.plot()方法实现真正的绘图。</p>
+<p>首先搞清楚了一直以来的疑惑（借用官方文档的一幅图说明）：<strong>Figure</strong>，<strong>Axes</strong>，<strong>Axis</strong> 这三个是什么关系。</p>
+<div style="display:flex;justify-content: center;"><img src="https://img-blog.csdnimg.cn/20200311202147484.png" srcset="/img/loading.gif" alt="在这里插入图片描述" style="zoom: 67%;"></div>
+
+<ul>
+<li>Figure： 红色的外框，其实可以把它理解为一个大画板，我们所有的内容都会画在这个“画板”上</li>
+<li>Axes： 蓝色的内框，有人这么解释：</li>
+</ul>
+<p>​    Axis 指 x、y 坐标轴等（如果有三维那就还有 z 轴），代表的是 “坐标轴”。而 Axes 在英文里是 Axis 的复数形式，也就是说 axes 代表的其实是 figure 当中的一套坐标轴。之所以说一套而不是两个坐标轴，是因为如果你画三维的图，axes 就代表 3 根坐标轴了。所以，在一个 figure 当中，每添加一次 subplot ，其实就是添加了一套坐标轴，也就是添加了一个 axes，放在二维坐标里就是你添加了两根坐标轴，分别是 x 轴和 y 轴。所以当你只画一个图的时候，plt.xxx 与 ax.xxx 其实都是作用在相同的图上的。</p>
+<p>​    <strong>说话的方式简单点… 要不就把 Axes 理解为子图（画布）吧，一张大画板 figure 上可以有一个或多个子图（画布）Axes，当只有一个 axes 时，<code>plt.plot()</code> 和 <code>ax.plot()</code> 自然就作用的是同一张图了！</strong></p>
+<ul>
+<li>Axis： 绿色的横纵坐标轴，这个才是正儿八经的坐标轴！</li>
+</ul>
+<h1 id="第四节-绘制子图"><a href="#第四节-绘制子图" class="headerlink" title="第四节 绘制子图"></a>第四节 绘制子图</h1><p>类似于下面这样，定义 4 个 subplot，自然就有 4 个 Axes：</p>
+<img src="https://img-blog.csdnimg.cn/2020031120392648.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxMzQ3ODY5,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="在这里插入图片描述" style="zoom:67%;">
+
+<p>总结一下： <strong>figure 是作图时给你的一个大画板，而 axes 是在这个画板上的很多幅画布（子图），绘制的所有图都在画布（axes）上。</strong>比如上面的漫画布局，就可以用：</p>
+<div class="hljs"><pre><code class="hljs python">plt.figure()
+plt.gcf().subplots(<span class="hljs-number">2</span>,<span class="hljs-number">2</span>)</code></pre></div>
+
+
+<p>来完成。其中 <code>.gcf()</code> 的作用是获取当前 figure，即 get current figure。另外对应的 .gca() 就是获取当前 axes，即 get current axes。</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+
+x = np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">5</span>, <span class="hljs-number">100</span>)
+
+<span class="hljs-comment">#将figure分为4个子图（Axes)</span>
+fig, axes = plt.subplots(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>)
+ax1 = axes[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>]    <span class="hljs-comment"># 根据索引［0，0］从Axes对象数组中获取第1个子图</span>
+ax2 = axes[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>]    <span class="hljs-comment"># 根据索引［0，1］从Axes对象数组中获取第2个子图</span>
+ax3 = axes[<span class="hljs-number">1</span>, <span class="hljs-number">0</span>]    <span class="hljs-comment"># 根据索引［1，0］从Axes对象数组中获取第3个子图</span>
+ax4 = axes[<span class="hljs-number">1</span>, <span class="hljs-number">1</span>]    <span class="hljs-comment"># 根据索引［1，1］从Axes对象数组中获取第4个子图</span>
+
+ax1.plot(x, x**<span class="hljs-number">2</span>)
+ax2.plot(x, -x)
+ax3.plot(x, np.sqrt(x))
+ax4.plot(x, np.log(x))
+
+plt.show()</code></pre></div>
+
+<img src="/2020/07/22/Matplotlib%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/Figure_1.png" srcset="/img/loading.gif" alt="img" style="zoom:67%;">
+
+<p>我们根据之前所学丰富一下坐标轴信息：</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> math <span class="hljs-keyword">as</span> m
+
+x = np.linspace(<span class="hljs-number">0.1</span>, <span class="hljs-number">5</span>, <span class="hljs-number">100</span>)
+
+<span class="hljs-comment">#将figure分为4个子图（Axes)</span>
+fig, axes = plt.subplots(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>)
+ax1 = axes[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>]    <span class="hljs-comment"># 根据索引［0，0］从Axes对象数组中获取第1个子图</span>
+ax2 = axes[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>]    <span class="hljs-comment"># 根据索引［0，1］从Axes对象数组中获取第2个子图</span>
+ax3 = axes[<span class="hljs-number">1</span>, <span class="hljs-number">0</span>]    <span class="hljs-comment"># 根据索引［1，0］从Axes对象数组中获取第3个子图</span>
+ax4 = axes[<span class="hljs-number">1</span>, <span class="hljs-number">1</span>]    <span class="hljs-comment"># 根据索引［1，1］从Axes对象数组中获取第4个子图</span>
+
+<span class="hljs-comment">#ax1的坐标设置</span>
+ax1.set_title(<span class="hljs-string">r'$y=x^2$'</span>)
+ax1.set_xlim((<span class="hljs-number">0</span>, <span class="hljs-number">5</span>))
+ax1.set_ylim((<span class="hljs-number">0</span>, <span class="hljs-number">25</span>))
+ax1.spines[<span class="hljs-string">'top'</span>].set_color(<span class="hljs-string">'none'</span>)
+ax1.spines[<span class="hljs-string">'right'</span>].set_color(<span class="hljs-string">'none'</span>)
+ax1.plot(x, x**<span class="hljs-number">2</span>)
+
+
+<span class="hljs-comment">#ax2的坐标设置</span>
+ax2.spines[<span class="hljs-string">'right'</span>].set_color(<span class="hljs-string">'none'</span>)
+ax2.spines[<span class="hljs-string">'bottom'</span>].set_color(<span class="hljs-string">'none'</span>)
+ax2.xaxis.set_ticks_position(<span class="hljs-string">'top'</span>)
+ax2.yaxis.set_ticks_position(<span class="hljs-string">'left'</span>)
+ax2.spines[<span class="hljs-string">'top'</span>].set_position((<span class="hljs-string">'data'</span>, <span class="hljs-number">0</span>))
+ax2.spines[<span class="hljs-string">'left'</span>].set_position((<span class="hljs-string">'data'</span>, <span class="hljs-number">0</span>))
+ax2.set_title(<span class="hljs-string">r'$y=-x$'</span>)
+ax2.set_xticks([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>])
+ax2.plot(x, -x)
+
+
+<span class="hljs-comment">#ax3的坐标设置</span>
+ax3.set_title(<span class="hljs-string">r'$y=\sqrt&#123;x&#125;$'</span>)
+ax3.set_xlim((<span class="hljs-number">0</span>, <span class="hljs-number">5</span>))
+ax3.spines[<span class="hljs-string">'top'</span>].set_color(<span class="hljs-string">'none'</span>)
+ax3.spines[<span class="hljs-string">'right'</span>].set_color(<span class="hljs-string">'none'</span>)
+ax3.xaxis.set_ticks([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>])
+ax3.yaxis.set_ticks([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, m.sqrt(<span class="hljs-number">2</span>), m.sqrt(<span class="hljs-number">3</span>), m.sqrt(<span class="hljs-number">4</span>), m.sqrt(<span class="hljs-number">5</span>)])
+ax3.plot(x, np.sqrt(x))
+
+
+<span class="hljs-comment">#ax4的坐标设置</span>
+ax4.set_title(<span class="hljs-string">r'$y=log(x)$'</span>)
+ax4.set_xlim((<span class="hljs-number">0</span>, <span class="hljs-number">5</span>))
+ax4.spines[<span class="hljs-string">'top'</span>].set_color(<span class="hljs-string">'none'</span>)
+ax4.spines[<span class="hljs-string">'right'</span>].set_color(<span class="hljs-string">'none'</span>)
+ax4.xaxis.set_ticks([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>])
+ax4.spines[<span class="hljs-string">'left'</span>].set_position((<span class="hljs-string">'data'</span>, <span class="hljs-number">0</span>))
+ax4.spines[<span class="hljs-string">'bottom'</span>].set_position((<span class="hljs-string">'data'</span>, <span class="hljs-number">0</span>))
+ax4.plot(x, np.log(x))
+
+
+plt.show()</code></pre></div>
+
+<img src="/2020/07/22/Matplotlib%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/function.png" srcset="/img/loading.gif" style="zoom: 67%;">
+
+<h1 id="第五节-Legend图例"><a href="#第五节-Legend图例" class="headerlink" title="第五节 Legend图例"></a>第五节 Legend图例</h1><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> math <span class="hljs-keyword">as</span> m
+
+
+x = np.linspace(<span class="hljs-number">-5</span>, <span class="hljs-number">5</span>, <span class="hljs-number">100</span>)
+y = <span class="hljs-number">1</span> / (<span class="hljs-number">1</span> + m.e**(-x))
+ax = plt.gca()
+
+ax.set_xlim((<span class="hljs-number">-5</span>, <span class="hljs-number">5</span>))
+ax.set_ylim((<span class="hljs-number">0</span>, <span class="hljs-number">1.1</span>))
+ax.set_yticks([<span class="hljs-number">1</span>])
+ax.set_xticks(np.arange(<span class="hljs-number">-5</span>, <span class="hljs-number">6</span>))
+ax.spines[<span class="hljs-string">'top'</span>].set_color(<span class="hljs-string">'none'</span>)
+ax.spines[<span class="hljs-string">'right'</span>].set_color(<span class="hljs-string">'none'</span>)
+ax.xaxis.set_ticks_position(<span class="hljs-string">'bottom'</span>)
+ax.yaxis.set_ticks_position(<span class="hljs-string">'left'</span>)
+ax.spines[<span class="hljs-string">'left'</span>].set_position((<span class="hljs-string">'data'</span>, <span class="hljs-number">0</span>))
+ax.spines[<span class="hljs-string">'bottom'</span>].set_position((<span class="hljs-string">'data'</span>, <span class="hljs-number">0</span>))
+
+ax.plot(x, y)
+ax.legend([<span class="hljs-string">'Sigmoid Function'</span>], loc=<span class="hljs-string">'best'</span>)
+
+plt.show()</code></pre></div>
+
+<p>效果如下：</p>
+<img src="/2020/07/22/Matplotlib%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/sigmoid_fun.png" srcset="/img/loading.gif" style="zoom:67%;">
+
+<p>左上角出现了一个标记。</p>
+<p>还有其他的表达方式，可以自动添加图例</p>
+<div class="hljs"><pre><code class="hljs python">ax.plot(x, y, label=<span class="hljs-string">'Sigmoid Function'</span>)
+ax.legend()</code></pre></div>
+
+
+
+<h1 id="第六节-ticks标注"><a href="#第六节-ticks标注" class="headerlink" title="第六节 ticks标注"></a>第六节 ticks标注</h1><div class="hljs"><pre><code class="hljs python">...
+ax.spines[<span class="hljs-string">'left'</span>].set_position((<span class="hljs-string">'data'</span>, <span class="hljs-number">0</span>))
+ax.spines[<span class="hljs-string">'bottom'</span>].set_position((<span class="hljs-string">'data'</span>, <span class="hljs-number">0</span>))
+
+<span class="hljs-keyword">for</span> label <span class="hljs-keyword">in</span> ax.get_xticklabels()+ax.get_yticklabels():
+    label.set_fontsize(<span class="hljs-number">10</span>)
+    label.set_bbox(dict(facecolor=<span class="hljs-string">'yellow'</span>, edgecolor=<span class="hljs-string">'None'</span>, alpha=<span class="hljs-number">0.7</span>))
+
+ax.plot(x, y, label=<span class="hljs-string">'Sigmoid Function'</span>)
+...</code></pre></div>
+
+<img src="/2020/07/22/Matplotlib%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/sigmoid_fun（2）.png" srcset="/img/loading.gif" style="zoom:67%;">
+
+<p>这样就在刻度上画出了一个矩形，改变了样式。</p>
+<h1 id="第七节-散点图"><a href="#第七节-散点图" class="headerlink" title="第七节 散点图"></a>第七节 散点图</h1><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">from</span> matplotlib.font_manager <span class="hljs-keyword">import</span> FontProperties
+font = FontProperties(fname=<span class="hljs-string">r"C:\Windows\Fonts\simhei.ttf"</span>, size=<span class="hljs-number">14</span>)
+
+X1 = np.random.normal(<span class="hljs-number">0</span>, <span class="hljs-number">1.5</span>, <span class="hljs-number">512</span>)
+Y1 = np.random.normal(<span class="hljs-number">0</span>, <span class="hljs-number">1.5</span>, <span class="hljs-number">512</span>)
+X2 = np.random.normal(<span class="hljs-number">5</span>, <span class="hljs-number">2</span>, <span class="hljs-number">512</span>)
+Y2 = np.random.normal(<span class="hljs-number">5</span>, <span class="hljs-number">2</span>, <span class="hljs-number">512</span>)
+plt.title(<span class="hljs-string">u'散点图示例'</span>, FontProperties=font)
+plt.scatter(X1, Y1, marker=<span class="hljs-string">'o'</span>, c=<span class="hljs-string">'y'</span>, edgecolors=<span class="hljs-string">'r'</span>, alpha=<span class="hljs-number">0.6</span>)
+plt.scatter(X2, Y2, marker=<span class="hljs-string">'o'</span>, c=<span class="hljs-string">'m'</span>, edgecolors=<span class="hljs-string">'g'</span>, alpha=<span class="hljs-number">0.6</span>)
+plt.show()</code></pre></div>
+
+<img src="/2020/07/22/Matplotlib%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/scatter.png" srcset="/img/loading.gif" style="zoom:67%;">
+
+<h1 id="第八节-image图片"><a href="#第八节-image图片" class="headerlink" title="第八节 image图片"></a>第八节 image图片</h1><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+x = np.random.randint(<span class="hljs-number">155</span>, <span class="hljs-number">255</span>, size=[<span class="hljs-number">255</span>, <span class="hljs-number">255</span>])
+
+plt.imshow(x, interpolation=<span class="hljs-string">'nearest'</span>, cmap=<span class="hljs-string">'bone'</span>, origin=<span class="hljs-string">'upper'</span>)
+plt.colorbar(shrink=<span class="hljs-number">0.9</span>)
+
+plt.show()</code></pre></div>
+
+<img src="/2020/07/22/Matplotlib%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/img.png" srcset="/img/loading.gif" style="zoom:67%;">
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Python/">Python</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Python/Matplotlib/">Matplotlib</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Matplotlib/">Matplotlib</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/07/22/OpenCV%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">OpenCV快速入门</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/07/22/Git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/">
+                        <span class="hidden-mobile">Git基本命令</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    function loadValine() {
+      addScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "6rS38oXgbqlO5KI3Wx39pRKE-gzGzoHsz",
+          app_key: "jAT77piz4ukjWTMHISbSLW0x",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    }
+    waitElementVisible('vcomments', loadValine);
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://valine.js.org" target="_blank" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+    <!-- APlayer 音乐播放器 -->
+    <div id="aplayer"></div>
+    <script defer src="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.js" ></script>
+<link  rel="stylesheet" href="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css" />
+<script type="text/javascript">
+  var oldLoadAp = window.onload;
+  window.onload = function () {
+    oldLoadAp && oldLoadAp();
+
+    new APlayer({
+      container: document.getElementById('aplayer'),
+      fixed: true,
+      autoplay: 'false' === 'true',
+      loop: 'all',
+      order: 'random',
+      theme: '#b7daff',
+      preload: 'none',
+      audio: [{"name":"让我留在你身边 (原唱作版)","artist":"唐汉霄","url":"/songs/让我留在你身边 (原唱作版).mp3","cover":"/img/cover/让我留在你身边.jpg"},{"name":"Shape of You","artist":"Ed Sheeran","url":"/songs/Ed Sheeran - Shape of You.mp3","cover":"/img/cover/shapeofyou.jpg"},{"name":"1845","artist":"Hotbloods","url":"/songs/1845.mp3","cover":"/img/cover/1845.jpg"},{"name":"月牙湾","artist":"F.I.R.飞儿乐团","url":"/songs/F.I.R.飞儿乐团-月牙湾.mp3","cover":"/img/cover/月牙湾.jpg"},{"name":"Walk Thru Fire","artist":"Vicetone / Meron Ryan","url":"/songs/Walk Thru Fire.mp3","cover":"/img/cover/wsf.jpg"},{"name":"Wrap Me In Plastic","artist":"CHROMANCE","url":"/songs/Wrap Me In Plastic - CHROMANCE.m4a","cover":"/img/cover/wmip.jpg"},{"name":"飞鸟和蝉","artist":"任然","url":"/songs/飞鸟和蝉-任然.m4a","cover":"/img/cover/飞鸟和蝉.jpg"},{"name":"可惜没如果","artist":"林俊杰","url":"/songs/林俊杰-可惜没如果.mp3","cover":"/img/cover/可惜没如果.jpg"},{"name":"莫问归期","artist":"蒋雪儿","url":"/songs/莫问归期-蒋雪儿.m4a","cover":"/img/cover/莫问归期.jpg"},{"name":"失恋阵线联盟","artist":"草蜢","url":"/songs/失恋阵线联盟.mp3","cover":"/img/cover/失恋阵线联盟.jpg"},{"name":"大城小爱","artist":"王力宏","url":"/songs/王力宏-大城小爱.mp3","cover":"/img/cover/大城小爱.png"}]
+    });
+  }
+</script>
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Matplotlib快速入门&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 200,
+      loop: true,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script>
+
+  
+
+
+
+  
+  
+    <script>
+      !function (e, t, a) {
+        function r() {
+          for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+          requestAnimationFrame(r)
+        }
+
+        function n() {
+          var t = "function" == typeof e.onclick && e.onclick;
+          e.onclick = function (e) {
+            t && t(), o(e)
+          }
+        }
+
+        function o(e) {
+          var a = t.createElement("div");
+          a.className = "heart", s.push({
+            el: a,
+            x: e.clientX - 5,
+            y: e.clientY - 5,
+            scale: 1,
+            alpha: 1,
+            color: c()
+          }), t.body.appendChild(a)
+        }
+
+        function i(e) {
+          var a = t.createElement("style");
+          a.type = "text/css";
+          try {
+            a.appendChild(t.createTextNode(e))
+          } catch (t) {
+            a.styleSheet.cssText = e
+          }
+          t.getElementsByTagName("head")[0].appendChild(a)
+        }
+
+        function c() {
+          return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+        }
+
+        var s = [];
+        e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+          setTimeout(e, 1e3 / 60)
+        }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
+      }(window, document);
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

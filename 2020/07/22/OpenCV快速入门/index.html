@@ -1,0 +1,1593 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/icon-small-black.png">
+  <link rel="icon" type="image/png" href="/img/icon-small-black.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="Lehi J.">
+  <meta name="author" content="Lehi Chiang">
+  <meta name="keywords" content="AI,Java,Python">
+  <title>OpenCV快速入门 - Lehi J.</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/gruvbox-dark.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Lehi J." type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Lehi J.</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/pass_img/opencv_bg.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      Lehi Chiang
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-07-22 16:29" pubdate>
+        2020年7月22日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      7.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      102
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">Python &amp; OpenCV Quick Start</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <p class="note note-warning">为什么使用Python-OpenCV ?</p>
+
+<p class="note note-info">虽然python 很强大，而且也有自己的图像处理库PIL，但是相对于OpenCV 来讲，它还是弱小很多。跟很多开源软件一样OpenCV 也提供了完善的python 接口，非常便于调用。OpenCV 的稳定版是2.4.8，最新版是3.0，包含了超过2500 个算法和函数，几乎任何一个能想到的成熟算法都可以通过调用OpenCV 的函数来实现，超级方便。</p>
+
+
+<h1 id="第1章-opencv基本操作"><a href="#第1章-opencv基本操作" class="headerlink" title="第1章 opencv基本操作"></a>第1章 opencv基本操作</h1><h2 id="1-1-打开图片"><a href="#1-1-打开图片" class="headerlink" title="1.1 打开图片"></a>1.1 打开图片</h2><p>使用函数<code>cv2.imread()</code> 读入图像。这幅图像应该在此程序的工作路径，或者给函数提供完整路径，第二个参数是要告诉函数应该如何读取这幅图片。</p>
+<p>• <code>cv2.IMREAD_COLOR</code>：读入一副彩色图像。图像的透明度会被忽略， 这是默认参数。 </p>
+<p>• <code>cv2.IMREAD_GRAYSCALE</code>：以灰度模式读入图像</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> cv2
+
+img = cv2.imread(<span class="hljs-string">'lena.jpg'</span>,<span class="hljs-number">0</span>)</code></pre></div>
+
+<p>PS：调用opencv，就算图像的路径是错的，OpenCV 也不会提醒你的，但是当你使用命<br>令print img时得到的结果是None。</p>
+<h2 id="1-2-显示图片"><a href="#1-2-显示图片" class="headerlink" title="1.2 显示图片"></a>1.2 显示图片</h2><p>使用函数<code>cv2.imshow()</code> 显示图像。窗口会自动调整为图像大小。第一个参数是窗口的名字，其次才是我们的图像。你可以创建多个窗口，只要你喜欢，但是必须给他们不同的名字。</p>
+<div class="hljs"><pre><code class="hljs python">cv2.imshow(<span class="hljs-string">'image'</span>,img)
+cv2.waitKey(<span class="hljs-number">0</span>) 
+cv2.destroyAllWindows() <span class="hljs-comment">#dv2.destroyWindow(wname)</span></code></pre></div>
+
+<ol>
+<li><code>cv2.waitKey</code>顾名思义等待键盘输入，单位为毫秒，即等待指定的毫秒数看是否有键盘输入，若在等待时间内按下任意键则返回按键的ASCII码，程序继续运行。若没有按下任何键，超时后返回-1。参数为0表示无限等待。不调用waitKey的话，窗口会一闪而逝，看不到显示的图片。</li>
+<li><code>cv2.destroyAllWindow()</code>销毁所有窗口</li>
+<li><code>cv2.destroyWindow(wname)</code>销毁指定窗口</li>
+</ol>
+<h2 id="1-3-保存图片"><a href="#1-3-保存图片" class="headerlink" title="1.3 保存图片"></a>1.3 保存图片</h2><p>使用函数cv2.imwrite(file，img，num)保存一个图像。第一个参数是要保存的文件名，第二个参数是要保存的图像。可选的第三个参数，它针对特定的格式：对于JPEG，其表示的是图像的质量，用0 - 100的整数表示，默认95;对于png ,第三个参数表示的是压缩级别。默认为3.<br>注意:</p>
+<ol>
+<li><code>cv2.IMWRITE_JPEG_QUALITY</code>类型为 long ,必须转换成 int</li>
+<li><code>cv2.IMWRITE_PNG_COMPRESSION</code>, 从0到9 压缩级别越高图像越小。</li>
+</ol>
+<div class="hljs"><pre><code class="hljs python">cv2.imwrite(<span class="hljs-string">'1.png'</span>,img, [int( cv2.IMWRITE_JPEG_QUALITY), <span class="hljs-number">95</span>])
+cv2.imwrite(<span class="hljs-string">'1.png'</span>,img, [int(cv2.IMWRITE_PNG_COMPRESSION), <span class="hljs-number">9</span>])</code></pre></div>
+
+
+
+<h2 id="1-4-图片操作"><a href="#1-4-图片操作" class="headerlink" title="1.4 图片操作"></a>1.4 图片操作</h2><h3 id="1-翻转图像"><a href="#1-翻转图像" class="headerlink" title="1. 翻转图像"></a>1. 翻转图像</h3><p>使用函数cv2.flip(img,flipcode)翻转图像，flipcode控制翻转效果。<br>flipcode = 0：沿x轴翻转<br>flipcode &gt; 0：沿y轴翻转<br>flipcode &lt; 0：x,y轴同时翻转</p>
+<div class="hljs"><pre><code class="hljs python">imgflip = cv2.flip(img,<span class="hljs-number">1</span>)</code></pre></div>
+
+<h3 id="2-复制图像"><a href="#2-复制图像" class="headerlink" title="2. 复制图像"></a>2. 复制图像</h3><div class="hljs"><pre><code class="hljs python">imgcopy = img.copy()</code></pre></div>
+
+
+
+<h1 id="第2章-计算机视觉入门"><a href="#第2章-计算机视觉入门" class="headerlink" title="第2章 计算机视觉入门"></a>第2章 计算机视觉入门</h1><h2 id="2-11-tensorflow常量变量定义"><a href="#2-11-tensorflow常量变量定义" class="headerlink" title="2.11 tensorflow常量变量定义"></a>2.11 tensorflow常量变量定义</h2><p>定义一个data的常量，取值为2</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> tensorflow <span class="hljs-keyword">as</span> tf
+data1 = tf.constant(<span class="hljs-number">2</span>,dtype=tf.int32)
+session = tf.Session()
+print(data1)
+print(session.run(data1))</code></pre></div>
+
+<p>输出结果如下：</p>
+<div class="hljs"><pre><code class="hljs python">Tensor(<span class="hljs-string">"Const:0"</span>, shape=(), dtype=int32)
+<span class="hljs-number">2</span></code></pre></div>
+
+<p>直接输出data1对象，并不能输出2，而是输出data1的tensorflow描述信息。</p>
+<p>在定义一个变量，命名为var。像其他语言一样，要是有变量之前，要对该变量进行初始化。</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> tensorflow <span class="hljs-keyword">as</span> tf
+data2 = tf.Variable(<span class="hljs-number">10</span>,name=<span class="hljs-string">'var'</span>)
+session = tf.Session()
+init = tf.global_variables_initializer() <span class="hljs-comment">#初始化</span>
+session.run(init)
+print(session.run(data2))</code></pre></div>
+
+<p>先初始化变量，然后再输出变量：</p>
+<div class="hljs"><pre><code class="hljs angelscript"><span class="hljs-number">10</span></code></pre></div>
+
+
+
+<h2 id="2-12-tensorflow运算原理"><a href="#2-12-tensorflow运算原理" class="headerlink" title="2.12 tensorflow运算原理"></a>2.12 tensorflow运算原理</h2><p>tensorflow的实质：张量tensor + 计算图graphs</p>
+<p>张量表示的就是数据，可以是常量，可以是变量</p>
+<img src="/2020/07/22/OpenCV%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/p1.jpg" srcset="/img/loading.gif" alt="img" style="zoom: 25%;">
+
+<p>本质 tf = tensor + 计算图</p>
+<p>tensor数据，op可以是赋值运算或加减运算，计算图就是张量和运算一起的结构</p>
+<p>在tf中，所有的计算图(graphs)都要放在会话(session)中来执行，所有session是执行的核心，可以理解为运算的一个交互环境。需要把当前的交互环境放到session中，使用它的run()方法。比如上一个例子中的：</p>
+<div class="hljs"><pre><code class="hljs python">session.run(data1) <span class="hljs-comment">#data1为张量</span>
+session.run(init) <span class="hljs-comment">#init理解为op</span></code></pre></div>
+
+<p>最后，使用完session后要关闭</p>
+<div class="hljs"><pre><code class="hljs python">session.close()</code></pre></div>
+
+<p>如果不主动关闭session的话，可以使用with关键字</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> tensorflow <span class="hljs-keyword">as</span> tf
+
+data = tf.constant(<span class="hljs-string">'hello world!'</span>)
+session = tf.Session()
+<span class="hljs-keyword">with</span> session:
+    out = session.run(data)
+    print(out)</code></pre></div>
+
+
+
+<h2 id="2-13-常量变量的四则运算"><a href="#2-13-常量变量的四则运算" class="headerlink" title="2.13 常量变量的四则运算"></a>2.13 常量变量的四则运算</h2><p>常量的四则运算</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> tensorflow <span class="hljs-keyword">as</span> tf
+
+data1 = tf.constant(<span class="hljs-number">6</span>)
+data2 = tf.constant(<span class="hljs-number">2</span>)
+
+dataAdd = tf.add(data1,data2) <span class="hljs-comment">#加法</span>
+dataMultiply = tf.multiply(data1,data2) <span class="hljs-comment">#乘法</span>
+dataSubtraction = tf.subtract(data1,data2) <span class="hljs-comment">#减法</span>
+dataDivision = tf.divide(data1,data2) <span class="hljs-comment">#除法</span>
+
+<span class="hljs-keyword">with</span> tf.Session() <span class="hljs-keyword">as</span> session:
+    print(session.run(dataAdd))
+    print(session.run(dataMultiply))
+    print(session.run(dataSubtraction))
+    print(session.run(dataDivision))
+
+print(<span class="hljs-string">"End!............"</span>)</code></pre></div>
+
+<p>输出结果：</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-number">8</span>
+<span class="hljs-number">12</span>
+<span class="hljs-number">4</span>
+<span class="hljs-number">3.0</span>
+End!............</code></pre></div>
+
+<p>常量与变量的四则运算</p>
+<div class="hljs"><pre><code class="hljs python">data1 = tf.constant(<span class="hljs-number">6</span>) 
+data2 = tf.Variable(<span class="hljs-number">2</span>) <span class="hljs-comment">#改为变量</span>
+
+dataAdd = tf.add(data1,data2)
+dataMultiply = tf.multiply(data1,data2)
+dataSubtraction = tf.subtract(data1,data2)
+dataDivision = tf.divide(data1,data2)
+init  = tf.global_variables_initializer() <span class="hljs-comment">#初始化</span>
+
+<span class="hljs-keyword">with</span> tf.Session() <span class="hljs-keyword">as</span> session:
+    session.run(init)  <span class="hljs-comment">#初始化</span>
+    print(session.run(dataAdd))
+    print(session.run(dataMultiply))
+    print(session.run(dataSubtraction))
+    print(session.run(dataDivision))
+print(<span class="hljs-string">"End!............"</span>)</code></pre></div>
+
+<p>输出结构与上面的相同</p>
+<p>下面说下assign()函数的使用：</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> tensorflow <span class="hljs-keyword">as</span> tf
+
+num1 = tf.Variable(tf.constant(<span class="hljs-number">6</span>)) <span class="hljs-comment">#tensor</span>
+num2 = tf.Variable(tf.constant(<span class="hljs-number">3</span>)) <span class="hljs-comment">#tensor</span>
+
+dataMultiply1 = tf.multiply(num1,num2) <span class="hljs-comment">#op-&gt;graphs</span>
+dataMultiply2 = tf.multiply(num1,num2) <span class="hljs-comment">#op-&gt;graphs</span>
+
+<span class="hljs-keyword">with</span> tf.Session() <span class="hljs-keyword">as</span> session:
+    session.run(tf.global_variables_initializer())
+    print(session.run(dataMultiply1))
+    print(<span class="hljs-string">'DataCopy: '</span>, session.run(tf.assign(num2,dataMultiply1))) <span class="hljs-comment">#将dataMultiply1的结果赋值给num2中</span>
+    print(session.run(dataMultiply2))</code></pre></div>
+
+<p>事实上，<code>tf.assign(ref, new_value)</code>函数返回的结果就是参数中的<code>new_value</code>，因此我们只需要用<code>ref</code>来接收返回值也可以达到直接更新的效果。上图中可以很好的看清tensorflow的执行原理。</p>
+<p>下面说下eval()的使用：</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> tensorflow <span class="hljs-keyword">as</span> tf
+
+num1 = tf.Variable(tf.constant(<span class="hljs-number">3</span>)) <span class="hljs-comment">#tensor</span>
+num2 = tf.Variable(tf.constant(<span class="hljs-number">2</span>)) <span class="hljs-comment">#tensor</span>
+
+dataMultiply1 = tf.multiply(num1,num2) <span class="hljs-comment">#op-&gt;graphs</span>
+dataMultiply2 = tf.multiply(num1,num2) <span class="hljs-comment">#op-&gt;graphs</span>
+
+<span class="hljs-keyword">with</span> tf.Session() <span class="hljs-keyword">as</span> session:
+    session.run(tf.global_variables_initializer())
+    print(session.run(dataMultiply1))
+    print(<span class="hljs-string">'DataCopy: '</span>, session.run(tf.assign(num2,dataMultiply1))) <span class="hljs-comment">#将dataMultiply1的结果赋值给num2中</span>
+    print(<span class="hljs-string">'Eval: '</span>,tf.assign(num2,dataMultiply1).eval())
+    print(session.run(dataMultiply2))</code></pre></div>
+
+<p>输出结果：</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-number">6</span>
+DataCopy:  <span class="hljs-number">6</span>
+Eval:  <span class="hljs-number">18</span>
+<span class="hljs-number">54</span></code></pre></div>
+
+<p>eval() <strong><em>其实就是tf.Tensor的Session.run() 的另外一种写法</em></strong>，但两者有差别</p>
+<ul>
+<li>eval(): 将字符串string对象转化为有效的表达式参与求值运算返回计算结果</li>
+<li>eval()也是启动计算的一种方式。基于Tensorflow的基本原理，首先需要定义图，然后计算图，其中计算图的函数常见的有run()函数，如sess.run()。同样eval()也是此类函数，</li>
+<li>要注意的是，eval()只能用于tf.Tensor类对象，也就是有输出的Operation。对于没有输出的Operation, 可以用.run()或者Session.run()；Session.run()没有这个限制。</li>
+</ul>
+<p>placeholder的使用</p>
+<div class="hljs"><pre><code class="hljs python">data1 = tf.placeholder(tf.float32)
+data2 = tf.placeholder(tf.float32)
+
+dataAdd = tf.add(data1,data2)
+
+<span class="hljs-keyword">with</span> tf.Session() <span class="hljs-keyword">as</span> session:
+    print(session.run(dataAdd,feed_dict=&#123;data1:<span class="hljs-number">6</span>,data2:<span class="hljs-number">2</span>&#125;))
+    <span class="hljs-comment">#1 dataAdd 2 data(feed_dict=&#123;1:6,2:2&#125;)</span></code></pre></div>
+
+<p>输出：</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-number">8.0</span></code></pre></div>
+
+
+
+<h2 id="2-14-矩阵基础"><a href="#2-14-矩阵基础" class="headerlink" title="2.14 矩阵基础"></a>2.14 矩阵基础</h2><p>详细见numpy教程</p>
+<h1 id="第3章-计算机视觉加强之几何变换"><a href="#第3章-计算机视觉加强之几何变换" class="headerlink" title="第3章 计算机视觉加强之几何变换"></a>第3章 计算机视觉加强之几何变换</h1><h2 id="3-1-图片缩放"><a href="#3-1-图片缩放" class="headerlink" title="3.1 图片缩放"></a>3.1 图片缩放</h2><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> cv2
+
+img = cv2.imread(<span class="hljs-string">'timg.jpg'</span>, <span class="hljs-number">1</span>)
+imgInfo = img.shape
+height = imgInfo[<span class="hljs-number">0</span>]
+width = imgInfo[<span class="hljs-number">1</span>]
+channel = imgInfo[<span class="hljs-number">2</span>]
+factor = <span class="hljs-number">0.5</span>
+<span class="hljs-comment">#1. 放大 缩小 2. 等比例 非等比例缩放</span>
+dstHeight = int(height*factor)
+dstWidth = int(width*factor)
+dst = cv2.resize(img, (dstWidth, dstHeight))
+cv2.imshow(<span class="hljs-string">'Pineapple'</span>,dst)
+cv2.waitKey(<span class="hljs-number">0</span>)
+cv2.destroyAllWindows() <span class="hljs-comment"># esc可退出，不然会busy</span></code></pre></div>
+
+<p>图片的宽高都乘以了一个缩放因子<code>factor</code>实现图片的等比例缩放</p>
+<p>下面讲解图像的四种缩放方法：</p>
+<ol>
+<li><strong>最近邻域插值</strong> </li>
+<li><strong>双线性插值</strong> </li>
+<li><strong>像素关系重采样</strong> </li>
+<li><strong>立方插值</strong></li>
+</ol>
+<h4 id="1-最近邻域插值"><a href="#1-最近邻域插值" class="headerlink" title="1.最近邻域插值"></a>1.最近邻域插值</h4><p>假设有一个10×20 的图片，我们要缩放到 5×10（记为dst），那么dst中的每一个点都来自于原图片，比如dst中（1，2）&lt;– (2，4)</p>
+<p>那么我们如何计算并找到这些点呢？</p>
+<p>即已知dst中的点，要求出原图片中的点。这里有个公式：</p>
+<p>$$<br>srcX=dstX* (srcWidth/dstWidth)<br>$$<br>例如，想要计算目标图片中 x为 1 的点对应的是原图像中的哪个点的x值<br>srcX = 1 * （10 / 5） = 2<br> 同样的，<br>$$<br>srcY = dstY * (srcHeight/dstHeight)<br>$$<br>srcY = 2 * (20 / 10) = 4<br>有时，我们计算出来的结果并不为整数，例如 12.3 ，则取最近的像素 12，<br>这种方法即为最近临域。</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> cv2
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+<span class="hljs-comment">#1. info</span>
+img = cv2.imread(<span class="hljs-string">'timg.jpg'</span>,<span class="hljs-number">1</span>)
+imgInfo = img.shape
+print(imgInfo)
+height = imgInfo[<span class="hljs-number">0</span>]
+width = imgInfo[<span class="hljs-number">1</span>]
+dstHeight = int(height/<span class="hljs-number">2</span>)
+dstWidth = int(width/<span class="hljs-number">2</span>)
+
+<span class="hljs-comment">#最近邻域插值</span>
+dstImg = np.zeros((dstHeight, dstWidth, <span class="hljs-number">3</span>), np.uint8)
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">0</span>,dstHeight): <span class="hljs-comment">#row number</span>
+    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> range(<span class="hljs-number">0</span>,dstWidth): <span class="hljs-comment">#column number</span>
+        iNew = int(i*(height*<span class="hljs-number">1.0</span>/dstHeight))
+        jNew = int(j*(width*<span class="hljs-number">1.0</span>/dstWidth))
+        dstImg[i, j] = img[iNew, jNew]
+
+print(dstImg.shape)
+cv2.imshow(<span class="hljs-string">'dest'</span>, dstImg)
+cv2.waitKey(<span class="hljs-number">0</span>)</code></pre></div>
+
+<p>其他算法在这里不介绍</p>
+<h2 id="3-2-图片剪切"><a href="#3-2-图片剪切" class="headerlink" title="3.2 图片剪切"></a>3.2 图片剪切</h2><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> cv2
+
+img = cv2.imread(<span class="hljs-string">'timg.jpg'</span>,<span class="hljs-number">1</span>)
+imgInfo = img.shape
+print(imgInfo)
+dst = img[<span class="hljs-number">100</span>:<span class="hljs-number">200</span>, <span class="hljs-number">100</span>:<span class="hljs-number">300</span>]
+cv2.imshow(<span class="hljs-string">'dst'</span>,dst)
+cv2.waitKey(<span class="hljs-number">0</span>)</code></pre></div>
+
+<img src="https://img-blog.csdnimg.cn/20190629095803910.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTA0OTM0ODk=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="在这里插入图片描述" style="zoom: 33%;">
+
+<h2 id="3-3-图片移位"><a href="#3-3-图片移位" class="headerlink" title="3.3 图片移位"></a>3.3 图片移位</h2><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> cv2
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+img = cv2.imread(<span class="hljs-string">'timg.jpg'</span>, <span class="hljs-number">1</span>)
+cv2.imshow(<span class="hljs-string">'src'</span>, img)
+imgInfo = img.shape
+height = imgInfo[<span class="hljs-number">0</span>]
+width = imgInfo[<span class="hljs-number">1</span>]
+
+matShift = np.float32([[<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">100</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">200</span>]])<span class="hljs-comment">#2*3</span>
+<span class="hljs-comment"># 1 data 2 mat 3 info</span>
+<span class="hljs-comment">#完成位移和矩阵的运算</span>
+dst = cv2.warpAffine(img, matShift, (height, width))
+cv2.imshow(<span class="hljs-string">'dst'</span>, dst)
+
+cv2.waitKey(<span class="hljs-number">0</span>)</code></pre></div>
+
+<img src="https://img-blog.csdnimg.cn/20190116141505171.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTAxMDQzMDE=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="img" style="zoom: 50%;">
+
+
+
+<p>API级别的移位实现原理：</p>
+<p><img src="https://img-blog.csdnimg.cn/20190629095816576.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTA0OTM0ODk=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="在这里插入图片描述"></p>
+<p>代码实现图像的位移，其实就是将x,y分别移动位置：</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> cv2
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+img = cv2.imread(<span class="hljs-string">'timg.jpg'</span>, <span class="hljs-number">1</span>)
+cv2.imshow(<span class="hljs-string">'src'</span>, img)
+imgInfo = img.shape
+dst = np.zeros(img.shape, np.uint8)
+height = imgInfo[<span class="hljs-number">0</span>]
+width = imgInfo[<span class="hljs-number">1</span>]
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">0</span>, height):
+    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> range(<span class="hljs-number">0</span>, width<span class="hljs-number">-100</span>):
+        dst[i, j+<span class="hljs-number">100</span>] = img[i, j]
+
+cv2.imshow(<span class="hljs-string">'dst'</span>, dst)
+cv2.waitKey(<span class="hljs-number">0</span>)</code></pre></div>
+
+<img src="https://img-blog.csdnimg.cn/20190116141642584.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTAxMDQzMDE=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="img" style="zoom:50%;">
+
+<h2 id="3-4-图像镜像"><a href="#3-4-图像镜像" class="headerlink" title="3.4 图像镜像"></a>3.4 图像镜像</h2><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> cv2
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+img = cv2.imread(<span class="hljs-string">'timg.jpg'</span>, <span class="hljs-number">1</span>)
+cv2.imshow(<span class="hljs-string">'src'</span>, img)
+imgInfo = img.shape
+height = imgInfo[<span class="hljs-number">0</span>]
+width = imgInfo[<span class="hljs-number">1</span>]
+channel = imgInfo[<span class="hljs-number">2</span>]
+
+newImgInfo = (height*<span class="hljs-number">2</span>, width, channel)
+dst = np.zeros(newImgInfo, np.uint8)
+
+<span class="hljs-comment">#反转图像填充</span>
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">0</span>,height):
+    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> range(<span class="hljs-number">0</span>,width):
+        dst[i, j] = img[i, j]
+        <span class="hljs-comment"># x不变 y = 2*h -y -1</span>
+        dst[height*<span class="hljs-number">2</span>-i<span class="hljs-number">-1</span>, j] = img[i, j]
+
+<span class="hljs-comment">#添加水平分割线</span>
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">0</span>,width):
+    dst[height, i] = (<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">255</span>)
+
+cv2.imshow(<span class="hljs-string">'dst'</span>, dst)
+cv2.waitKey(<span class="hljs-number">0</span>)</code></pre></div>
+
+<img src="https://img-blog.csdnimg.cn/20190813181604741.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzYzNTY0Nw==,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="在这里插入图片描述" style="zoom:33%;">
+
+<h2 id="3-5-图片仿射变换"><a href="#3-5-图片仿射变换" class="headerlink" title="3.5 图片仿射变换"></a>3.5 图片仿射变换</h2><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> cv2
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+img = cv2.imread(<span class="hljs-string">'timg.jpg'</span>, <span class="hljs-number">1</span>)
+cv2.imshow(<span class="hljs-string">'src'</span>, img)
+imgInfo = img.shape
+height = imgInfo[<span class="hljs-number">0</span>]
+width = imgInfo[<span class="hljs-number">1</span>]
+
+<span class="hljs-comment">#src中的3个点转换到dst中的3个新点，然后确定唯一的图像平面</span>
+matSrc = np.float32([[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">0</span>, height<span class="hljs-number">-1</span>], [width<span class="hljs-number">-1</span>, <span class="hljs-number">0</span>]])
+matDst = np.float32([[<span class="hljs-number">50</span>, <span class="hljs-number">50</span>], [<span class="hljs-number">300</span>, height<span class="hljs-number">-200</span>], [width<span class="hljs-number">-300</span>, <span class="hljs-number">100</span>]])
+
+<span class="hljs-comment">#组合</span>
+matAffine = cv2.getAffineTransform(matSrc, matDst)
+
+dst = cv2.warpAffine(img, matAffine, (width, height))
+
+cv2.imshow(<span class="hljs-string">'dst'</span>, dst)
+cv2.waitKey(<span class="hljs-number">0</span>)</code></pre></div>
+
+<img src="/2020/07/22/OpenCV%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/70.jpg" srcset="/img/loading.gif" alt="img" style="zoom: 67%;">
+
+<h2 id="3-6-图片旋转"><a href="#3-6-图片旋转" class="headerlink" title="3.6 图片旋转"></a>3.6 图片旋转</h2><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> cv2
+
+img = cv2.imread(<span class="hljs-string">'timg.jpg'</span>, <span class="hljs-number">1</span>)
+cv2.imshow(<span class="hljs-string">'src'</span>, img)
+imgInfo = img.shape
+height = imgInfo[<span class="hljs-number">0</span>]
+width = imgInfo[<span class="hljs-number">1</span>]
+
+<span class="hljs-comment">#Three parameter: center, angle, scale</span>
+matRotate = cv2.getRotationMatrix2D((height*<span class="hljs-number">0.5</span>, width*<span class="hljs-number">0.5</span>), <span class="hljs-number">45</span>, <span class="hljs-number">0.5</span>)
+dst = cv2.warpAffine(img,matRotate,(height, width))
+
+cv2.imshow(<span class="hljs-string">'dst'</span>, dst)
+cv2.waitKey(<span class="hljs-number">0</span>)</code></pre></div>
+
+<img src="/2020/07/22/OpenCV%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/80.jpg" srcset="/img/loading.gif" alt="img" style="zoom: 67%;">
+
+
+
+<h1 id="第4章-计算机视觉加强之图像特效"><a href="#第4章-计算机视觉加强之图像特效" class="headerlink" title="第4章 计算机视觉加强之图像特效"></a>第4章 计算机视觉加强之图像特效</h1><h2 id="4-1-图像灰度处理"><a href="#4-1-图像灰度处理" class="headerlink" title="4.1 图像灰度处理"></a>4.1 图像灰度处理</h2><h3 id="方法一：通过imread读取灰度图片"><a href="#方法一：通过imread读取灰度图片" class="headerlink" title="方法一：通过imread读取灰度图片"></a>方法一：通过imread读取灰度图片</h3><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> cv2
+img0 = cv2.imread(<span class="hljs-string">'timg.jpg'</span>,<span class="hljs-number">0</span>)
+print(img0.shape)
+cv2.imshow(<span class="hljs-string">'img0'</span>, img0)
+cv2.waitKey(<span class="hljs-number">0</span>)</code></pre></div>
+
+<h3 id="方法二：通过cvtColor方法"><a href="#方法二：通过cvtColor方法" class="headerlink" title="方法二：通过cvtColor方法"></a>方法二：通过cvtColor方法</h3><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> cv2
+img = cv2.imread(<span class="hljs-string">'timg.jpg'</span>,<span class="hljs-number">1</span>)
+dst = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+cv2.imshow(<span class="hljs-string">'dst'</span>, dst)
+cv2.waitKey(<span class="hljs-number">0</span>)</code></pre></div>
+
+<h3 id="方法三：RGB取均值方法"><a href="#方法三：RGB取均值方法" class="headerlink" title="方法三：RGB取均值方法"></a>方法三：RGB取均值方法</h3><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> cv2
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+img = cv2.imread(<span class="hljs-string">'timg.jpg'</span>,<span class="hljs-number">1</span>)
+imgInfo = img.shape
+height = imgInfo[<span class="hljs-number">0</span>]
+width = imgInfo[<span class="hljs-number">1</span>]
+<span class="hljs-comment">#RGB三值取相同=gray</span>
+dst = np.zeros((height, width,<span class="hljs-number">3</span> ), np.uint8)
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">0</span>,height):
+    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> range(<span class="hljs-number">0</span>, width):
+        (B, G, R) = img[i, j]
+        mean = (int(B)+int(G)+int(R))/<span class="hljs-number">3</span>
+        dst[i, j] = np.uint8(mean)
+cv2.imshow(<span class="hljs-string">'dst'</span>, dst)
+cv2.waitKey(<span class="hljs-number">0</span>)</code></pre></div>
+
+<h3 id="方法四：心理学公式"><a href="#方法四：心理学公式" class="headerlink" title="方法四：心理学公式"></a>方法四：心理学公式</h3><p>$$<br>Gray = R * 0.299 + G * 0.587 + B * 0.114<br>$$</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> cv2
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+img = cv2.imread(<span class="hljs-string">'timg.jpg'</span>,<span class="hljs-number">1</span>)
+imgInfo = img.shape
+height = imgInfo[<span class="hljs-number">0</span>]
+width = imgInfo[<span class="hljs-number">1</span>]
+<span class="hljs-comment">#RGB三值取相同=gray</span>
+dst = np.zeros((height, width,<span class="hljs-number">3</span> ), np.uint8)
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">0</span>,height):
+    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> range(<span class="hljs-number">0</span>, width):
+        (B, G, R) = img[i, j]
+        <span class="hljs-comment"># R = np.float32(R)</span>
+        <span class="hljs-comment"># G = np.float32(G)</span>
+        <span class="hljs-comment"># B = np.float32(B)</span>
+        mean = R * <span class="hljs-number">0.299</span> + G * <span class="hljs-number">0.587</span> + B * <span class="hljs-number">0.114</span>
+        dst[i, j] = np.uint8(mean)
+cv2.imshow(<span class="hljs-string">'dst'</span>, dst)
+cv2.waitKey(<span class="hljs-number">0</span>)</code></pre></div>
+
+<h2 id="4-2-算法优化"><a href="#4-2-算法优化" class="headerlink" title="4.2 算法优化"></a>4.2 算法优化</h2><p>为什么我们这么强调灰度处理？原因如下：</p>
+<ol>
+<li>灰度很重要</li>
+<li>灰度处理很基础</li>
+<li>能体现出实时性</li>
+</ol>
+<p>鉴于此，我们还可以在算法的性能上继续进行优化，往往的经验告诉我们定点数运算快于浮点数运算，加减法运算快于乘除法运算，其中位运算更快。</p>
+<h2 id="4-3-图片颜色反转"><a href="#4-3-图片颜色反转" class="headerlink" title="4.3 图片颜色反转"></a>4.3 图片颜色反转</h2><p>颜色反转就是用255减去当前的灰度值</p>
+<p>彩色图片的颜色反转：</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> cv2
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+img = cv2.imread(<span class="hljs-string">'timg.jpg'</span>,<span class="hljs-number">1</span>)
+imgInfo = img.shape
+height = imgInfo[<span class="hljs-number">0</span>]
+width = imgInfo[<span class="hljs-number">1</span>]
+
+dst = np.zeros((height, width, <span class="hljs-number">3</span>), np.uint8)
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">0</span>,height):
+    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> range(<span class="hljs-number">0</span>, width):
+        pixels = img[i, j]
+        dst[i, j] = <span class="hljs-number">255</span> - pixels <span class="hljs-comment">#可以直接用255减去，不能写成元组的形式</span>
+
+cv2.imshow(<span class="hljs-string">'dst'</span>, dst)
+cv2.waitKey(<span class="hljs-number">0</span>)</code></pre></div>
+
+<p><img src="/2020/07/22/OpenCV%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/90.jpg" srcset="/img/loading.gif" alt="bgr反转图像"></p>
+<p>灰度图片的颜色反转：</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> cv2
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+img = cv2.imread(<span class="hljs-string">'timg.jpg'</span>,<span class="hljs-number">1</span>)
+imgInfo = img.shape
+height = imgInfo[<span class="hljs-number">0</span>]
+width = imgInfo[<span class="hljs-number">1</span>]
+<span class="hljs-comment">#使用cvtColor函数转化为灰度图像</span>
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+dst = np.zeros((height, width, <span class="hljs-number">3</span>), np.uint8)
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">0</span>,height):
+    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> range(<span class="hljs-number">0</span>, width):
+        pixels = gray[i, j]
+        dst[i, j] = <span class="hljs-number">255</span> - pixels
+
+cv2.imshow(<span class="hljs-string">'dst'</span>, dst)
+cv2.waitKey(<span class="hljs-number">0</span>)</code></pre></div>
+
+<p><img src="/2020/07/22/OpenCV%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/100.jpg" srcset="/img/loading.gif" alt="图像反转"></p>
+<h2 id="4-4-马赛克效果"><a href="#4-4-马赛克效果" class="headerlink" title="4.4 马赛克效果"></a>4.4 马赛克效果</h2><p>马赛克效果就是将原图进行了一定形状的分割。在每个分割出来的形状中用同一个颜色填充得到。而这个颜色一般取分割得到形状的中心点像素的颜色。</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> cv2
+
+img = cv2.imread(<span class="hljs-string">'timg.jpg'</span>, <span class="hljs-number">1</span>)
+imgInfo = img.shape
+height = imgInfo[<span class="hljs-number">0</span>]
+width = imgInfo[<span class="hljs-number">1</span>]
+
+<span class="hljs-keyword">for</span> m <span class="hljs-keyword">in</span> range(<span class="hljs-number">100</span>, <span class="hljs-number">300</span>):
+    <span class="hljs-keyword">for</span> n <span class="hljs-keyword">in</span> range(<span class="hljs-number">100</span>, <span class="hljs-number">200</span>):
+        <span class="hljs-keyword">if</span> m % <span class="hljs-number">20</span> == <span class="hljs-number">0</span> <span class="hljs-keyword">and</span> n % <span class="hljs-number">20</span> == <span class="hljs-number">0</span>:
+            <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">0</span>, <span class="hljs-number">20</span>):
+                <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> range(<span class="hljs-number">0</span>, <span class="hljs-number">20</span>):
+                    (B, G, R) = img[m, n]
+                    img[i+m, j+n] = (B, G, R)
+
+cv2.imshow(<span class="hljs-string">'dst'</span>, img)
+cv2.waitKey(<span class="hljs-number">0</span>)
+cv2.destroyAllWindows()</code></pre></div>
+
+<p><img src="https://img-blog.csdnimg.cn/20190610233841994.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2x0MzI2MDMwNDM0,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="在这里插入图片描述"></p>
+<h2 id="4-5-毛玻璃效果"><a href="#4-5-毛玻璃效果" class="headerlink" title="4.5 毛玻璃效果"></a>4.5 毛玻璃效果</h2><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> cv2
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> random
+
+img = cv2.imread(<span class="hljs-string">'timg.jpg'</span>,<span class="hljs-number">1</span>)
+cv2.imshow(<span class="hljs-string">'img'</span>, img)
+imgInfo = img.shape
+height = imgInfo[<span class="hljs-number">0</span>]
+width = imgInfo[<span class="hljs-number">1</span>]
+dst = np.zeros((height, width, <span class="hljs-number">3</span>), np.uint8)
+mm = <span class="hljs-number">100</span>
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">0</span>, height):
+    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> range(<span class="hljs-number">0</span>, width):
+        num = int(random.random()*mm)
+        <span class="hljs-keyword">if</span> i + num &gt;= height <span class="hljs-keyword">or</span> j + num &gt;= width: <span class="hljs-comment">#######</span>
+            (B, G, R) = img[i - num, j - num]
+        <span class="hljs-keyword">else</span>:
+            (B, G, R) = img[i + num, j + num]
+        dst[i, j] = (B, G, R)
+
+cv2.imshow(<span class="hljs-string">'dst'</span>, dst)
+cv2.waitKey(<span class="hljs-number">0</span>)</code></pre></div>
+
+<p>注释的地方是为了保证边界处的宽高像素不会产生矩阵越界的错误，这里需要注意！</p>
+<img src="https://img-blog.csdnimg.cn/20190610234327503.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2x0MzI2MDMwNDM0,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="在这里插入图片描述" style="zoom:67%;">
+
+<h2 id="4-6-图像融合效果"><a href="#4-6-图像融合效果" class="headerlink" title="4.6 图像融合效果"></a>4.6 图像融合效果</h2><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> cv2
+
+img1 = cv2.imread(<span class="hljs-string">'../timg.jpg'</span>, <span class="hljs-number">1</span>)
+img2 = cv2.imread(<span class="hljs-string">'../timgjpg.jpg'</span>, <span class="hljs-number">1</span>)
+
+dst = cv2.addWeighted(img1, <span class="hljs-number">0.5</span>, img2, <span class="hljs-number">0.5</span>, <span class="hljs-number">0</span>)
+
+cv2.imshow(<span class="hljs-string">'dst'</span>, dst)
+cv2.waitKey(<span class="hljs-number">0</span>)
+cv2.destroyAllWindows()</code></pre></div>
+
+<p><img src="/2020/07/22/OpenCV%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/110.jpg" srcset="/img/loading.gif" alt="clipboard.png"></p>
+<h2 id="4-7-Canny边缘检测"><a href="#4-7-Canny边缘检测" class="headerlink" title="4.7 Canny边缘检测"></a>4.7 Canny边缘检测</h2><p>Canny边缘检测是一种非常流行的边缘检测算法，是John Canny在1986年提出的。它是一个多阶段的算法，即由多个步骤构成。</p>
+<ol>
+<li><strong>图像降噪</strong></li>
+<li><strong>计算图像梯度</strong></li>
+<li><strong>非极大值抑制</strong></li>
+<li><strong>阈值筛选</strong></li>
+</ol>
+<p>OpenCV-Python中Canny函数的原型为：</p>
+<div class="hljs"><pre><code class="hljs python">edge = cv2.Canny(image, threshold1, threshold2[, edges[, apertureSize[, L2gradient ]]])</code></pre></div>
+
+<p>必要参数：</p>
+<ul>
+<li>第一个参数是需要处理的原图像，该图像必须为单通道的灰度图；</li>
+<li>第二个参数是阈值1；</li>
+<li>第三个参数是阈值2。</li>
+</ul>
+<p>其中较大的阈值2用于检测图像中明显的边缘，但一般情况下检测的效果不会那么完美，边缘检测出来是断断续续的。所以这时候用较小的第一个阈值用于将这些间断的边缘连接起来。</p>
+<p>可选参数中apertureSize就是Sobel算子的大小。而L2gradient参数是一个布尔值，如果为真，则使用更精确的L2范数进行计算（即两个方向的倒数的平方和再开放），否则使用L1范数（直接将两个方向导数的绝对值相加）。</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> cv2
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np  
+img = cv2.imread(<span class="hljs-string">"D:/lion.jpg"</span>, <span class="hljs-number">0</span>)  
+<span class="hljs-comment"># 由于Canny只能处理灰度图，所以将读取的图像转成灰度图</span>
+
+img = cv2.GaussianBlur(img,(<span class="hljs-number">3</span>,<span class="hljs-number">3</span>),<span class="hljs-number">0</span>) 
+<span class="hljs-comment"># 用高斯平滑处理原图像降噪。若效果不好可调节高斯核大小</span>
+
+canny = cv2.Canny(img, <span class="hljs-number">50</span>, <span class="hljs-number">150</span>)     
+<span class="hljs-comment"># 调用Canny函数，指定最大和最小阈值，其中apertureSize默认为3。</span>
+
+cv2.imshow(<span class="hljs-string">'Canny'</span>, canny)
+cv2.waitKey(<span class="hljs-number">0</span>)
+cv2.destroyAllWindows()</code></pre></div>
+
+<p>这个程序只是静态的，下面是可以在运行时调整阈值大小的程序。其代码如下：</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> cv2
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">CannyThreshold</span><span class="hljs-params">(lowThreshold)</span>:</span>
+    detected_edges = cv2.GaussianBlur(gray,(<span class="hljs-number">3</span>,<span class="hljs-number">3</span>),<span class="hljs-number">0</span>)
+    detected_edges =cv2.Canny(detected_edges,lowThreshold,lowThreshold*ratio,apertureSize = kernel_size)
+    dst = cv2.bitwise_and(img,img,mask = detected_edges)  <span class="hljs-comment"># just add some colours to edges from original image.</span>
+    cv2.imshow(<span class="hljs-string">'canny demo'</span>,dst)
+
+lowThreshold = <span class="hljs-number">0</span>
+max_lowThreshold = <span class="hljs-number">100</span>
+ratio = <span class="hljs-number">3</span>
+kernel_size = <span class="hljs-number">3</span>
+img = cv2.imread(<span class="hljs-string">'D:/lion.jpg'</span>)
+gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+cv2.namedWindow(<span class="hljs-string">'canny demo'</span>)
+cv2.createTrackbar(<span class="hljs-string">'Min threshold'</span>,<span class="hljs-string">'canny demo'</span>,lowThreshold, max_lowThreshold, CannyThreshold)
+CannyThreshold(<span class="hljs-number">0</span>)  <span class="hljs-comment"># initialization</span>
+
+<span class="hljs-keyword">if</span> cv2.waitKey(<span class="hljs-number">0</span>) == <span class="hljs-number">27</span>:
+    cv2.destroyAllWindows()</code></pre></div>
+
+<p><img src="https://img-blog.csdnimg.cn/20190911172931419.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2hhb2hhb211YQ==,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="img"></p>
+<h2 id="4-8-Sobel边缘检测"><a href="#4-8-Sobel边缘检测" class="headerlink" title="4.8 Sobel边缘检测"></a>4.8 Sobel边缘检测</h2><p>Sobel边缘检测算法比较简单，实际应用中效率比canny边缘检测效率要高，但是边缘不如Canny检测的准确，Sobel算子是高斯平滑与微分操作的结合体，所以其抗噪声能力很强，用途较多。尤其是效率要求较高，而对细纹理不太关系的时候，<strong>对于一个彩色图要先把它转换为灰度图</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/20190514114056525.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyMzMzNjQx,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/20190514114110308.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyMzMzNjQx,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="在这里插入图片描述"></p>
+<p>核心语句</p>
+<div class="hljs"><pre><code class="hljs python">Sobel_x_or_y = cv2.Sobel(src, ddepth, dx, dy, dst, ksize, scale, delta, borderType)</code></pre></div>
+
+<p>参数：<br>第一个参数是需要处理的图像；<br>第二个参数是图像的深度，-1表示采用的是与原图像相同的深度。目标图像的深度必须大于等于原图像的深度；<br>dx和dy表示的是求导的阶数，0表示这个方向上没有求导，一般为0、1、2。</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> cv2
+img = cv2.imread(<span class="hljs-string">'../timg.jpg'</span>, <span class="hljs-number">0</span>)
+x = cv2.Sobel(img, cv2.CV_16S, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>)
+y = cv2.Sobel(img, cv2.CV_16S, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>)
+
+<span class="hljs-comment"># cv2.convertScaleAbs(src[, dst[, alpha[, beta]]])</span>
+<span class="hljs-comment"># 可选参数alpha是伸缩系数，beta是加到结果上的一个值，结果返回uint类型的图像</span>
+Scale_absX = cv2.convertScaleAbs(x)  <span class="hljs-comment"># convert 转换  scale 缩放</span>
+Scale_absY = cv2.convertScaleAbs(y)
+
+result = cv2.addWeighted(Scale_absX, <span class="hljs-number">0.5</span>, Scale_absY, <span class="hljs-number">0.5</span>, <span class="hljs-number">0</span>)
+
+cv2.namedWindow(<span class="hljs-string">"result"</span>, <span class="hljs-number">0</span>)
+cv2.imshow(<span class="hljs-string">'result'</span>, result)
+cv2.waitKey(<span class="hljs-number">0</span>)
+cv2.destroyAllWindows()</code></pre></div>
+
+<img src="https://img-blog.csdnimg.cn/20190514114342607.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyMzMzNjQx,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="在这里插入图片描述" style="zoom:50%;">
+
+<p>在Sobel函数的第二个参数这里使用了cv2.CV_16S。因为OpenCV文档中对Sobel算子的介绍中有这么一句：“in the case of 8-bit input images it will result in truncated derivatives”。即Sobel函数求完导数后会有负值，还有会大于255的值。而原图像是uint8，即8位无符号数，所以Sobel建立的图像位数不够，会有截断。因此要使用16位有符号的数据类型，即cv2.CV_16S。</p>
+<p>在经过处理后，别忘了用convertScaleAbs()函数将其转回原来的uint8形式。否则将无法显示图像，而只是一副灰色的窗口。</p>
+<div class="hljs"><pre><code class="hljs python">result = cv2.addWeighted(src1, alpha, src2, beta, gamma[, dst[, dtype]])</code></pre></div>
+
+<p>其中alpha是第一幅图片中元素的权重，beta是第二个的权重，gamma是加到最后结果上的一个值。</p>
+<h2 id="4-9-浮雕和雕刻效果"><a href="#4-9-浮雕和雕刻效果" class="headerlink" title="4.9 浮雕和雕刻效果"></a>4.9 浮雕和雕刻效果</h2><p><strong>原理：</strong> 根据像素与周围像素的差值确定滤波后的像素值，差别较大的像素（边缘点通常像素差别较大）像素值较大，在灰度图中表现为较亮，边缘凸显，形成浮雕状，然后加上一个灰度偏移值128，作为图片的整体底色。</p>
+<p><strong>实现：</strong> 浮雕算法是对图像的每一个点进行卷积处理，采用的矩阵如下：<br>$$<br>[[1,0],<br>[0,-1]]<br>$$<br><strong>雕刻效果卷积核算子：</strong><br>$$<br>[[-1,0],<br>[0,1]]<br>$$</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> cv2
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+<span class="hljs-comment"># 浮雕和雕刻</span>
+img = cv2.imread(<span class="hljs-string">'../timgjpg.jpg'</span>, <span class="hljs-number">1</span>)
+gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+imgInfo = gray_img.shape
+height = imgInfo[<span class="hljs-number">0</span>]
+width = imgInfo[<span class="hljs-number">1</span>]
+
+relief_filter = [[<span class="hljs-number">1</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">-1</span>]]
+sculpt_filter = [[<span class="hljs-number">-1</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>]]
+
+relief_img = np.zeros([height<span class="hljs-number">-1</span>, width<span class="hljs-number">-1</span>], np.uint8)
+sculpt_img = np.zeros([height<span class="hljs-number">-1</span>, width<span class="hljs-number">-1</span>], np.uint8)
+
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">0</span>, height<span class="hljs-number">-1</span>):
+    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> range(<span class="hljs-number">0</span>, width<span class="hljs-number">-1</span>):
+        <span class="hljs-comment">#relief effect</span>
+        relief_value = np.sum(gray_img[i:i + <span class="hljs-number">2</span>, j:j + <span class="hljs-number">2</span>] * relief_filter) + <span class="hljs-number">128</span>
+        relief_value = <span class="hljs-number">255</span> <span class="hljs-keyword">if</span> relief_value &gt; <span class="hljs-number">255</span> <span class="hljs-keyword">else</span> relief_value
+        relief_value = <span class="hljs-number">0</span> <span class="hljs-keyword">if</span> relief_value &lt; <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> relief_value
+        relief_img[i, j] = relief_value
+
+        <span class="hljs-comment">#sculpt effect</span>
+        sculpt_value = np.sum(gray_img[i:i + <span class="hljs-number">2</span>, j:j + <span class="hljs-number">2</span>] * sculpt_filter) + <span class="hljs-number">128</span>
+        sculpt_value = <span class="hljs-number">255</span> <span class="hljs-keyword">if</span> sculpt_value &gt; <span class="hljs-number">255</span> <span class="hljs-keyword">else</span> sculpt_value
+        sculpt_value = <span class="hljs-number">0</span> <span class="hljs-keyword">if</span> sculpt_value &lt; <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> sculpt_value
+        sculpt_img[i, j] = sculpt_value
+
+cv2.namedWindow(<span class="hljs-string">'Relief Image'</span>, <span class="hljs-number">0</span>)
+cv2.namedWindow(<span class="hljs-string">'Sculpt Image'</span>, <span class="hljs-number">0</span>)
+cv2.imshow(<span class="hljs-string">'Relief Image'</span>, relief_img)
+cv2.imshow(<span class="hljs-string">'Sculpt Image'</span>, sculpt_img)
+cv2.waitKey(<span class="hljs-number">0</span>)</code></pre></div>
+
+<img src="https://img-blog.csdnimg.cn/20190418191709932.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTA3MzY2NjI=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="img" style="zoom: 50%;">
+
+<img src="https://img-blog.csdnimg.cn/20190418191906436.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTA3MzY2NjI=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="img" style="zoom:50%;">
+
+<h2 id="4-10-颜色映射"><a href="#4-10-颜色映射" class="headerlink" title="4.10 颜色映射"></a>4.10 颜色映射</h2><p>图像颜色映射的实质是色彩通道的变换计算，即通过对图像的颜色通道值进行修改实现图像的颜色映射，说白了就是用新的bgr值替换掉旧的bgr值。</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> cv2
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+image = cv2.imread(<span class="hljs-string">"wuhuan.jpg"</span>, <span class="hljs-number">1</span>)
+cv2.imshow(<span class="hljs-string">'image'</span>, image)
+image_info = image.shape
+height = image_info[<span class="hljs-number">0</span>]
+width = image_info[<span class="hljs-number">1</span>]
+dst = np.zeros((height, width, <span class="hljs-number">3</span>), np.uint8)
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(height):
+    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> range(width):
+        (b, g, r) = image[i, j]
+        b = b * <span class="hljs-number">1.5</span>   <span class="hljs-comment">#蓝色增强</span>
+        <span class="hljs-keyword">if</span> b &gt; <span class="hljs-number">255</span>:
+            b = <span class="hljs-number">255</span>
+        dst[i, j] = (b, g, r)
+cv2.imshow(<span class="hljs-string">'dst'</span>, dst)
+
+<span class="hljs-comment"># cv2.imshow("dst",dst)</span>
+cv2.waitKey()</code></pre></div>
+
+<p>上述代码中，我们遍历原图像的像素点，并将像素点的蓝色通道值进行增强，具体来说，就是将bgr中的b（蓝色通道）值在原基础上乘以1.5。当然，颜色通道值的范围为0~255，因此对于乘积结果我们需要做范围判断，对于超过255的结果需要置为255。</p>
+<img src="/2020/07/22/OpenCV%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/1502586-20200201133243421-246601062.png" srcset="/img/loading.gif" alt="img" style="zoom:50%;">
+
+<img src="/2020/07/22/OpenCV%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/1502586-20200201133503935-1269129577.png" srcset="/img/loading.gif" alt="img" style="zoom:50%;">
+
+<h2 id="4-11-彩色映射"><a href="#4-11-彩色映射" class="headerlink" title="4.11 彩色映射"></a>4.11 彩色映射</h2><p>与图像颜色映射用于增强某个或某几个颜色通道值不同的是，图像彩色映射主要应用于灰度图，并利用色度图产生伪彩色图像。 </p>
+<p>例如，假设我们想在地图上显示不同地区的温度。我们可以把地图上不同地区的温度数据叠加为灰度图像。其中，温度较低的地方用较暗的区域表示，温度较高的地区用较亮的区域表示。这样就形成了一个温度数据图像。这样的图像是很有意义的，我们能通过颜色的变化更好地感知不同区域温度的高地。除此之外，还有高度、压力、密度、湿度等我们都可以通过将其转换为彩色数据图像以实现数据的可视化。 </p>
+<p> OpenCV中一共定义了12种色度图，可以应用于灰度图像，产生不同的伪彩色图像。</p>
+<img src="/2020/07/22/OpenCV%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/1502586-20200202090339118-441973867.png" srcset="/img/loading.gif" alt="img" style="zoom:67%;">
+
+
+
+<p>上图中显示了一个关于色度图的视觉表示及OpenCV中的对应数值，其中，颜色条从左到右分别表示灰度值从小到大，即越小的灰度值将呈现越靠左边的颜色。 </p>
+<p>OpenCV中使用applyColorMap（src，colormap，dst=None）函数来产生伪彩色图像</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> cv2
+
+image = cv2.imread(<span class="hljs-string">"wuhuan.jpg"</span>,<span class="hljs-number">1</span>)
+gray=cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
+cv2.imshow(<span class="hljs-string">'gray'</span>,gray)
+colormap=cv2.applyColorMap(gray,cv2.COLORMAP_JET)  <span class="hljs-comment">#彩色映射--制作伪彩色图像</span>
+<span class="hljs-string">'''</span>
+<span class="hljs-string">参数1 src：必选参数。表示输入的原图像数组，原图像必须为灰度图或者是CV_8UC1、CV_8UC的彩色图</span>
+<span class="hljs-string">参数2 colormap：必选参数。用于设置图像彩色映射的参考色度图</span>
+<span class="hljs-string">'''</span>
+cv2.imshow(<span class="hljs-string">'color'</span>,colormap)
+cv2.waitKey()</code></pre></div>
+
+<p>效果图：</p>
+<img src="/2020/07/22/OpenCV%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/1502586-20200202093755511-1472659532.png" srcset="/img/loading.gif" alt="img" style="zoom:50%;">
+
+
+
+<img src="/2020/07/22/OpenCV%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/1502586-20200202093820857-1784080258.png" srcset="/img/loading.gif" alt="img" style="zoom:50%;">
+
+<h1 id="第5章-计算机视觉加强之图像绘制"><a href="#第5章-计算机视觉加强之图像绘制" class="headerlink" title="第5章 计算机视觉加强之图像绘制"></a>第5章 计算机视觉加强之图像绘制</h1><h2 id="5-1-形状绘制"><a href="#5-1-形状绘制" class="headerlink" title="5.1 形状绘制"></a>5.1 形状绘制</h2><h3 id="5-1-1-线段绘制"><a href="#5-1-1-线段绘制" class="headerlink" title="5.1.1 线段绘制"></a>5.1.1 线段绘制</h3><p>在使用OpenCV处理图像时，我们有时候会需要在图像上画线段、矩形等。OpenCV中使用</p>
+<div class="hljs"><pre><code class="hljs python">line（img，pt1，pt2，color，thickness=<span class="hljs-literal">None</span>，lineType=<span class="hljs-literal">None</span>，shift=<span class="hljs-literal">None</span>）</code></pre></div>
+
+<p>函数进行线段的绘制</p>
+<ul>
+<li>参数2和参数3 pt1，pt2：必选参数。线段的坐标点，分别表示起始点和终止点</li>
+<li>参数4 color：必选参数。用于设置线段的颜色</li>
+<li>参数5 thickness：可选参数。用于设置线段的宽度</li>
+<li>参数6 lineType：可选参数。用于设置线段的类型，可选8（8邻接连接线-默认）、4（4邻接连接线）和cv2.LINE_AA 为抗锯齿</li>
+</ul>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> cv2
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+new_ImageInfo = (<span class="hljs-number">500</span>, <span class="hljs-number">500</span>, <span class="hljs-number">3</span>)
+dst = np.zeros(new_ImageInfo, np.uint8)
+
+cv2.line(dst, (<span class="hljs-number">0</span>, <span class="hljs-number">0</span>), (<span class="hljs-number">300</span>, <span class="hljs-number">300</span>), (<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">255</span>))
+cv2.line(dst, (<span class="hljs-number">290</span>, <span class="hljs-number">430</span>), (<span class="hljs-number">330</span>, <span class="hljs-number">305</span>), (<span class="hljs-number">255</span>, <span class="hljs-number">0</span>, <span class="hljs-number">255</span>), <span class="hljs-number">30</span>)
+cv2.line(dst, (<span class="hljs-number">190</span>, <span class="hljs-number">430</span>), (<span class="hljs-number">230</span>, <span class="hljs-number">305</span>), (<span class="hljs-number">0</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>), <span class="hljs-number">30</span>, cv2.LINE_AA)
+cv2.imshow(<span class="hljs-string">'dst'</span>, dst)
+cv2.waitKey(<span class="hljs-number">0</span>)</code></pre></div>
+
+
+
+<h3 id="5-1-2-矩形绘制"><a href="#5-1-2-矩形绘制" class="headerlink" title="5.1.2 矩形绘制"></a>5.1.2 矩形绘制</h3><p>OpenCV中为我们提供了绘制矩形的函数</p>
+<div class="hljs"><pre><code class="hljs python">rectangle（img，pt1，pt2，color，thickness=<span class="hljs-literal">None</span>，lineType=<span class="hljs-literal">None</span>，shift=<span class="hljs-literal">None</span>）</code></pre></div>
+
+<ul>
+<li>参数2和参数3 pt1，pt2：必选参数。矩形的顶点，分别表示顶点与对角顶点，即矩形的左上角与右下角（这两个顶点可以确定一个唯一的矩形）</li>
+<li>参数4 color：必选参数。用于设置矩形的颜色</li>
+<li>参数5 thickness：可选参数。用于设置矩形边的宽度，<strong><em>当值为负数时，表示对矩形进行填充</em></strong></li>
+<li>参数6 lineType：可选参数。用于设置线段的类型，可选8（8邻接连接线-默认）、4（4邻接连接线）和cv2.LINE_AA 为抗锯齿</li>
+</ul>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> cv2
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+<span class="hljs-comment">#矩形的绘制</span>
+new_ImageInfo = (<span class="hljs-number">500</span>, <span class="hljs-number">500</span>, <span class="hljs-number">3</span>)
+dst = np.zeros(new_ImageInfo, np.uint8)
+
+cv2.rectangle(dst, (<span class="hljs-number">0</span>, <span class="hljs-number">0</span>), (<span class="hljs-number">300</span>, <span class="hljs-number">300</span>), (<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">255</span>))
+cv2.rectangle(dst, (<span class="hljs-number">290</span>, <span class="hljs-number">430</span>), (<span class="hljs-number">330</span>, <span class="hljs-number">305</span>), (<span class="hljs-number">255</span>, <span class="hljs-number">0</span>, <span class="hljs-number">255</span>), <span class="hljs-number">-1</span>)
+cv2.rectangle(dst, (<span class="hljs-number">190</span>, <span class="hljs-number">430</span>), (<span class="hljs-number">230</span>, <span class="hljs-number">305</span>), (<span class="hljs-number">0</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>), <span class="hljs-number">2</span>, cv2.LINE_AA)
+cv2.imshow(<span class="hljs-string">'dst'</span>, dst)
+cv2.waitKey(<span class="hljs-number">0</span>)</code></pre></div>
+
+
+
+<h3 id="5-1-3-圆形绘制"><a href="#5-1-3-圆形绘制" class="headerlink" title="5.1.3 圆形绘制"></a>5.1.3 圆形绘制</h3><div class="hljs"><pre><code class="hljs python">cv2.circle(img, center, radius, color, thickness, lineType, shift)</code></pre></div>
+
+<p><strong>img：</strong>要画的圆所在的矩形或图像</p>
+<p><strong>center：</strong>圆心坐标</p>
+<p><strong>radius：</strong>圆的半径值</p>
+<p><strong>color：</strong>圆边框颜色，颜色值为BGR，即：（0，0，255）为红色</p>
+<p><strong>thickness：</strong>圆边框大小，负值表示该圆是一个填充图形</p>
+<p><strong>lineType：</strong>线条类型，三个参数可选0，4，8，感兴趣的亲测</p>
+<p><strong>shift：</strong>圆心坐标和半径的小数点位数</p>
+<p>【注】img、center、radius、color为必须参数，其它为可选项。</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> cv2
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+<span class="hljs-comment">#圆形的绘制</span>
+new_ImageInfo = (<span class="hljs-number">500</span>, <span class="hljs-number">500</span>, <span class="hljs-number">3</span>)
+dst = np.zeros(new_ImageInfo, np.uint8)
+
+cv2.circle(dst, (<span class="hljs-number">100</span>, <span class="hljs-number">90</span>), <span class="hljs-number">50</span>, (<span class="hljs-number">255</span>, <span class="hljs-number">0</span>, <span class="hljs-number">255</span>), <span class="hljs-number">-1</span>)
+cv2.circle(dst, (<span class="hljs-number">190</span>, <span class="hljs-number">250</span>), <span class="hljs-number">100</span>, (<span class="hljs-number">0</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>), <span class="hljs-number">2</span>, cv2.LINE_AA)
+
+cv2.imshow(<span class="hljs-string">'dst'</span>, dst)
+cv2.waitKey(<span class="hljs-number">0</span>)</code></pre></div>
+
+
+
+<h3 id="5-1-4-椭圆形绘制"><a href="#5-1-4-椭圆形绘制" class="headerlink" title="5.1.4 椭圆形绘制"></a>5.1.4 椭圆形绘制</h3><div class="hljs"><pre><code class="hljs python">cv2.ellipse(img, center, axes, rotateAngle, startAngle, endAngle, color, thickness, lineType, shift)</code></pre></div>
+
+<p><strong>img：</strong>要画的椭圆所在的矩形或图像</p>
+<p><strong>center：</strong>椭圆的圆心坐标，注意这是一个坐标值</p>
+<p><strong>axes：</strong>椭圆的长轴和短轴的长度，这是一个元组信息</p>
+<p><strong>rotateAngle：</strong>椭圆旋转的角度</p>
+<p><strong>startAngle：</strong>椭圆弧起始角度</p>
+<p><strong>endAngle：</strong>椭圆弧终止角度</p>
+<p><strong>color：</strong>椭圆线条颜色，颜色值为BGR，即：（0，0，255）为红色</p>
+<p><strong>thickness：</strong>椭圆的线条宽度</p>
+<p><strong>lineType：</strong>线条类型，三个参数可选LINE_4、LINE_8、LINE_AA，感兴趣的可以亲测</p>
+<p><strong>shift：</strong>椭圆坐标点小数点位数</p>
+<h3 id="5-1-5-多边形绘制"><a href="#5-1-5-多边形绘制" class="headerlink" title="5.1.5 多边形绘制"></a>5.1.5 多边形绘制</h3><div class="hljs"><pre><code class="hljs python">cv2.polylines(img, pts, isClosed, color, thickness, lineType, shift)</code></pre></div>
+
+<p><strong>img：</strong>多边形所在的矩形或图像</p>
+<p><strong>pts：</strong>多边形各边的坐标点组成的一个列表，是一个numpy的数组类型</p>
+<p><strong>isClosed：</strong>值为True或False，若为True则表示一个闭合的多边形，若为False则不闭合</p>
+<p><strong>color：</strong>线条颜色，颜色值为BGR，即：（0，0，255）为红色</p>
+<p><strong>thickness：</strong>线条宽度</p>
+<p><strong>lineType：</strong>线条类型，三个参数可选LINE_4、LINE_8、LINE_AA，感兴趣的可以亲测</p>
+<p><strong>shift：</strong>坐标点小数点位数</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> cv2
+<span class="hljs-comment"># 多边形绘制</span>
+img = np.zeros((<span class="hljs-number">512</span>, <span class="hljs-number">512</span>, <span class="hljs-number">3</span>), np.uint8)
+pts = np.array([[<span class="hljs-number">100</span>, <span class="hljs-number">50</span>], [<span class="hljs-number">200</span>, <span class="hljs-number">300</span>], [<span class="hljs-number">70</span>, <span class="hljs-number">20</span>], [<span class="hljs-number">250</span>, <span class="hljs-number">250</span>], [<span class="hljs-number">500</span>, <span class="hljs-number">100</span>]], np.int32)
+pts = pts.reshape((<span class="hljs-number">-1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>))
+cv2.polylines(img, [pts], <span class="hljs-literal">True</span>, (<span class="hljs-number">0</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>))
+cv2.imshow(<span class="hljs-string">'line'</span>, img)
+cv2.waitKey()</code></pre></div>
+
+
+
+<h2 id="5-2-文字绘制"><a href="#5-2-文字绘制" class="headerlink" title="5.2 文字绘制"></a>5.2 文字绘制</h2><div class="hljs"><pre><code class="hljs python">cv2.putText(img, text, org, fontFace, fontScale, color, thickness, lineType, bottomLeftOrigin)</code></pre></div>
+
+<p><strong>img：</strong>文字要放置的矩形或图像</p>
+<p><strong>text：</strong>文字内容</p>
+<p><strong>org：</strong>文字在图像中的左下角坐标</p>
+<p><strong>fontFace：</strong>字体类型，可选参数有以下几种</p>
+<p>FONT_HERSHEY_SIMPLEX,FONT_HERSHEY_PLAIN,FONT_HERSHEY_DUPLEX,FONT_HERSHEY_COMPLEX, FONT_HERSHEY_TRIPLEX, FONT_HERSHEY_COMPLEX_SMALL, FONT_HERSHEY_SCRIPT_SIMPLEX, orFONT_HERSHEY_SCRIPT_COMPLEX</p>
+<p>上述类型的字体可以结合 FONT_HERSHEY_ITALIC一起来使用，从而使字体产生斜体效果。</p>
+<p><strong>fontScale：</strong>缩放比例，用该值乘以程序字体默认大小即为字体大小</p>
+<p><strong>color：</strong>字体颜色，颜色值为BGR，即：（0，0，255）为红色</p>
+<p><strong>thickness：</strong>字体线条宽度</p>
+<p><strong>lineType:</strong>  线条类型。为了更好看，建议使用lineType = cv.LINE_AA。</p>
+<p><strong>bottomLeftOrigin：</strong>默认为 true，即表示图像数据原点在左下角；若为False则表示图像数据原点在左上角。</p>
+<p>【注】color（含）之前的参数为必须参数，其它为可选项。</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> cv2
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+<span class="hljs-comment">#文字的绘制</span>
+img = np.zeros((<span class="hljs-number">512</span>, <span class="hljs-number">512</span>, <span class="hljs-number">3</span>), np.uint8)
+font = cv2.FONT_HERSHEY_SIMPLEX
+cv2.putText(img, <span class="hljs-string">'I love Chestnut!!'</span>, (<span class="hljs-number">120</span>, <span class="hljs-number">250</span>), font, <span class="hljs-number">1</span>, (<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">255</span>), <span class="hljs-number">2</span>, cv2.LINE_AA, <span class="hljs-literal">False</span>)
+cv2.imshow(<span class="hljs-string">'show'</span>, img)
+cv2.waitKey()</code></pre></div>
+
+
+
+<h2 id="5-3-图像绘制"><a href="#5-3-图像绘制" class="headerlink" title="5.3 图像绘制"></a>5.3 图像绘制</h2><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> cv2
+
+<span class="hljs-comment">#图形的绘制</span>
+img1 = cv2.imread(<span class="hljs-string">'../timgjpg.jpg'</span>, <span class="hljs-number">1</span>)
+img2 = cv2.imread(<span class="hljs-string">'../timg.jpg'</span>, <span class="hljs-number">1</span>)
+
+height = int(img2.shape[<span class="hljs-number">0</span>] * <span class="hljs-number">0.3</span>)
+width = int(img2.shape[<span class="hljs-number">1</span>] * <span class="hljs-number">0.3</span>)
+img2 = cv2.resize(img2, (width, height))
+
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">0</span>, height):
+    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> range(<span class="hljs-number">0</span>, width):
+        img1[<span class="hljs-number">100</span> + i, <span class="hljs-number">100</span> + j] = img2[i, j]
+
+cv2.imshow(<span class="hljs-string">'img1'</span>, img1)
+cv2.waitKey()</code></pre></div>
+
+<h1 id="第6章-机器学习"><a href="#第6章-机器学习" class="headerlink" title="第6章 机器学习"></a>第6章 机器学习</h1><h2 id="6-1-视频分解图片"><a href="#6-1-视频分解图片" class="headerlink" title="6.1 视频分解图片"></a>6.1 视频分解图片</h2><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> cv2.cv2 <span class="hljs-keyword">as</span> cv
+
+cap = cv.VideoCapture(<span class="hljs-string">'../fruits.mp4'</span>)
+isOpened = cap.isOpened
+print(isOpened)
+
+i = <span class="hljs-number">0</span>
+<span class="hljs-keyword">while</span> isOpened:
+    <span class="hljs-keyword">if</span> i == <span class="hljs-number">100</span>:
+        <span class="hljs-keyword">break</span>
+    <span class="hljs-keyword">else</span>:
+        i = i + <span class="hljs-number">1</span>
+    (flag, frame) = cap.read()
+    frame = cv.flip(frame, <span class="hljs-number">-1</span>)
+    filename = <span class="hljs-string">'image'</span>+str(i)+<span class="hljs-string">'.jpg'</span>
+    print(filename)
+    <span class="hljs-keyword">if</span> flag:
+        cv.imwrite(filename, frame, [cv.IMWRITE_JPEG_QUALITY, <span class="hljs-number">100</span>])
+print(<span class="hljs-string">'end!'</span>)</code></pre></div>
+
+<h2 id="6-2-图片合成"><a href="#6-2-图片合成" class="headerlink" title="6.2 图片合成"></a>6.2 图片合成</h2><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">import</span> cv2.cv2 <span class="hljs-keyword">as</span> cv
+<span class="hljs-keyword">import</span> os
+
+picexp = <span class="hljs-string">r'F:\yolo\keras-yolo3-underwater\VOCdevkit\VOC2007\JPEGImages\000000.jpg'</span>
+img = cv.imread(picexp, <span class="hljs-number">1</span>)
+path = <span class="hljs-string">r'F:\yolo\keras-yolo3-underwater\VOCdevkit\VOC2007\JPEGImages'</span>
+size = (img.shape[<span class="hljs-number">1</span>], img.shape[<span class="hljs-number">0</span>])
+print(size)
+
+fourcc = cv.VideoWriter_fourcc(*<span class="hljs-string">'MJPG'</span>)
+VideoWriter = cv.VideoWriter(<span class="hljs-string">'../sea.avi'</span>, fourcc, <span class="hljs-number">30.0</span>, size)
+
+filelist = os.listdir(path)
+<span class="hljs-keyword">for</span> picfile <span class="hljs-keyword">in</span> filelist:
+    picpath = os.path.join(path, picfile)
+    print(picpath)
+    img = cv.imread(picpath, <span class="hljs-number">1</span>)
+    VideoWriter.write(img)
+    cv.imshow(<span class="hljs-string">'frame'</span>, img)
+    <span class="hljs-keyword">if</span> cv.waitKey(<span class="hljs-number">1</span>) &amp; <span class="hljs-number">0xFF</span> == ord(<span class="hljs-string">'q'</span>):
+        <span class="hljs-keyword">break</span>
+
+print(<span class="hljs-string">'end!'</span>)
+VideoWriter.release()
+cv.destroyAllWindows()</code></pre></div>
+
+<h2 id="6-3-Haar特征"><a href="#6-3-Haar特征" class="headerlink" title="6.3 Haar特征"></a>6.3 Haar特征</h2><p>Haar特征是一种反映图像的灰度变化的，像素分模块求差值的一种特征。它分为三类：边缘特征、线性特征、中心特征和对角线特征。用黑白两种矩形框组合成特征模板，在特征模板内用 黑色矩形像素和 减去 白色矩形像素和来表示这个模版的特征值。例如：脸部的一些特征能由矩形模块差值特征简单的描述，如：眼睛要比脸颊颜色要深，鼻梁两侧比鼻梁颜色要深，嘴巴比周围颜色要深等。但矩形特征只对一些简单的图形结构，如边缘、线段较敏感，所以只能描述在特定方向（水平、垂直、对角）上有明显像素模块梯度变化的图像结构。</p>
+<p><img src="/2020/07/22/OpenCV%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/20160816165648862.jpg" srcset="/img/loading.gif" alt></p>
+<p>如上图A、B、D模块的图像Haar特征为：<br>$$<br>v=Sum白-Sum黑<br>$$<br>C 模块的图像Haar特征为：<br>$$<br>v=Sum白(左)+Sum白(右)-2*Sum黑<br>$$<br>这里要保证白色矩形模块中的像素与黑色矩形的模块的像素数相同，所以乘2</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/OpenCV/">OpenCV</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/OpenCV/">OpenCV</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Image/">Image</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/07/31/LeetCode-%E5%88%9D%E7%BA%A7-%E7%88%AC%E6%A5%BC%E6%A2%AF%E9%97%AE%E9%A2%98%E5%B8%A6%E6%9D%A5%E7%9A%84%E6%80%9D%E8%80%83/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">[LeetCode-初级]爬楼梯问题带来的思考</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/07/22/Matplotlib%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/">
+                        <span class="hidden-mobile">Matplotlib快速入门</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    function loadValine() {
+      addScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "6rS38oXgbqlO5KI3Wx39pRKE-gzGzoHsz",
+          app_key: "jAT77piz4ukjWTMHISbSLW0x",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    }
+    waitElementVisible('vcomments', loadValine);
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://valine.js.org" target="_blank" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+    <!-- APlayer 音乐播放器 -->
+    <div id="aplayer"></div>
+    <script defer src="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.js" ></script>
+<link  rel="stylesheet" href="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css" />
+<script type="text/javascript">
+  var oldLoadAp = window.onload;
+  window.onload = function () {
+    oldLoadAp && oldLoadAp();
+
+    new APlayer({
+      container: document.getElementById('aplayer'),
+      fixed: true,
+      autoplay: 'false' === 'true',
+      loop: 'all',
+      order: 'random',
+      theme: '#b7daff',
+      preload: 'none',
+      audio: [{"name":"让我留在你身边 (原唱作版)","artist":"唐汉霄","url":"/songs/让我留在你身边 (原唱作版).mp3","cover":"/img/cover/让我留在你身边.jpg"},{"name":"Shape of You","artist":"Ed Sheeran","url":"/songs/Ed Sheeran - Shape of You.mp3","cover":"/img/cover/shapeofyou.jpg"},{"name":"1845","artist":"Hotbloods","url":"/songs/1845.mp3","cover":"/img/cover/1845.jpg"},{"name":"月牙湾","artist":"F.I.R.飞儿乐团","url":"/songs/F.I.R.飞儿乐团-月牙湾.mp3","cover":"/img/cover/月牙湾.jpg"},{"name":"Walk Thru Fire","artist":"Vicetone / Meron Ryan","url":"/songs/Walk Thru Fire.mp3","cover":"/img/cover/wsf.jpg"},{"name":"Wrap Me In Plastic","artist":"CHROMANCE","url":"/songs/Wrap Me In Plastic - CHROMANCE.m4a","cover":"/img/cover/wmip.jpg"},{"name":"飞鸟和蝉","artist":"任然","url":"/songs/飞鸟和蝉-任然.m4a","cover":"/img/cover/飞鸟和蝉.jpg"},{"name":"可惜没如果","artist":"林俊杰","url":"/songs/林俊杰-可惜没如果.mp3","cover":"/img/cover/可惜没如果.jpg"},{"name":"莫问归期","artist":"蒋雪儿","url":"/songs/莫问归期-蒋雪儿.m4a","cover":"/img/cover/莫问归期.jpg"},{"name":"失恋阵线联盟","artist":"草蜢","url":"/songs/失恋阵线联盟.mp3","cover":"/img/cover/失恋阵线联盟.jpg"},{"name":"大城小爱","artist":"王力宏","url":"/songs/王力宏-大城小爱.mp3","cover":"/img/cover/大城小爱.png"}]
+    });
+  }
+</script>
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Python & OpenCV Quick Start&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 200,
+      loop: true,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script>
+
+  
+
+
+
+  
+  
+    <script>
+      !function (e, t, a) {
+        function r() {
+          for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+          requestAnimationFrame(r)
+        }
+
+        function n() {
+          var t = "function" == typeof e.onclick && e.onclick;
+          e.onclick = function (e) {
+            t && t(), o(e)
+          }
+        }
+
+        function o(e) {
+          var a = t.createElement("div");
+          a.className = "heart", s.push({
+            el: a,
+            x: e.clientX - 5,
+            y: e.clientY - 5,
+            scale: 1,
+            alpha: 1,
+            color: c()
+          }), t.body.appendChild(a)
+        }
+
+        function i(e) {
+          var a = t.createElement("style");
+          a.type = "text/css";
+          try {
+            a.appendChild(t.createTextNode(e))
+          } catch (t) {
+            a.styleSheet.cssText = e
+          }
+          t.getElementsByTagName("head")[0].appendChild(a)
+        }
+
+        function c() {
+          return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+        }
+
+        var s = [];
+        e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+          setTimeout(e, 1e3 / 60)
+        }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
+      }(window, document);
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,977 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/icon-small-black.png">
+  <link rel="icon" type="image/png" href="/img/icon-small-black.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="Lehi J.">
+  <meta name="author" content="Lehi Chiang">
+  <meta name="keywords" content="AI,Java,Python">
+  <title>回文串的那些事儿（一） - Lehi J.</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/gruvbox-dark.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Lehi J." type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Lehi J.</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/code.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      Lehi Chiang
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-08-04 15:24" pubdate>
+        2020年8月4日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      30
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">如何判断回文串数组和链表？</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <p class="note note-success">回顾经典回文串链问题</p>
+
+<h1 id="一-回文数"><a href="#一-回文数" class="headerlink" title="一.  回文数"></a>一.  回文数</h1><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><div class="notranslate"><p>判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。</p>
+
+<p><strong>示例 1:</strong></p>
+
+<div class="hljs"><pre><div style="color:white"><strong>输入:</strong> 121
+<strong>输出:</strong> true</div></pre></div>
+
+
+<p><strong>示例&nbsp;2:</strong></p>
+
+<div class="hljs"><pre><div style="color:white"><strong>输入:</strong> -121
+<strong>输出:</strong> false
+<strong>解释:</strong> 从左向右读, 为 -121 。 从右向左读, 为 121- 。因此它不是一个回文数。</div></pre></div>
+
+
+<p><strong>示例 3:</strong></p>
+
+<div class="hljs"><pre><div style="color:white"><strong>输入:</strong> 10
+<strong>输出:</strong> false
+<strong>解释:</strong> 从右向左读, 为 01 。因此它不是一个回文数。</div></pre></div>
+
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p style="text-indent: 2em;">
+    在这道题中，我们可以借助列表的反转方法来判断数字是否是一个回文数字。首先，由于回文串的对称性，负数一定不是回文数，那么我们只需对正数进行字符串转换。之后将字符串放到list中，使用reverse方法来判断反转之后的list和原list是否相同。若相同表示是回文数字，否则不是回文数字。
+</p>
+
+<p style="text-indent: 2em;">
+    这种方法的一个缺点就是另外开辟了新的数组空间，空间复杂度偏高。
+</p>
+
+<p style="text-indent: 2em;">
+    另外一种做法就是通过取整和取余操作获取整数中对应的数字进行比较。举个例子：1221 这个数字。通过计算 1221 / 1000， 得首位1；通过计算 1221 % 10， 可得末位 1；进行比较；再将 22 取出来继续比较
+</p>
+
+<img src="/2020/08/04/%E5%9B%9E%E6%96%87%E4%B8%B2%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF%EF%BC%88%E4%B8%80%EF%BC%89/p1.gif" srcset="/img/loading.gif" alt="image-20200716153831941" style="zoom:50%;display: flex;margin: 0 auto;">
+
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><div class="hljs"><pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">isPalindrome</span><span class="hljs-params">(self, x: int)</span> -&gt; bool:</span>
+        <span class="hljs-keyword">if</span> x&lt;<span class="hljs-number">0</span>:
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>
+        <span class="hljs-keyword">else</span>:
+            num_list = list(str(x))
+            reverse = <span class="hljs-string">''</span>.join(num_list[::<span class="hljs-number">-1</span>])
+            <span class="hljs-keyword">if</span> str(x) == reverse:
+                <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>
+            <span class="hljs-keyword">else</span>:
+                <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span></code></pre></div>
+
+<div class="hljs"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isPalindrome</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span> </span>&#123;
+        <span class="hljs-comment">//边界判断</span>
+        <span class="hljs-keyword">if</span> (x &lt; <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+        <span class="hljs-keyword">int</span> div = <span class="hljs-number">1</span>;
+        <span class="hljs-comment">//</span>
+        <span class="hljs-keyword">while</span> (x / div &gt;= <span class="hljs-number">10</span>) div *= <span class="hljs-number">10</span>;
+        <span class="hljs-keyword">while</span> (x &gt; <span class="hljs-number">0</span>) &#123;
+            <span class="hljs-keyword">int</span> left = x / div;
+            <span class="hljs-keyword">int</span> right = x % <span class="hljs-number">10</span>;
+            <span class="hljs-keyword">if</span> (left != right) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+            x = (x % div) / <span class="hljs-number">10</span>;
+            div /= <span class="hljs-number">100</span>;
+        &#125;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+    &#125;
+&#125;</code></pre></div>
+
+<h1 id="二-验证回文串"><a href="#二-验证回文串" class="headerlink" title="二. 验证回文串"></a>二. 验证回文串</h1><h2 id="问题描述-1"><a href="#问题描述-1" class="headerlink" title="问题描述"></a>问题描述</h2><div class="notranslate"><p>给定一个字符串，验证它是否是回文串，只考虑字母和数字字符，可以忽略字母的大小写。</p>
+
+<p><strong>说明：</strong>本题中，我们将空字符串定义为有效的回文串。</p>
+
+<p><strong>示例 1:</strong></p>
+
+<div class="hljs"><pre><div style="color:white"><strong>输入:</strong> "A man, a plan, a canal: Panama"
+<strong>输出:</strong> true</div></pre></div>
+
+
+<p><strong>示例 2:</strong></p>
+
+<div class="hljs"><pre><div style="color:white"><strong>输入:</strong> "race a car"
+<strong>输出:</strong> false</div></pre></div>
+
+<h2 id="解题思路-1"><a href="#解题思路-1" class="headerlink" title="解题思路"></a>解题思路</h2><p style="text-indent: 2em;">
+    在这道题中，我们的限定条件是只考虑字符串其中的字母和数字部分，并且字母大小写可忽略。我们可以使用双指针的方法，一个只指向开头字符，一个指向末尾字符，两指针所指字符分别比较。如果当前指针所指字符不是字母或数字，那么就越过这一字符，指向下一个字符，直到是字母或数字为止。这种双指针的方法，只需遍历一遍字符串即可判断。
+</p>
+
+<h2 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h2><div class="hljs"><pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">isPalindrome</span><span class="hljs-params">(self, s: str)</span> -&gt; bool:</span>
+        i, j = <span class="hljs-number">0</span>, len(s)<span class="hljs-number">-1</span>
+        <span class="hljs-keyword">while</span> i &lt; j :
+            <span class="hljs-keyword">while</span> i&lt;j <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> s[i].isalnum():
+                i += <span class="hljs-number">1</span>
+            <span class="hljs-keyword">while</span> i&lt;j <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> s[j].isalnum():
+                j -= <span class="hljs-number">1</span>
+            <span class="hljs-keyword">if</span> i &lt; j :
+                <span class="hljs-keyword">if</span> s[i].lower() != s[j].lower():
+                    <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>
+                i, j = i+<span class="hljs-number">1</span>, j<span class="hljs-number">-1</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span></code></pre></div>
+
+<p><strong>复杂度分析</strong></p>
+<ul>
+<li>时间复杂度：<code>O(|s|)</code>，其中<code>∣s∣</code> 是字符串s 的长度。</li>
+<li>空间复杂度：<code>O(1)</code>。</li>
+</ul>
+<h1 id="三-验证回文字符串Ⅱ"><a href="#三-验证回文字符串Ⅱ" class="headerlink" title="三. 验证回文字符串Ⅱ"></a>三. 验证回文字符串Ⅱ</h1><h2 id="问题描述-2"><a href="#问题描述-2" class="headerlink" title="问题描述"></a>问题描述</h2><div class="notranslate"><p>给定一个非空字符串&nbsp;<code>s</code>，<strong>最多</strong>删除一个字符。判断是否能成为回文字符串。</p>
+
+<p><strong>示例 1:</strong></p>
+
+<div class="hljs"><pre><div style="color:white"><strong>输入:</strong> "aba"
+<strong>输出:</strong> True</div></pre></div>
+
+
+<p><strong>示例 2:</strong></p>
+
+<div class="hljs"><pre><div style="color:white"><strong>输入:</strong> "abca"
+<strong>输出:</strong> True
+<strong>解释:</strong> 你可以删除c字符。</div></pre></div>
+
+
+<p><strong>注意:</strong></p>
+
+<ol>
+    <li>字符串只包含从 a-z 的小写字母。字符串的最大长度是50000。</li>
+</ol>
+
+
+<h2 id="解题思路-2"><a href="#解题思路-2" class="headerlink" title="解题思路"></a>解题思路</h2><p style="text-indent: 2em;">
+    考虑最朴素的方法：首先判断原串是否是回文串，如果是，就返回 true；如果不是，则枚举每一个位置作为被删除的位置，再判断剩下的字符串是否是回文串。这种做法的渐进时间复杂度是 O(n^2)的，会超出时间限制。
+</p>
+
+<p style="text-indent: 2em;">
+我们换一种想法。首先考虑如果不允许删除字符，如何判断一个字符串是否是回文串。常见的做法是使用双指针。定义左右指针，初始时分别指向字符串的第一个字符和最后一个字符，每次判断左右指针指向的字符是否相同，如果不相同，则不是回文串；如果相同，则将左右指针都往中间移动一位，直到左右指针相遇，则字符串是回文串。
+</p>
+
+<p style="text-indent: 2em;">
+    在允许最多删除一个字符的情况下，同样可以使用双指针，通过贪心算法实现。初始化两个指针 low 和 high 分别指向字符串的第一个字符和最后一个字符。每次判断两个指针指向的字符是否相同，如果相同，则更新指针，令 low = low + 1 和 high = high - 1，然后判断更新后的指针范围内的子串是否是回文字符串。如果两个指针指向的字符不同，则两个字符中必须有一个被删除，此时我们就分成两种情况：即删除左指针对应的字符，留下子串s[low + 1], ..., s[high]，或者删除右指针对应的字符，留下子串 s[low], s[low + 1], ..., s[high - 1]。当这两个子串中至少有一个是回文串时，就说明原始字符串删除一个字符之后就以成为回文串。
+</p>
+
+<img src="/2020/08/04/%E5%9B%9E%E6%96%87%E4%B8%B2%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF%EF%BC%88%E4%B8%80%EF%BC%89/680_fig1.png" srcset="/img/loading.gif" alt="image-20200716153831941" style="zoom:50%;display: flex;margin: 0 auto;">
+
+<h2 id="代码实现-2"><a href="#代码实现-2" class="headerlink" title="代码实现"></a>代码实现</h2><div class="hljs"><pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">validPalindrome</span><span class="hljs-params">(self, s: str)</span> -&gt; bool:</span>
+        <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">deletePalindrome</span><span class="hljs-params">(low, high)</span>:</span>
+            <span class="hljs-keyword">while</span> low &lt; high:
+                <span class="hljs-keyword">if</span> s[low] == s[high]:
+                    low += <span class="hljs-number">1</span>
+                    high -= <span class="hljs-number">1</span>
+                <span class="hljs-keyword">else</span>:
+                    <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>
+
+        low, high = <span class="hljs-number">0</span>, len(s)<span class="hljs-number">-1</span>
+        <span class="hljs-keyword">while</span> low&lt;high:
+            <span class="hljs-keyword">if</span> s[low] == s[high]:
+                low += <span class="hljs-number">1</span>
+                high -= <span class="hljs-number">1</span>
+            <span class="hljs-keyword">else</span>:
+                <span class="hljs-keyword">return</span> deletePalindrome(low+<span class="hljs-number">1</span>, high) <span class="hljs-keyword">or</span> deletePalindrome(low, high<span class="hljs-number">-1</span>)
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span></code></pre></div>
+
+
+
+<h1 id="四-回文链表"><a href="#四-回文链表" class="headerlink" title="四. 回文链表"></a>四. 回文链表</h1><h2 id="问题描述-3"><a href="#问题描述-3" class="headerlink" title="问题描述"></a>问题描述</h2><div class="notranslate"><p>请判断一个链表是否为回文链表。</p>
+
+<p><strong>示例 1:</strong></p>
+
+<div class="hljs"><pre><div style="color:white"><strong>输入:</strong> 1-&gt;2
+<strong>输出:</strong> false</div></pre></div>
+
+
+<p><strong>示例 2:</strong></p>
+
+<div class="hljs"><pre><div style="color:white"><strong>输入:</strong> 1-&gt;2-&gt;2-&gt;1
+<strong>输出:</strong> true</div></pre></div>
+
+
+<p><strong>进阶：</strong><br>
+你能否用&nbsp;O(n) 时间复杂度和 O(1) 空间复杂度解决此题？</p>
+
+
+<h2 id="解题思路-3"><a href="#解题思路-3" class="headerlink" title="解题思路"></a>解题思路</h2><p style="text-indent: 2em;">第一步，我们需要遍历链表将值复制到数组列表中。我们用 currentNode 指向当前节点。每次迭代向数组添加 currentNode.val，并更新 currentNode = currentNode.next，当 currentNode = null 则停止循环。</p>
+
+<p style="text-indent: 2em;">执行第二部的最佳方法取决于你使用的变成语言。在 Python 中，很容易构造一个列表的反向副本，也很容易比较两个列表。在其他语言中，就没有那么简单。因此最好使用双指针法来检查是否为回文。我们在起点放置一个指针，在结尾放置一个指针，每一次迭代判断两个指针指向的元素是否相同，若不同，返回 false；相同则将两个指针向内移动，并继续判断，直到相遇。</p>
+
+<p style="text-indent: 2em;">在编码的过程中，注意我们比较的是节点值的大小，而不是节点本身。正确的比较方式是：node_1.val==node_2.val。而 node_1==node_2 是错误的。</p>
+
+<h2 id="代码实现-3"><a href="#代码实现-3" class="headerlink" title="代码实现"></a>代码实现</h2><div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># Definition for singly-linked list.</span>
+<span class="hljs-comment"># class ListNode:</span>
+<span class="hljs-comment">#     def __init__(self, x):</span>
+<span class="hljs-comment">#         self.val = x</span>
+<span class="hljs-comment">#         self.next = None</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">isPalindrome</span><span class="hljs-params">(self, head: ListNode)</span> -&gt; bool:</span>
+        listt = []
+        <span class="hljs-keyword">while</span> head:
+            listt.append(head.val)
+            head = head.next
+        <span class="hljs-keyword">return</span> listt == listt[::<span class="hljs-number">-1</span>]</code></pre></div>
+
+<h2 id="进阶解法"><a href="#进阶解法" class="headerlink" title="进阶解法"></a>进阶解法</h2><p style="text-indent: 2em;">避免使用 O(n) 额外空间的方法就是改变输入。</p>
+
+<p style="text-indent: 2em;">我们可以将链表的后半部分反转（修改链表结构），然后将前半部分和后半部分进行比较。比较完成后我们应该将链表恢复原样。虽然不需要恢复也能通过测试用例，因为使用该函数的人不希望链表结构被更改。</p>
+
+<p><strong>算法：</strong></p>
+<p>我们可以分为以下几个步骤：</p>
+<ol>
+<li><p>找到前半部分链表的尾节点。</p>
+</li>
+<li><p>反转后半部分链表。</p>
+</li>
+<li><p>判断是否为回文。</p>
+</li>
+<li><p>恢复链表。</p>
+</li>
+<li><p>返回结果。</p>
+<p>执行步骤一，我们可以计算链表节点的数量，然后遍历链表找到前半部分的尾节点。</p>
+</li>
+</ol>
+<p style="text-indent: 2em;">或者可以使用快慢指针在一次遍历中找到：慢指针一次走一步，快指针一次走两步，快慢指针同时出发。当快指针移动到链表的末尾时，慢指针到链表的中间。通过慢指针将链表分为两部分。</p>
+
+<p style="text-indent: 2em;">若链表有奇数个节点，则中间的节点应该看作是前半部分。</p>
+
+<p style="text-indent: 2em;">步骤二可以使用在反向链表问题中找到解决方法来反转链表的后半部分。</p>
+
+<p style="text-indent: 2em;">步骤三比较两个部分的值，当后半部分到达末尾则比较完成，可以忽略计数情况中的中间节点。</p>
+
+<p style="text-indent: 2em;">步骤四与步骤二使用的函数相同，再反转一次恢复链表本身。</p>
+
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">isPalindrome</span><span class="hljs-params">(self, head: ListNode)</span> -&gt; bool:</span>
+        <span class="hljs-keyword">if</span> head <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>
+
+        <span class="hljs-comment"># Find the end of first half and reverse second half.</span>
+        first_half_end = self.end_of_first_half(head)
+        second_half_start = self.reverse_list(first_half_end.next)
+
+        <span class="hljs-comment"># Check whether or not there's a palindrome.</span>
+        result = <span class="hljs-literal">True</span>
+        first_position = head
+        second_position = second_half_start
+        <span class="hljs-keyword">while</span> result <span class="hljs-keyword">and</span> second_position <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:
+            <span class="hljs-keyword">if</span> first_position.val != second_position.val:
+                result = <span class="hljs-literal">False</span>
+            first_position = first_position.next
+            second_position = second_position.next
+
+        <span class="hljs-comment"># Restore the list and return the result.</span>
+        first_half_end.next = self.reverse_list(second_half_start)
+        <span class="hljs-keyword">return</span> result    
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">end_of_first_half</span><span class="hljs-params">(self, head)</span>:</span>
+        fast = head
+        slow = head
+        <span class="hljs-keyword">while</span> fast.next <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">and</span> fast.next.next <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:
+            fast = fast.next.next
+            slow = slow.next
+        <span class="hljs-keyword">return</span> slow
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">reverse_list</span><span class="hljs-params">(self, head)</span>:</span>
+        previous = <span class="hljs-literal">None</span>
+        current = head
+        <span class="hljs-keyword">while</span> current <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:
+            next_node = current.next
+            current.next = previous
+            previous = current
+            current = next_node
+        <span class="hljs-keyword">return</span> previous</code></pre></div>
+
+<p>反转链表使用的是头插法。</p>
+<p><strong>复杂度分析</strong></p>
+<ul>
+<li>时间复杂度：<code>O(n)</code>，其中 <code>n</code> 指的是链表的大小。</li>
+<li>空间复杂度：<code>O(1)</code>，我们是一个接着一个的改变指针，我们在堆栈上的堆栈帧不超过 <code>O(1)</code>。<br>该方法的缺点是，在并发环境下，函数运行时需要锁定其他线程或进程对链表的访问，因为在函数执执行过程中链表暂时断开。</li>
+</ul>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p style="text-indent: 2em;">回文串问题是经典的初级算法，回顾这一文章，不难发现解决回文的问题追根溯源可以归结以下几种方法：</p>
+
+<ul>
+<li>借助list反转实现判断</li>
+<li>借助双指针，前后分别进行判断</li>
+<li>链表借助list空间</li>
+<li>求出回文的中间节点，将后一半的回文反转后，与前一半回文依次进行比较</li>
+</ul>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://leetcode-cn.com/problems/palindrome-number/solution/hui-wen-shu-by-leetcode-solution/" target="_blank" rel="noopener">回文数</a></p>
+<p><a href="https://leetcode-cn.com/problems/valid-palindrome-ii/solution/yan-zheng-hui-wen-zi-fu-chuan-ii-by-leetcode-solut/" target="_blank" rel="noopener">验证回文字符串 Ⅱ</a></p>
+<p><a href="https://leetcode-cn.com/problems/palindrome-linked-list/solution/hui-wen-lian-biao-by-leetcode/" target="_blank" rel="noopener">回文链表</a></p>
+</div></div></div></div>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%AE%97%E6%B3%95/%E5%88%9D%E7%BA%A7/">初级</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E9%93%BE%E8%A1%A8/">链表</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%95%B0%E7%BB%84/">数组</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%9B%9E%E6%96%87%E4%B8%B2/">回文串</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/08/26/%E6%A8%A1%E6%8B%9F%E6%B1%82%E5%92%8C%E9%97%AE%E9%A2%98/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">模拟求和问题</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/08/01/%E9%87%8D%E8%A6%81%EF%BC%81Java%E6%9C%80%E6%96%B0%E5%85%A8%E5%A5%97%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/">
+                        <span class="hidden-mobile">重要！Java最新全套学习路线</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    function loadValine() {
+      addScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "6rS38oXgbqlO5KI3Wx39pRKE-gzGzoHsz",
+          app_key: "jAT77piz4ukjWTMHISbSLW0x",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    }
+    waitElementVisible('vcomments', loadValine);
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://valine.js.org" target="_blank" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+    <!-- APlayer 音乐播放器 -->
+    <div id="aplayer"></div>
+    <script defer src="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.js" ></script>
+<link  rel="stylesheet" href="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css" />
+<script type="text/javascript">
+  var oldLoadAp = window.onload;
+  window.onload = function () {
+    oldLoadAp && oldLoadAp();
+
+    new APlayer({
+      container: document.getElementById('aplayer'),
+      fixed: true,
+      autoplay: 'false' === 'true',
+      loop: 'all',
+      order: 'random',
+      theme: '#b7daff',
+      preload: 'none',
+      audio: [{"name":"让我留在你身边 (原唱作版)","artist":"唐汉霄","url":"/songs/让我留在你身边 (原唱作版).mp3","cover":"/img/cover/让我留在你身边.jpg"},{"name":"Shape of You","artist":"Ed Sheeran","url":"/songs/Ed Sheeran - Shape of You.mp3","cover":"/img/cover/shapeofyou.jpg"},{"name":"1845","artist":"Hotbloods","url":"/songs/1845.mp3","cover":"/img/cover/1845.jpg"},{"name":"月牙湾","artist":"F.I.R.飞儿乐团","url":"/songs/F.I.R.飞儿乐团-月牙湾.mp3","cover":"/img/cover/月牙湾.jpg"},{"name":"Walk Thru Fire","artist":"Vicetone / Meron Ryan","url":"/songs/Walk Thru Fire.mp3","cover":"/img/cover/wsf.jpg"},{"name":"Wrap Me In Plastic","artist":"CHROMANCE","url":"/songs/Wrap Me In Plastic - CHROMANCE.m4a","cover":"/img/cover/wmip.jpg"},{"name":"飞鸟和蝉","artist":"任然","url":"/songs/飞鸟和蝉-任然.m4a","cover":"/img/cover/飞鸟和蝉.jpg"},{"name":"可惜没如果","artist":"林俊杰","url":"/songs/林俊杰-可惜没如果.mp3","cover":"/img/cover/可惜没如果.jpg"},{"name":"莫问归期","artist":"蒋雪儿","url":"/songs/莫问归期-蒋雪儿.m4a","cover":"/img/cover/莫问归期.jpg"},{"name":"失恋阵线联盟","artist":"草蜢","url":"/songs/失恋阵线联盟.mp3","cover":"/img/cover/失恋阵线联盟.jpg"},{"name":"大城小爱","artist":"王力宏","url":"/songs/王力宏-大城小爱.mp3","cover":"/img/cover/大城小爱.png"}]
+    });
+  }
+</script>
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "如何判断回文串数组和链表？&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 200,
+      loop: true,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script>
+
+  
+
+
+
+  
+  
+    <script>
+      !function (e, t, a) {
+        function r() {
+          for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+          requestAnimationFrame(r)
+        }
+
+        function n() {
+          var t = "function" == typeof e.onclick && e.onclick;
+          e.onclick = function (e) {
+            t && t(), o(e)
+          }
+        }
+
+        function o(e) {
+          var a = t.createElement("div");
+          a.className = "heart", s.push({
+            el: a,
+            x: e.clientX - 5,
+            y: e.clientY - 5,
+            scale: 1,
+            alpha: 1,
+            color: c()
+          }), t.body.appendChild(a)
+        }
+
+        function i(e) {
+          var a = t.createElement("style");
+          a.type = "text/css";
+          try {
+            a.appendChild(t.createTextNode(e))
+          } catch (t) {
+            a.styleSheet.cssText = e
+          }
+          t.getElementsByTagName("head")[0].appendChild(a)
+        }
+
+        function c() {
+          return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+        }
+
+        var s = [];
+        e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+          setTimeout(e, 1e3 / 60)
+        }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
+      }(window, document);
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

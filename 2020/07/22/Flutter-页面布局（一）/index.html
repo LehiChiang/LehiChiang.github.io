@@ -1,0 +1,1342 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/icon-small-black.png">
+  <link rel="icon" type="image/png" href="/img/icon-small-black.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="Lehi J.">
+  <meta name="author" content="Lehi Chiang">
+  <meta name="keywords" content="AI,Java,Python">
+  <title>Flutter-页面布局（一） - Lehi J.</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/gruvbox-dark.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Lehi J." type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Lehi J.</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/pass_img/flutter_bg.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      Lehi Chiang
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-07-22 13:43" pubdate>
+        2020年7月22日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      47
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">Flutter中的四种布局控件</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <h1 id="1-Align组件"><a href="#1-Align组件" class="headerlink" title="1.Align组件"></a>1.Align组件</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>一般来说，Align的使用都是其他控件的一个参数，目的是为了设置子child的对齐方式，比如居中，左上，右下等多个对齐方向，其本身用法也多灵活。</p>
+<h2 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h2><div class="hljs"><pre><code class="hljs dart"><span class="hljs-keyword">const</span> Align(&#123; 
+	Key key, 
+	<span class="hljs-keyword">this</span>.alignment = Alignment.center, 
+	<span class="hljs-keyword">this</span>.widthFactor, 
+	<span class="hljs-keyword">this</span>.heightFactor, 
+	Widget child 
+&#125;)</code></pre></div>
+
+<ul>
+<li><p>alignment 设置对齐方向，使有多种使用方式：<br>比如：<code>FractionalOffset(0.5, 0.5)</code> == <code>Alignment(0.0,0.0)</code> == <code>Alignment.center</code> ，都是将子child居中对齐的控制方式</p>
+<p>Alignment(0.0,0.0)表示矩形的中心。从-1.0到+1.0的距离是矩形的一边到另一边的距离。<br>而Alignment中还可以这样使用对齐方式的控制，也是较为常用的使用方式：</p>
+<p>即本质就是类似于语法糖将各个方向的对齐方式简单封装了下。<br><u>FractionalOffset(1, 1) 类似Alignment() 但是坐标起点是左上角，且范围为0~1 比如 FractionalOffset(0.5, 0.5) 代表中间位置</u></p>
+</li>
+<li><p>widthFactor 如果非空，则将其宽度设置为子元素的宽度乘以该因子，可以大于或小于1.0，但必须是正数。</p>
+</li>
+<li><p>heightFactor 如果非空，则将其高度设置为子元素的高度乘以该因子，可以大于或小于1.0，但必须是正数。</p>
+</li>
+</ul>
+<h1 id="2-Expanded组件"><a href="#2-Expanded组件" class="headerlink" title="2.Expanded组件"></a>2.Expanded组件</h1><p>按比例将父容器分成若干份！！！！！！</p>
+<div class="hljs"><pre><code class="hljs dart">Row(
+  children: &lt;Widget&gt;[
+    Expanded(
+      child: Container(
+        color: Colors.red,
+        padding: EdgeInsets.all(<span class="hljs-number">5.0</span>),
+      ),
+      flex: <span class="hljs-number">1</span>,
+    ),
+    Expanded(
+      child: Container(
+        color: Colors.yellow,
+        padding: EdgeInsets.all(<span class="hljs-number">5.0</span>),
+      ),
+      flex: <span class="hljs-number">2</span>,
+    ),
+    Expanded(
+      child: Container(
+        color: Colors.blue,
+        padding: EdgeInsets.all(<span class="hljs-number">5.0</span>),
+      ),
+      flex: <span class="hljs-number">1</span>,
+    ),
+  ],
+)</code></pre></div>
+
+<p>一个很简单的例子，使用Expanded控件，将一行的宽度分成四个等分，第一、三个child占1/4的区域，第二个child占1/2区域，由flex属性控制。</p>
+<h1 id="3-Row组件"><a href="#3-Row组件" class="headerlink" title="3.Row组件"></a>3.Row组件</h1><img src="/2020/07/22/Flutter-%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80%EF%BC%88%E4%B8%80%EF%BC%89/p1.jpg" srcset="/img/loading.gif" alt="img" style="zoom: 67%;">
+
+<h2 id="源码解析"><a href="#源码解析" class="headerlink" title="源码解析"></a>源码解析</h2><div class="hljs"><pre><code class="hljs dart">Row(&#123;
+  Key key,
+  MainAxisAlignment mainAxisAlignment = MainAxisAlignment.start,
+  MainAxisSize mainAxisSize = MainAxisSize.max,
+  CrossAxisAlignment crossAxisAlignment = CrossAxisAlignment.center,
+  TextDirection textDirection,
+  VerticalDirection verticalDirection = VerticalDirection.down,
+  TextBaseline textBaseline,
+  <span class="hljs-built_in">List</span>&lt;Widget&gt; children = <span class="hljs-keyword">const</span> &lt;Widget&gt;[],
+&#125;)</code></pre></div>
+
+<h3 id="MainAxisAlignment"><a href="#MainAxisAlignment" class="headerlink" title="MainAxisAlignment"></a><strong>MainAxisAlignment</strong></h3><p>主轴方向上的对齐方式，会对child的位置起作用，默认是start。</p>
+<p>其中MainAxisAlignment枚举值：</p>
+<ul>
+<li>center：将children放置在主轴的中心；</li>
+<li>end：将children放置在主轴的末尾；</li>
+<li>spaceAround：将主轴方向上的空白区域均分，使得children之间的空白区域相等，<strong>但是首尾child的空白区域为1/2；</strong></li>
+<li>spaceBetween：将主轴方向上的空白区域均分，使得children之间的空白区域相等，<strong>首尾child都靠近首尾，没有间隙；</strong></li>
+<li>spaceEvenly：将主轴方向上的空白区域均分，使得children之间的空白区域相等，<strong>包括首尾child；</strong></li>
+<li>start：将children放置在主轴的起点；</li>
+</ul>
+<p><strong>其中spaceAround、spaceBetween以及spaceEvenly的区别，就是对待首尾child的方式。其距离首尾的距离分别是空白区域的1/2、0、1。</strong></p>
+<h3 id="MainAxisSize"><a href="#MainAxisSize" class="headerlink" title="MainAxisSize"></a><strong>MainAxisSize</strong></h3><p>在主轴方向占有空间的值，默认是max。</p>
+<p>MainAxisSize的取值有两种：</p>
+<ul>
+<li>max：根据传入的布局约束条件，最大化主轴方向的可用空间；</li>
+<li>min：与max相反，是最小化主轴方向的可用空间；</li>
+</ul>
+<p><strong>CrossAxisAlignment</strong>：children在交叉轴方向的对齐方式，与MainAxisAlignment略有不同。</p>
+<p>CrossAxisAlignment枚举值有如下几种：</p>
+<ul>
+<li>baseline：在交叉轴方向，使得children的baseline对齐；</li>
+<li>center：children在交叉轴上居中展示；</li>
+<li>end：children在交叉轴上末尾展示；</li>
+<li>start：children在交叉轴上起点处展示；</li>
+<li>stretch：让children填满交叉轴方向；</li>
+</ul>
+<p><strong>TextDirection</strong>：阿拉伯语系的兼容设置，一般无需处理。</p>
+<p><strong>VerticalDirection</strong>：定义了children摆放顺序，默认是down。</p>
+<p>VerticalDirection枚举值有两种：</p>
+<ul>
+<li>down：从top到bottom进行布局；</li>
+<li>up：从bottom到top进行布局。</li>
+</ul>
+<p>top对应Row以及Column的话，就是左边和顶部，bottom的话，则是右边和底部。</p>
+<p><strong>TextBaseline</strong>：使用的TextBaseline的方式，有两种，前面已经介绍过。</p>
+<h2 id="关于Flex的构造函数"><a href="#关于Flex的构造函数" class="headerlink" title="关于Flex的构造函数"></a>关于Flex的构造函数</h2><div class="hljs"><pre><code class="hljs dart">Flex(&#123;
+  Key key,
+  <span class="hljs-meta">@required</span> <span class="hljs-keyword">this</span>.direction,
+  <span class="hljs-keyword">this</span>.mainAxisAlignment = MainAxisAlignment.start,
+  <span class="hljs-keyword">this</span>.mainAxisSize = MainAxisSize.max,
+  <span class="hljs-keyword">this</span>.crossAxisAlignment = CrossAxisAlignment.center,
+  <span class="hljs-keyword">this</span>.textDirection,
+  <span class="hljs-keyword">this</span>.verticalDirection = VerticalDirection.down,
+  <span class="hljs-keyword">this</span>.textBaseline,
+  <span class="hljs-built_in">List</span>&lt;Widget&gt; children = <span class="hljs-keyword">const</span> &lt;Widget&gt;[],
+&#125;)</code></pre></div>
+
+<p>可以看出，Flex的构造函数就比Row和Column的多了一个参数。Row跟Column的区别，正是这个direction参数的不同。当为Axis.horizontal的时候，则是Row，当为Axis.vertical的时候，则是Column。</p>
+<h1 id="4-Stack组件"><a href="#4-Stack组件" class="headerlink" title="4.Stack组件"></a>4.Stack组件</h1><p>Stack 这个是Flutter中布局用到的组件，跟Android中FrameLayout很像，都是可以叠加的现实View，具体的使用细节还是有些不同的，我们一一说来</p>
+<div class="hljs"><pre><code class="hljs dart">Stack(&#123;
+  Key key,
+  <span class="hljs-keyword">this</span>.alignment = AlignmentDirectional.topStart,
+  <span class="hljs-keyword">this</span>.textDirection,
+  <span class="hljs-keyword">this</span>.fit = StackFit.loose,
+  <span class="hljs-keyword">this</span>.overflow = Overflow.clip,
+  <span class="hljs-built_in">List</span>&lt;Widget&gt; children = <span class="hljs-keyword">const</span> &lt;Widget&gt;[],
+&#125;)</code></pre></div>
+
+<ul>
+<li><p>alignment : 指的是子Widget的对其方式，默认情况是以左上角为开始点 ，这个属性是最难理解的，它区分为使用了Positioned和未使用Positioned定义两种情况，没有使用Positioned情况还是比较好理解的，下面会详细讲解的</p>
+</li>
+<li><p>fit :用来决定没有Positioned方式时候子Widget的大小，StackFit.loose 指的是子Widget 多大就多大，StackFit.expand使子Widget的大小和父组件一样大</p>
+</li>
+<li><p>overflow :指子Widget 超出Stack时候如何显示，默认值是Overflow.clip，子Widget超出Stack会被截断，</p>
+<p>Overflow.visible超出部分还会显示的</p>
+</li>
+</ul>
+<h2 id="初探Stack组件的使用"><a href="#初探Stack组件的使用" class="headerlink" title="初探Stack组件的使用"></a>初探Stack组件的使用</h2><div class="hljs"><pre><code class="hljs dart"><span class="hljs-keyword">import</span> <span class="hljs-string">'package:flutter/material.dart'</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StackScreen</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">StatelessWidget</span></span>&#123;
+  <span class="hljs-meta">@override</span>
+  Widget build(BuildContext context) &#123;
+    <span class="hljs-keyword">return</span> Scaffold(
+      appBar: AppBar(
+        title: Text(<span class="hljs-string">"stack title"</span>),
+      ),
+      body: Stack(
+        children: &lt;Widget&gt;[
+          Container(
+            width: <span class="hljs-number">100</span>,
+            height: <span class="hljs-number">100</span>,
+            color: Colors.red,
+          ),
+          Container(
+            width: <span class="hljs-number">90</span>,
+            height: <span class="hljs-number">90</span>,
+            color: Colors.blue,
+          ),
+          Container(
+            width: <span class="hljs-number">80</span>,
+            height: <span class="hljs-number">80</span>,
+            color: Colors.green,
+          ),
+        ],
+      ),
+    );
+  &#125;
+
+&#125;</code></pre></div>
+
+<p>上面的代码Stack做为根布局，叠加的方式展示3个组件，第一个组件比较大100<em>100，第二个组件稍微小点90**</em>90</p>
+<p>，第三个组件最小80*80，显示的方式是能看见第一个和第二个组件的部分区域，第三个组件是能全部显示出来</p>
+<img src="/2020/07/22/Flutter-%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80%EF%BC%88%E4%B8%80%EF%BC%89/p2.jpg" srcset="/img/loading.gif" alt="img" style="zoom:25%;">
+
+<h2 id="fit-属性使用"><a href="#fit-属性使用" class="headerlink" title="fit 属性使用"></a>fit 属性使用</h2><p>如果指定是StackFit.expand，所以的子组件会和Stack一样大的</p>
+<div class="hljs"><pre><code class="hljs dart"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StackScreen</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">StatelessWidget</span> </span>&#123;
+  <span class="hljs-meta">@override</span>
+  Widget build(BuildContext context) &#123;
+    <span class="hljs-keyword">return</span> Scaffold(
+      appBar: AppBar(
+        title: Text(<span class="hljs-string">"stack title"</span>),
+        actions: &lt;Widget&gt;[
+          RaisedButton(
+            onPressed: () &#123;
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) =&gt; PositionScreen()));
+            &#125;,
+            color: Colors.blue,
+            child: Icon(Icons.add),
+          ),
+        ],
+      ),
+      body: Stack(
+        fit: StackFit.expand,
+        children: &lt;Widget&gt;[
+          Container(
+            width: <span class="hljs-number">100</span>,
+            height: <span class="hljs-number">100</span>,
+            color: Colors.red,
+          ),
+          Container(
+            width: <span class="hljs-number">90</span>,
+            height: <span class="hljs-number">90</span>,
+            color: Colors.blue,
+          ),
+          Container(
+            width: <span class="hljs-number">80</span>,
+            height: <span class="hljs-number">80</span>,
+            color: Colors.green,
+          ),
+        ],
+      ),
+    );
+  &#125;
+&#125;</code></pre></div>
+
+<img src="/2020/07/22/Flutter-%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80%EF%BC%88%E4%B8%80%EF%BC%89/p3.jpg" srcset="/img/loading.gif" alt="img" style="zoom:33%;">
+
+<p>显示内容就只最后一个组件，虽然我们给这个组件指定了一个80*80的宽高是不会 生效的，因为我们已经指定了子元素和Stack一样大小，也就是说设置了StackFit.expand，StackFit.expand的效果优先</p>
+<h2 id="Positioned"><a href="#Positioned" class="headerlink" title="Positioned"></a>Positioned</h2><p>这个使用控制Widget的位置，通过他可以随意摆放一个组件，有点像绝对布局</p>
+<div class="hljs"><pre><code class="hljs dart">Positioned(&#123;
+  Key key,
+  <span class="hljs-keyword">this</span>.left,
+  <span class="hljs-keyword">this</span>.top,
+  <span class="hljs-keyword">this</span>.right,
+  <span class="hljs-keyword">this</span>.bottom,
+  <span class="hljs-keyword">this</span>.width,
+  <span class="hljs-keyword">this</span>.height,
+  <span class="hljs-meta">@required</span> Widget child,
+&#125;)</code></pre></div>
+
+<p>left、top 、right、 bottom分别代表离Stack左、上、右、底四边的距离</p>
+<div class="hljs"><pre><code class="hljs dart"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PositionScreen</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">StatelessWidget</span> </span>&#123;
+  <span class="hljs-meta">@override</span>
+  Widget build(BuildContext context) &#123;
+    <span class="hljs-keyword">return</span> Scaffold(
+      appBar: AppBar(
+        title: Text(<span class="hljs-string">"Postion Title"</span>),
+      ),
+      body: Stack(
+        children: &lt;Widget&gt;[
+          Positioned(
+            top: <span class="hljs-number">100.0</span>,
+            child: Container(
+              color: Colors.blue,
+              child: Text(<span class="hljs-string">"第一个组件"</span>),
+            ),
+          ),
+          Positioned(
+            top: <span class="hljs-number">200</span>,
+            right: <span class="hljs-number">100</span>,
+            child: Container(
+              color: Colors.yellow,
+              child: Text(<span class="hljs-string">"第二个组件"</span>),
+            ),
+          ),
+          Positioned(
+            left: <span class="hljs-number">100.0</span>,
+            child: Container(
+              color: Colors.red,
+              child: Text(<span class="hljs-string">"第三个组件"</span>),
+            ),
+          ),
+        ],
+      ),
+    );
+  &#125;
+&#125;</code></pre></div>
+
+<p>这个例子的效果就是</p>
+<ul>
+<li>第一个组件距离顶部Stack 有100的间距</li>
+<li>第二个组件距离顶部200，距离右边100间距</li>
+<li>第三个组件距离左边100间距</li>
+</ul>
+<img src="/2020/07/22/Flutter-%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80%EF%BC%88%E4%B8%80%EF%BC%89/p4.jpg" srcset="/img/loading.gif" alt="img" style="zoom:33%;">
+
+<p>这个地方有注意地方，例如说第一个组件我指定距离左边0个距离，距离右边0个距离，那么这个组件的宽度就是屏幕这么宽，因为你指定的左右间距都是0，也就是没有间距</p>
+<div class="hljs"><pre><code class="hljs dart"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PositionScreen</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">StatelessWidget</span> </span>&#123;
+  <span class="hljs-meta">@override</span>
+  Widget build(BuildContext context) &#123;
+    <span class="hljs-keyword">return</span> Scaffold(
+      appBar: AppBar(
+        title: Text(<span class="hljs-string">"Postion Title"</span>),
+      ),
+      body: Stack(
+        children: &lt;Widget&gt;[
+          Positioned(
+            top: <span class="hljs-number">100.0</span>,
+            left: <span class="hljs-number">0</span>,
+            right: <span class="hljs-number">0</span>,
+            child: Container(
+              color: Colors.blue,
+              child: Text(<span class="hljs-string">"第一个组件"</span>),
+            ),
+          ),
+          Positioned(
+            top: <span class="hljs-number">200</span>,
+            right: <span class="hljs-number">100</span>,
+            child: Container(
+              color: Colors.yellow,
+              child: Text(<span class="hljs-string">"第二个组件"</span>),
+            ),
+          ),
+          Positioned(
+            bottom: <span class="hljs-number">0</span>,
+            left: <span class="hljs-number">0</span>,
+            right: <span class="hljs-number">0</span>,
+            child: Container(
+              color: Colors.red,
+              child: Text(<span class="hljs-string">"第三个组件"</span>),
+            ),
+          ),
+        ],
+      ),
+    );
+  &#125;
+&#125;</code></pre></div>
+
+
+
+<img src="/2020/07/22/Flutter-%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80%EF%BC%88%E4%B8%80%EF%BC%89/p5.jpg" srcset="/img/loading.gif" alt="img" style="zoom:33%;">
+
+<p>第一个组件和第三个组件宽度都是整个屏幕这个宽度，第三组件我又指定了距离底部bottom为0，所以第三组件是在最底下</p>
+<p>那么我们如果指定了left&amp;&amp;right&amp;&amp;top&amp;bottom都是0的情况呢?</p>
+<p>那么这个组件就是和Stack大小一样填满它</p>
+<div class="hljs"><pre><code class="hljs dart"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PositionScreen</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">StatelessWidget</span> </span>&#123;
+  <span class="hljs-meta">@override</span>
+  Widget build(BuildContext context) &#123;
+    <span class="hljs-keyword">return</span> Scaffold(
+      appBar: AppBar(
+        title: Text(<span class="hljs-string">"Postion Title"</span>),
+      ),
+      body: Stack(
+        children: &lt;Widget&gt;[
+          Positioned(
+            left: <span class="hljs-number">0</span>,
+            top: <span class="hljs-number">0</span>,
+            right: <span class="hljs-number">0</span>,
+            bottom: <span class="hljs-number">0</span>,
+            child: Container(
+              color: Colors.black45,
+            ),
+          ),
+          Positioned(
+            top: <span class="hljs-number">100.0</span>,
+            left: <span class="hljs-number">0</span>,
+            right: <span class="hljs-number">0</span>,
+            child: Container(
+              color: Colors.blue,
+              child: Text(<span class="hljs-string">"第一个组件"</span>),
+            ),
+          ),
+          Positioned(
+            top: <span class="hljs-number">200</span>,
+            right: <span class="hljs-number">100</span>,
+            child: Container(
+              color: Colors.yellow,
+              child: Text(<span class="hljs-string">"第二个组件"</span>),
+            ),
+          ),
+          Positioned(
+            bottom: <span class="hljs-number">0</span>,
+            left: <span class="hljs-number">0</span>,
+            right: <span class="hljs-number">0</span>,
+            child: Container(
+              color: Colors.red,
+              child: Text(<span class="hljs-string">"第三个组件"</span>),
+            ),
+          ),
+        ],
+      ),
+    );
+  &#125;
+&#125;</code></pre></div>
+
+
+
+<img src="/2020/07/22/Flutter-%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80%EF%BC%88%E4%B8%80%EF%BC%89/p6.jpg" srcset="/img/loading.gif" alt="img" style="zoom:33%;">
+
+<p>为了演示这个效果，我在第一个组件上加上了一个黑色的标记，代码中添加的第一组件就是和Stack一样大的，系统也提供了一个方法Positioned.fill 这个方法的效果和图片上是一样的</p>
+<div class="hljs"><pre><code class="hljs dart"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PositionScreen</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">StatelessWidget</span> </span>&#123;
+  <span class="hljs-meta">@override</span>
+  Widget build(BuildContext context) &#123;
+    <span class="hljs-keyword">return</span> Scaffold(
+      appBar: AppBar(
+        title: Text(<span class="hljs-string">"Postion Title"</span>),
+      ),
+      body: Stack(
+        children: &lt;Widget&gt;[
+          Positioned.fill(
+            child: Container(
+              color: Colors.black45,
+            ),
+          ),
+          Positioned(
+            top: <span class="hljs-number">100.0</span>,
+            left: <span class="hljs-number">0</span>,
+            right: <span class="hljs-number">0</span>,
+            child: Container(
+              color: Colors.blue,
+              child: Text(<span class="hljs-string">"第一个组件"</span>),
+            ),
+          ),
+          Positioned(
+            top: <span class="hljs-number">200</span>,
+            right: <span class="hljs-number">100</span>,
+            child: Container(
+              color: Colors.yellow,
+              child: Text(<span class="hljs-string">"第二个组件"</span>),
+            ),
+          ),
+          Positioned(
+            bottom: <span class="hljs-number">0</span>,
+            left: <span class="hljs-number">0</span>,
+            right: <span class="hljs-number">0</span>,
+            child: Container(
+              color: Colors.red,
+              child: Text(<span class="hljs-string">"第三个组件"</span>),
+            ),
+          ),
+        ],
+      ),
+    );
+  &#125;
+&#125;</code></pre></div>
+
+<p>效果是等价的</p>
+<h2 id="alignment-属性理解"><a href="#alignment-属性理解" class="headerlink" title="alignment 属性理解"></a>alignment 属性理解</h2><h3 id="没有使用Positioned定位情况"><a href="#没有使用Positioned定位情况" class="headerlink" title="没有使用Positioned定位情况"></a>没有使用Positioned定位情况</h3><p>在我们初探Stack组件中讲解的例子就是没有使用Positioned定位的情况，默认的子组件的对齐方式就是以左上角为起点开始排列子Widget</p>
+<h3 id="AlignmentDirectional-bottomEnd-对齐方式"><a href="#AlignmentDirectional-bottomEnd-对齐方式" class="headerlink" title="AlignmentDirectional.bottomEnd 对齐方式"></a>AlignmentDirectional.bottomEnd 对齐方式</h3><p>所有的Widget 以Stack的右下角为起点开始对齐</p>
+<div class="hljs"><pre><code class="hljs dart"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StackScreen</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">StatelessWidget</span> </span>&#123;
+  <span class="hljs-meta">@override</span>
+  Widget build(BuildContext context) &#123;
+    <span class="hljs-keyword">return</span> Scaffold(
+      appBar: AppBar(
+        title: Text(<span class="hljs-string">"stack title"</span>),
+        actions: &lt;Widget&gt;[
+          RaisedButton(
+            onPressed: () &#123;
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) =&gt; PositionScreen()));
+            &#125;,
+            color: Colors.blue,
+            child: Icon(Icons.add),
+          ),
+        ],
+      ),
+      body: Stack(
+<span class="hljs-comment">//        fit: StackFit.expand,</span>
+       alignment: AlignmentDirectional.bottomEnd,
+        children: &lt;Widget&gt;[
+          Container(
+            width: <span class="hljs-number">100</span>,
+            height: <span class="hljs-number">100</span>,
+            color: Colors.red,
+          ),
+          Container(
+            width: <span class="hljs-number">90</span>,
+            height: <span class="hljs-number">90</span>,
+            color: Colors.blue,
+          ),
+          Container(
+            width: <span class="hljs-number">80</span>,
+            height: <span class="hljs-number">80</span>,
+            color: Colors.green,
+          ),
+        ],
+      ),
+    );
+  &#125;
+&#125;</code></pre></div>
+
+<img src="/2020/07/22/Flutter-%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80%EF%BC%88%E4%B8%80%EF%BC%89/p7.jpg" srcset="/img/loading.gif" alt="img" style="zoom:33%;">
+
+<h3 id="AlignmentDirectional-topEnd-对齐方式"><a href="#AlignmentDirectional-topEnd-对齐方式" class="headerlink" title="AlignmentDirectional.topEnd 对齐方式"></a>AlignmentDirectional.topEnd 对齐方式</h3><p>所有的Widget 以Stack的右上角为起点开始对齐</p>
+<div class="hljs"><pre><code class="hljs dart"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StackScreen</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">StatelessWidget</span> </span>&#123;
+  <span class="hljs-meta">@override</span>
+  Widget build(BuildContext context) &#123;
+    <span class="hljs-keyword">return</span> Scaffold(
+      appBar: AppBar(
+        title: Text(<span class="hljs-string">"stack title"</span>),
+        actions: &lt;Widget&gt;[
+          RaisedButton(
+            onPressed: () &#123;
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) =&gt; PositionScreen()));
+            &#125;,
+            color: Colors.blue,
+            child: Icon(Icons.add),
+          ),
+        ],
+      ),
+      body: Stack(
+<span class="hljs-comment">//        fit: StackFit.expand,</span>
+       alignment: AlignmentDirectional.topEnd,
+        children: &lt;Widget&gt;[
+          Container(
+            width: <span class="hljs-number">100</span>,
+            height: <span class="hljs-number">100</span>,
+            color: Colors.red,
+          ),
+          Container(
+            width: <span class="hljs-number">90</span>,
+            height: <span class="hljs-number">90</span>,
+            color: Colors.blue,
+          ),
+          Container(
+            width: <span class="hljs-number">80</span>,
+            height: <span class="hljs-number">80</span>,
+            color: Colors.green,
+          ),
+        ],
+      ),
+    );
+  &#125;
+&#125;</code></pre></div>
+
+
+
+<img src="/2020/07/22/Flutter-%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80%EF%BC%88%E4%B8%80%EF%BC%89/p8.jpg" srcset="/img/loading.gif" alt="img" style="zoom:33%;">
+
+<h3 id="AlignmentDirectional-center-对齐方式"><a href="#AlignmentDirectional-center-对齐方式" class="headerlink" title="AlignmentDirectional.center 对齐方式"></a>AlignmentDirectional.center 对齐方式</h3><p>所有的Widget 以Stack的中心位置</p>
+<img src="/2020/07/22/Flutter-%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80%EF%BC%88%E4%B8%80%EF%BC%89/p9.jpg" srcset="/img/loading.gif" alt="img" style="zoom:33%;">
+
+<h3 id="AlignmentDirectional-centerEnd-对齐方式"><a href="#AlignmentDirectional-centerEnd-对齐方式" class="headerlink" title="AlignmentDirectional.centerEnd 对齐方式"></a>AlignmentDirectional.centerEnd 对齐方式</h3><p>所有的Widget 在Stack的中心位置并且右边跟stack右边挨着</p>
+<img src="/2020/07/22/Flutter-%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80%EF%BC%88%E4%B8%80%EF%BC%89/p10.jpg" srcset="/img/loading.gif" alt="img" style="zoom:33%;">
+
+<h3 id="使用Positioned情况下"><a href="#使用Positioned情况下" class="headerlink" title="使用Positioned情况下"></a>使用Positioned情况下</h3><div class="hljs"><pre><code class="hljs dart"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PositionScreen</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">StatelessWidget</span> </span>&#123;
+  <span class="hljs-meta">@override</span>
+  Widget build(BuildContext context) &#123;
+    <span class="hljs-keyword">return</span> Scaffold(
+      appBar: AppBar(
+        title: Text(<span class="hljs-string">"Postion Title"</span>),
+      ),
+      body: Stack(
+<span class="hljs-comment">//        alignment: AlignmentDirectional.bottomEnd,</span>
+        overflow: Overflow.visible,
+        children: &lt;Widget&gt;[
+          Positioned.fill(
+            child: Container(
+              color: Colors.black45,
+            ),
+          ),
+          Positioned(
+            top: <span class="hljs-number">100.0</span>,
+            left: <span class="hljs-number">0</span>,
+            right: <span class="hljs-number">20</span>,
+            child: Container(
+              color: Colors.blue,
+              child: Text(<span class="hljs-string">"第一个组件"</span>),
+            ),
+          ),
+          Positioned(
+            top: <span class="hljs-number">200</span>,
+            bottom: <span class="hljs-number">20</span>,
+            child: Container(
+              color: Colors.yellow,
+              child: Text(<span class="hljs-string">"第二个组件"</span>),
+            ),
+          ),
+          Positioned(
+            bottom: <span class="hljs-number">0</span>,
+            left: <span class="hljs-number">0</span>,
+            right: <span class="hljs-number">0</span>,
+            child: Container(
+              color: Colors.red,
+              child: Text(<span class="hljs-string">"第三个组件"</span>),
+            ),
+          ),
+        ],
+      ),
+    );
+  &#125;
+&#125;</code></pre></div>
+
+
+
+<img src="/2020/07/22/Flutter-%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80%EF%BC%88%E4%B8%80%EF%BC%89/p11.jpg" srcset="/img/loading.gif" alt="img" style="zoom:33%;">
+
+<p>这种情况是alignment 是默认值的效果，下面我们修改一下alignment的对应的值</p>
+<h4 id="AlignmentDirectional-bottomEnd"><a href="#AlignmentDirectional-bottomEnd" class="headerlink" title="AlignmentDirectional.bottomEnd"></a>AlignmentDirectional.bottomEnd</h4><p>bottomEnd是子Widget的底部和Stack底部对齐，并且子Widget的右边和Stack右边对齐</p>
+<div class="hljs"><pre><code class="hljs dart"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PositionScreen</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">StatelessWidget</span> </span>&#123;
+  <span class="hljs-meta">@override</span>
+  Widget build(BuildContext context) &#123;
+    <span class="hljs-keyword">return</span> Scaffold(
+      appBar: AppBar(
+        title: Text(<span class="hljs-string">"Postion Title"</span>),
+      ),
+      body: Stack(
+        alignment: AlignmentDirectional.bottomEnd,
+        overflow: Overflow.visible,
+        children: &lt;Widget&gt;[
+          Positioned.fill(
+            child: Container(
+              color: Colors.black45,
+            ),
+          ),
+          Positioned(
+            top: <span class="hljs-number">100.0</span>,
+            left: <span class="hljs-number">0</span>,
+            right: <span class="hljs-number">20</span>,
+            child: Container(
+              color: Colors.blue,
+              child: Text(<span class="hljs-string">"第一个组件"</span>),
+            ),
+          ),
+          Positioned(
+            top: <span class="hljs-number">200</span>,
+            bottom: <span class="hljs-number">20</span>,
+            child: Container(
+              color: Colors.yellow,
+              child: Text(<span class="hljs-string">"第二个组件"</span>),
+            ),
+          ),
+          Positioned(
+            bottom: <span class="hljs-number">0</span>,
+            left: <span class="hljs-number">0</span>,
+            right: <span class="hljs-number">0</span>,
+            child: Container(
+              color: Colors.red,
+              child: Text(<span class="hljs-string">"第三个组件"</span>),
+            ),
+          ),
+        ],
+      ),
+    );
+  &#125;
+&#125;</code></pre></div>
+
+<p>显示效果</p>
+<img src="/2020/07/22/Flutter-%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80%EF%BC%88%E4%B8%80%EF%BC%89/p12.jpg" srcset="/img/loading.gif" alt="img" style="zoom:33%;">
+
+<p>大家会发现这个图的效果和上一个图的效果唯一区别就是黄色的第二个组件的位置有变化，这是为什么呢？</p>
+<p>先说第一个组件和第三组件的位置为什么没有改变</p>
+<div class="hljs"><pre><code class="hljs dart">Positioned(
+            top: <span class="hljs-number">100.0</span>,
+            left: <span class="hljs-number">0</span>,
+            right: <span class="hljs-number">20</span>,
+            child: Container(
+              color: Colors.blue,
+              child: Text(<span class="hljs-string">"第一个组件"</span>),
+            ),
+          ),
+
+          Positioned(
+            bottom: <span class="hljs-number">0</span>,
+            left: <span class="hljs-number">0</span>,
+            right: <span class="hljs-number">0</span>,
+            child: Container(
+              color: Colors.red,
+              child: Text(<span class="hljs-string">"第三个组件"</span>),
+            ),
+          ),</code></pre></div>
+
+<p>第一个组件top是100，说明这个组件距离顶部的距离是固定的，虽然Stack的aligment=AlignmentDirectional.bottomEnd，是不生效的，当这两个属性冲突时，以Positioned的距离为主，为什么第一组件右边也没有Stack的右边对齐呢？因为right=20，第一个组件右边距离已经可以确认了，所以也不受到aligment=AlignmentDirectional.bottomEnd的影响</p>
+<p>第三个组件也是一样的，第三个组件的宽度是Stack的宽度，高度取决于Text组件的高度，最关键的是它的bottom=0，也就是第三个组件要和Stack组件的低边界对齐，所以它的效果和上面的图是没有变化的</p>
+<div class="hljs"><pre><code class="hljs dart">Positioned(
+  top: <span class="hljs-number">200</span>,
+  bottom: <span class="hljs-number">20</span>,
+  child: Container(
+    color: Colors.yellow,
+    child: Text(<span class="hljs-string">"第二个组件"</span>),
+  ),
+),</code></pre></div>
+
+<p>第二个组件为什么会跑到右边呢？</p>
+<p>因为第二个组件的高度是可以确认出来的，top=200，bottom=20，设置这两个属性就能推断出第二组的高度是多大，但是第二个组件的宽度取决于Text(“第二个组件”) 的宽度，显然是水平方向上是不能填满Stack的，这个时候AlignmentDirectional.bottomEnd属性起作用了，bottom的距离已经确定了，所以底部的对齐方式是不会变化了，但是第二组件右边的对齐方式是可以收到AlignmentDirectional.bottomEnd影响的，所以第二组件展示的位置就是图片上展示的位置</p>
+<h2 id="总结一下使用Positioned-定位方式aligment-方式对它的影响"><a href="#总结一下使用Positioned-定位方式aligment-方式对它的影响" class="headerlink" title="总结一下使用Positioned 定位方式aligment 方式对它的影响"></a>总结一下使用Positioned 定位方式aligment 方式对它的影响</h2><p>Positioned 有四个属性top、bottom、left、right，（top、bottom）决定了垂直方向上的位置了，（left、right）决定了水平方向上的位置，不管水平方向上还是垂直方向上只要设定了一个值该方向上位置就已经确定过了，aligment对这这个方向上就不会起作用了，如果Positioned 设置了其中任意三个方向的值，这个Widget的位置就是固定的，aligment对它不会起任何作用</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Flutter/">Flutter</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Dart/">Dart</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Layout/">Layout</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/07/22/Numpy%E4%B8%AD%E7%9A%84%E9%AB%98%E7%BA%A7%E7%B4%A2%E5%BC%95/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Numpy中的高级索引</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/07/16/LeetCode-%E4%B8%AD%E7%BA%A7-%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0/">
+                        <span class="hidden-mobile">[LeetCode-中级]删除排序链表中的重复元素</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    function loadValine() {
+      addScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "6rS38oXgbqlO5KI3Wx39pRKE-gzGzoHsz",
+          app_key: "jAT77piz4ukjWTMHISbSLW0x",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    }
+    waitElementVisible('vcomments', loadValine);
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://valine.js.org" target="_blank" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+    <!-- APlayer 音乐播放器 -->
+    <div id="aplayer"></div>
+    <script defer src="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.js" ></script>
+<link  rel="stylesheet" href="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css" />
+<script type="text/javascript">
+  var oldLoadAp = window.onload;
+  window.onload = function () {
+    oldLoadAp && oldLoadAp();
+
+    new APlayer({
+      container: document.getElementById('aplayer'),
+      fixed: true,
+      autoplay: 'false' === 'true',
+      loop: 'all',
+      order: 'random',
+      theme: '#b7daff',
+      preload: 'none',
+      audio: [{"name":"让我留在你身边 (原唱作版)","artist":"唐汉霄","url":"/songs/让我留在你身边 (原唱作版).mp3","cover":"/img/cover/让我留在你身边.jpg"},{"name":"Shape of You","artist":"Ed Sheeran","url":"/songs/Ed Sheeran - Shape of You.mp3","cover":"/img/cover/shapeofyou.jpg"},{"name":"1845","artist":"Hotbloods","url":"/songs/1845.mp3","cover":"/img/cover/1845.jpg"},{"name":"月牙湾","artist":"F.I.R.飞儿乐团","url":"/songs/F.I.R.飞儿乐团-月牙湾.mp3","cover":"/img/cover/月牙湾.jpg"},{"name":"Walk Thru Fire","artist":"Vicetone / Meron Ryan","url":"/songs/Walk Thru Fire.mp3","cover":"/img/cover/wsf.jpg"},{"name":"Wrap Me In Plastic","artist":"CHROMANCE","url":"/songs/Wrap Me In Plastic - CHROMANCE.m4a","cover":"/img/cover/wmip.jpg"},{"name":"飞鸟和蝉","artist":"任然","url":"/songs/飞鸟和蝉-任然.m4a","cover":"/img/cover/飞鸟和蝉.jpg"},{"name":"可惜没如果","artist":"林俊杰","url":"/songs/林俊杰-可惜没如果.mp3","cover":"/img/cover/可惜没如果.jpg"},{"name":"莫问归期","artist":"蒋雪儿","url":"/songs/莫问归期-蒋雪儿.m4a","cover":"/img/cover/莫问归期.jpg"},{"name":"失恋阵线联盟","artist":"草蜢","url":"/songs/失恋阵线联盟.mp3","cover":"/img/cover/失恋阵线联盟.jpg"},{"name":"大城小爱","artist":"王力宏","url":"/songs/王力宏-大城小爱.mp3","cover":"/img/cover/大城小爱.png"}]
+    });
+  }
+</script>
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Flutter中的四种布局控件&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 200,
+      loop: true,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script>
+
+  
+
+
+
+  
+  
+    <script>
+      !function (e, t, a) {
+        function r() {
+          for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+          requestAnimationFrame(r)
+        }
+
+        function n() {
+          var t = "function" == typeof e.onclick && e.onclick;
+          e.onclick = function (e) {
+            t && t(), o(e)
+          }
+        }
+
+        function o(e) {
+          var a = t.createElement("div");
+          a.className = "heart", s.push({
+            el: a,
+            x: e.clientX - 5,
+            y: e.clientY - 5,
+            scale: 1,
+            alpha: 1,
+            color: c()
+          }), t.body.appendChild(a)
+        }
+
+        function i(e) {
+          var a = t.createElement("style");
+          a.type = "text/css";
+          try {
+            a.appendChild(t.createTextNode(e))
+          } catch (t) {
+            a.styleSheet.cssText = e
+          }
+          t.getElementsByTagName("head")[0].appendChild(a)
+        }
+
+        function c() {
+          return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+        }
+
+        var s = [];
+        e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+          setTimeout(e, 1e3 / 60)
+        }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
+      }(window, document);
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

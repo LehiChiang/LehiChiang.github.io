@@ -1,0 +1,917 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/icon-small-black.png">
+  <link rel="icon" type="image/png" href="/img/icon-small-black.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="Lehi J.">
+  <meta name="author" content="Lehi Chiang">
+  <meta name="keywords" content="AI,Java,Python">
+  <title>MMDetection教程（二）训练数据集并分析 - Lehi J.</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/gruvbox-dark.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Lehi J." type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Lehi J.</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/pass_img/mmdet-logo.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      Lehi Chiang
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-09-30 10:51" pubdate>
+        2020年9月30日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      23
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">MMDetection教程（二）训练数据集并分析</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <h1 id="MMDetection（二）训练数据集并分析"><a href="#MMDetection（二）训练数据集并分析" class="headerlink" title="MMDetection（二）训练数据集并分析"></a>MMDetection（二）训练数据集并分析</h1><h2 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h2><h3 id="查找模型配置文件"><a href="#查找模型配置文件" class="headerlink" title="查找模型配置文件"></a>查找模型配置文件</h3><p>以<code>Faster RCNN</code>为例，讲解如何找到模型的配置文件和权重文件</p>
+<ol>
+<li><p>首先找到模型的配置文件<code>mmdetection/configs/faster_rcnn/faster_rcnn_r50_fpn_1x_coco.py</code>,这里以<code>ResNet50</code>作为backbone, 使用<code>FPN</code>为多层特征提取的网络配置文件.</p>
+</li>
+<li><p>打开配置文件得到以下信息:</p>
+<div class="hljs"><pre><code class="hljs python">_base_ = [
+    <span class="hljs-string">'../_base_/models/faster_rcnn_r50_fpn.py'</span>,
+    <span class="hljs-string">'../_base_/datasets/coco_detection.py'</span>,
+    <span class="hljs-string">'../_base_/schedules/schedule_1x.py'</span>, <span class="hljs-string">'../_base_/default_runtime.py'</span>
+]</code></pre></div>
+
+<p>这里可以看到四个文件:</p>
+<ul>
+<li><code>../_base_/models/faster_rcnn_r50_fpn.py</code>为模型的源码,配置文件.</li>
+<li><code>../_base_/datasets/coco_detection.py</code>为训练模型使用的数据集的一些配置,比如数据集的预处理,缩放,数据集路径等信息.</li>
+<li><code>../_base_/schedules/schedule_1x.py</code>为模型训练方式,其中包含优化器,学习率修改测率和训练的轮回数.</li>
+<li><code>../_base_/default_runtime.py</code>为默认的训练运行时,其中包含保存断点权重的间隔数等.一般不需要修改.</li>
+</ul>
+</li>
+<li><p>得到这些<code>configs</code>后,可以对这些文件进行修改了,也可以创建新的文件</p>
+</li>
+</ol>
+<h3 id="准备数据"><a href="#准备数据" class="headerlink" title="准备数据"></a>准备数据</h3><h3 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h3><ol>
+<li><p>定义数据种类，需要修改的地方在<code>mmdetection/mmdet/datasets/coco.py</code>。把CLASSES的那个tuple改为自己数据集对应的种类tuple即可。例如：</p>
+<div class="hljs"><pre><code class="hljs python">CLASSES = (<span class="hljs-string">'0B'</span>, <span class="hljs-string">'1B'</span>, <span class="hljs-string">'2B'</span>)</code></pre></div>
+</li>
+<li><p>接着在<code>mmdetection/mmdet/core/evaluation/class_names.py</code>修改coco_classes数据集类别，这个关系到后面test的时候结果图中显示的类别名称。例如：</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">coco_classes</span><span class="hljs-params">()</span>:</span>
+    <span class="hljs-keyword">return</span> [<span class="hljs-string">'0B'</span>, <span class="hljs-string">'1B'</span>, <span class="hljs-string">'2B'</span>]</code></pre></div>
+
+
+
+</li>
+</ol>
+<ol start="3">
+<li><p>修改<code>configs/_base_/datasets/coco_detection.py</code>中<code>train_pipeline</code>和<code>test_pipeline</code>中的<code>img_scale</code>:</p>
+<div class="hljs"><pre><code class="hljs python">dataset_type = <span class="hljs-string">'CocoDataset'</span>
+data_root = <span class="hljs-string">'data/coco/'</span>
+img_norm_cfg = dict(
+    mean=[<span class="hljs-number">0.471</span>,<span class="hljs-number">0.448</span>,<span class="hljs-number">0.408</span>], std=[<span class="hljs-number">0.234</span>,<span class="hljs-number">0.239</span>,<span class="hljs-number">0.242</span>], to_rgb=<span class="hljs-literal">True</span>)
+train_pipeline = [
+    dict(type=<span class="hljs-string">'LoadImageFromFile'</span>),
+    dict(type=<span class="hljs-string">'LoadAnnotations'</span>, with_bbox=<span class="hljs-literal">True</span>),
+    dict(type=<span class="hljs-string">'Resize'</span>, img_scale=(<span class="hljs-number">400</span>, <span class="hljs-number">300</span>), keep_ratio=<span class="hljs-literal">True</span>),
+    dict(type=<span class="hljs-string">'RandomFlip'</span>, flip_ratio=<span class="hljs-number">0.5</span>),
+    dict(type=<span class="hljs-string">'Normalize'</span>, **img_norm_cfg),
+    dict(type=<span class="hljs-string">'Pad'</span>, size_divisor=<span class="hljs-number">32</span>),
+    dict(type=<span class="hljs-string">'DefaultFormatBundle'</span>),
+    dict(type=<span class="hljs-string">'Collect'</span>, keys=[<span class="hljs-string">'img'</span>, <span class="hljs-string">'gt_bboxes'</span>, <span class="hljs-string">'gt_labels'</span>]),
+]
+test_pipeline = [
+    dict(type=<span class="hljs-string">'LoadImageFromFile'</span>),
+    dict(
+        type=<span class="hljs-string">'MultiScaleFlipAug'</span>,
+        <span class="hljs-comment"># 图像大小尺寸缩放</span>
+        img_scale=(<span class="hljs-number">400</span>, <span class="hljs-number">300</span>),
+        flip=<span class="hljs-literal">False</span>,
+        transforms=[
+            dict(type=<span class="hljs-string">'Resize'</span>, keep_ratio=<span class="hljs-literal">True</span>),
+            dict(type=<span class="hljs-string">'RandomFlip'</span>),
+            dict(type=<span class="hljs-string">'Normalize'</span>, **img_norm_cfg),
+            dict(type=<span class="hljs-string">'Pad'</span>, size_divisor=<span class="hljs-number">32</span>),
+            dict(type=<span class="hljs-string">'ImageToTensor'</span>, keys=[<span class="hljs-string">'img'</span>]),
+            dict(type=<span class="hljs-string">'Collect'</span>, keys=[<span class="hljs-string">'img'</span>]),
+        ])
+]
+data = dict(
+    samples_per_gpu=<span class="hljs-number">2</span>,
+    workers_per_gpu=<span class="hljs-number">2</span>,
+    train=dict(
+        type=dataset_type,
+        <span class="hljs-comment"># 标记文件路径 和 数据集路径</span>
+        ann_file=data_root + <span class="hljs-string">'annotations/instances_train2017.json'</span>,
+        img_prefix=data_root + <span class="hljs-string">'train2017/'</span>,
+        pipeline=train_pipeline),
+    val=dict(
+        type=dataset_type,
+        ann_file=data_root + <span class="hljs-string">'annotations/instances_val2017.json'</span>,
+        img_prefix=data_root + <span class="hljs-string">'val2017/'</span>,
+        pipeline=test_pipeline),
+    test=dict(
+        type=dataset_type,
+        ann_file=data_root + <span class="hljs-string">'annotations/instances_test2017.json'</span>,
+        img_prefix=data_root + <span class="hljs-string">'test2017/'</span>,
+        pipeline=test_pipeline))
+evaluation = dict(interval=<span class="hljs-number">1</span>, metric=<span class="hljs-string">'bbox'</span>)</code></pre></div>
+
+
+
+</li>
+</ol>
+<ol start="4">
+<li><p>修改<code>models/faster_rcnn_r50_fpn.py</code>中的<code>num_classes</code>:</p>
+<div class="hljs"><pre><code class="hljs python">model = dict(
+    type=<span class="hljs-string">'FasterRCNN'</span>,
+    pretrained=<span class="hljs-string">'torchvision://resnet50'</span>,
+    backbone=dict(
+        type=<span class="hljs-string">'ResNet'</span>,
+        depth=<span class="hljs-number">50</span>,
+        num_stages=<span class="hljs-number">4</span>,
+        out_indices=(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>),
+        frozen_stages=<span class="hljs-number">1</span>,
+        norm_cfg=dict(type=<span class="hljs-string">'BN'</span>, requires_grad=<span class="hljs-literal">True</span>),
+        norm_eval=<span class="hljs-literal">True</span>,
+        style=<span class="hljs-string">'pytorch'</span>),
+    neck=dict(
+        type=<span class="hljs-string">'FPN'</span>,
+        in_channels=[<span class="hljs-number">256</span>, <span class="hljs-number">512</span>, <span class="hljs-number">1024</span>, <span class="hljs-number">2048</span>],
+        out_channels=<span class="hljs-number">256</span>,
+        num_outs=<span class="hljs-number">5</span>),
+    rpn_head=dict(
+        type=<span class="hljs-string">'RPNHead'</span>,
+        in_channels=<span class="hljs-number">256</span>,
+        feat_channels=<span class="hljs-number">256</span>,
+        anchor_generator=dict(
+            type=<span class="hljs-string">'AnchorGenerator'</span>,
+            scales=[<span class="hljs-number">8</span>],
+            ratios=[<span class="hljs-number">0.5</span>, <span class="hljs-number">1.0</span>, <span class="hljs-number">2.0</span>],
+            strides=[<span class="hljs-number">4</span>, <span class="hljs-number">8</span>, <span class="hljs-number">16</span>, <span class="hljs-number">32</span>, <span class="hljs-number">64</span>]),
+        bbox_coder=dict(
+            type=<span class="hljs-string">'DeltaXYWHBBoxCoder'</span>,
+            target_means=[<span class="hljs-number">.0</span>, <span class="hljs-number">.0</span>, <span class="hljs-number">.0</span>, <span class="hljs-number">.0</span>],
+            target_stds=[<span class="hljs-number">1.0</span>, <span class="hljs-number">1.0</span>, <span class="hljs-number">1.0</span>, <span class="hljs-number">1.0</span>]),
+        loss_cls=dict(
+            type=<span class="hljs-string">'CrossEntropyLoss'</span>, use_sigmoid=<span class="hljs-literal">True</span>, loss_weight=<span class="hljs-number">1.0</span>),
+        loss_bbox=dict(type=<span class="hljs-string">'L1Loss'</span>, loss_weight=<span class="hljs-number">1.0</span>)),
+    roi_head=dict(
+        type=<span class="hljs-string">'StandardRoIHead'</span>,
+        bbox_roi_extractor=dict(
+            type=<span class="hljs-string">'SingleRoIExtractor'</span>,
+            roi_layer=dict(type=<span class="hljs-string">'RoIAlign'</span>, output_size=<span class="hljs-number">7</span>, sampling_ratio=<span class="hljs-number">0</span>),
+            out_channels=<span class="hljs-number">256</span>,
+            featmap_strides=[<span class="hljs-number">4</span>, <span class="hljs-number">8</span>, <span class="hljs-number">16</span>, <span class="hljs-number">32</span>]),
+        bbox_head=dict(
+            type=<span class="hljs-string">'Shared2FCBBoxHead'</span>,
+            in_channels=<span class="hljs-number">256</span>,
+            fc_out_channels=<span class="hljs-number">1024</span>,
+            roi_feat_size=<span class="hljs-number">7</span>,
+            <span class="hljs-comment">#类别数</span>
+            num_classes=<span class="hljs-number">3</span>,
+            bbox_coder=dict(
+                type=<span class="hljs-string">'DeltaXYWHBBoxCoder'</span>,
+                target_means=[<span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>],
+                target_stds=[<span class="hljs-number">0.1</span>, <span class="hljs-number">0.1</span>, <span class="hljs-number">0.2</span>, <span class="hljs-number">0.2</span>]),
+            reg_class_agnostic=<span class="hljs-literal">False</span>,
+            loss_cls=dict(
+                type=<span class="hljs-string">'CrossEntropyLoss'</span>, use_sigmoid=<span class="hljs-literal">False</span>, loss_weight=<span class="hljs-number">1.0</span>),
+            loss_bbox=dict(type=<span class="hljs-string">'L1Loss'</span>, loss_weight=<span class="hljs-number">1.0</span>))))
+<span class="hljs-comment"># model training and testing settings</span>
+.........</code></pre></div>
+
+
+
+</li>
+</ol>
+<ol start="5">
+<li><p>修改<code>_base_/schedules/schedule_1x.py</code>中的配置:</p>
+<div class="hljs"><pre><code class="hljs python">optimizer = dict(type=<span class="hljs-string">'SGD'</span>, lr=<span class="hljs-number">0.0025</span>, momentum=<span class="hljs-number">0.9</span>, weight_decay=<span class="hljs-number">0.0001</span>) <span class="hljs-comment">#当gpu数量为8时,lr=0.02；当gpu数量为8时,lr=0.01；我只要一个gpu，所以设置lr=0.0025</span></code></pre></div>
+
+<p>还可以修改训练的周期数.</p>
+</li>
+</ol>
+<ol start="6">
+<li>在<code>mmdetection</code>的目录下新建<code>work_dirs</code>文件夹</li>
+</ol>
+<h3 id="使用单GPU训练"><a href="#使用单GPU训练" class="headerlink" title="使用单GPU训练"></a>使用单GPU训练</h3><div class="hljs"><pre><code class="hljs shell">python tools/train.py $&#123;CONFIG_FILE&#125; [optional arguments]</code></pre></div>
+
+<p>如果您想在命令中指定工作目录（保存训练过程日志等信息）, 你可以添加参数 <code>--work-dir ${YOUR_WORK_DIR}</code>.</p>
+<h3 id="使用多GPU训练"><a href="#使用多GPU训练" class="headerlink" title="使用多GPU训练"></a>使用多GPU训练</h3><div class="hljs"><pre><code class="hljs shell">./tools/dist_train.sh $&#123;CONFIG_FILE&#125; $&#123;GPU_NUM&#125; [optional arguments]</code></pre></div>
+
+<p>可选参数:</p>
+<ul>
+<li><code>--work-dir ${WORK_DIR}</code>: 指定工作目录（保存训练过程日志等信息）</li>
+<li><code>--resume-from ${CHECKPOINT_FILE}</code>: 从之前的断点文件中继续训练</li>
+</ul>
+<p>例如：</p>
+<div class="hljs"><pre><code class="hljs shell">python tools/train.py configs/cascade_rcnn/cascade_rcnn_r101_fpn_20e_coco.py --work-dir cascade_rcnn</code></pre></div>
+
+
+
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><h3 id="测试数据集"><a href="#测试数据集" class="headerlink" title="测试数据集"></a>测试数据集</h3><p>可以使用单GPU和多GPU对测试数据进行测试，使用如下命令：</p>
+<div class="hljs"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 单GPU测试</span>
+python tools/test.py $&#123;CONFIG_FILE&#125; $&#123;CHECKPOINT_FILE&#125; [--out $&#123;RESULT_FILE&#125;] [--eval $&#123;EVAL_METRICS&#125;] [--show] [--cfg-options]
+
+<span class="hljs-meta">#</span><span class="bash"> 多GPU测试</span>
+./tools/dist_test.sh $&#123;CONFIG_FILE&#125; $&#123;CHECKPOINT_FILE&#125; $&#123;GPU_NUM&#125; [--out $&#123;RESULT_FILE&#125;] [--eval $&#123;EVAL_METRICS&#125;] [--cfg-options]</code></pre></div>
+
+<p>可选参数:</p>
+<ul>
+<li><p><code>RESULT_FILE</code>: 输出结果保存为pickle格式在指定目录下，如果不指定该参数，输出结果不保存。</p>
+</li>
+<li><p><code>EVAL_METRICS</code>: 评价结果的标准。根据数据集可选择的评价标准有： <code>proposal_fast</code>, <code>proposal</code>, <code>bbox</code>, <code>segm</code> 可用在COCO数据集上； <code>mAP</code>, <code>recall</code> 可用在PASCAL VOC数据集上。</p>
+</li>
+<li><p><code>--show</code>: 如果指定，检测结果将绘制在图像上并显示在一个新窗口中。仅适用于单GPU测试，用于调试和可视化。请确保GUI在你的环境中可用，否则您可能会遇到类似“无法连接到X服务器”的错误。</p>
+</li>
+<li><p><code>--show-dir</code>: 如果指定，检测结果将绘制在图像上并保存到指定的目录中。仅适用于单GPU测试，用于调试和可视化。使用此选项时，环境中可以不需要可用的GUI。</p>
+</li>
+<li><p><code>--show-score-thr</code>: 如果指定，则将删除分数低于此阈值的检测。</p>
+</li>
+</ul>
+<p>测试Faster R-CNN模型，并将结果可视化展示在窗口中，按任意键切换下一张图片：</p>
+<div class="hljs"><pre><code class="hljs shell">python tools/test.py configs/faster_rcnn/faster_rcnn_r50_fpn_1x_coco.py save/epoch_9.pth --show detection_results --eval bbox</code></pre></div>
+
+<p>测试Faster R-CNN模型，不将结果可视化展示在窗口中，保存在文件中，为方便后续的可视化：</p>
+<div class="hljs"><pre><code class="hljs shell">python tools/test.py configs/grid_rcnn/grid_rcnn_x101_64x4d_fpn_gn-head_2x_coco.py grid_rcnn/epoch_25.pth --show-dir detection_results --eval bbox</code></pre></div>
+
+
+
+<h3 id="测试单张图片"><a href="#测试单张图片" class="headerlink" title="测试单张图片"></a>测试单张图片</h3><div class="hljs"><pre><code class="hljs shell">python demo/image_demo.py $&#123;IMAGE_FILE&#125; $&#123;CONFIG_FILE&#125; $&#123;CHECKPOINT_FILE&#125; [--device $&#123;GPU_ID&#125;] [--score-thr $&#123;SCORE_THR&#125;]</code></pre></div>
+
+<p>例如使用Faster R-CNN模型测试<code>demo.jpg</code>图片，输入如下命令：</p>
+<div class="hljs"><pre><code class="hljs shell">python demo/image_demo.py demo/demo.jpg configs/faster_rcnn/faster_rcnn_r50_fpn_1x_coco.py \
+    checkpoints/faster_rcnn_r50_fpn_1x_coco_20200130-047c8118.pth --device cpu</code></pre></div>
+
+
+
+<h2 id="分析训练日志"><a href="#分析训练日志" class="headerlink" title="分析训练日志"></a>分析训练日志</h2><p>通过训练生成的log文件可以画出loss/mAP曲线。首先需要安装<code>pip install seaborn</code>依赖。</p>
+<div class="hljs"><pre><code class="hljs shell">python tools/analyze_logs.py plot_curve [--keys $&#123;KEYS&#125;] [--title $&#123;TITLE&#125;] [--legend $&#123;LEGEND&#125;] [--backend $&#123;BACKEND&#125;] [--style $&#123;STYLE&#125;] [--out $&#123;OUT_FILE&#125;]</code></pre></div>
+
+<p>绘制分类损失：</p>
+<div class="hljs"><pre><code class="hljs shell">python tools/analyze_logs.py plot_curve faster_rcnn_1x_res50/20200928_120614.log.json --keys loss_cls loss_bbox --legend loss_cls loss_bbox</code></pre></div>
+
+<p>绘制分类损失和边界框损失：</p>
+<div class="hljs"><pre><code class="hljs shell">python tools/analyze_logs.py plot_curve log.json --keys loss_cls loss_bbox</code></pre></div>
+
+<p>计算平均训练时间：</p>
+<div class="hljs"><pre><code class="hljs shell">python tools/analyze_logs.py cal_train_time log.json</code></pre></div>
+
+<p>输出的格式如下：</p>
+<div class="hljs"><pre><code class="hljs python">-----Analyze train time of save/<span class="hljs-number">20200927</span>_095440.log.json-----
+slowest epoch <span class="hljs-number">6</span>, average time <span class="hljs-keyword">is</span> <span class="hljs-number">0.1322</span>
+fastest epoch <span class="hljs-number">7</span>, average time <span class="hljs-keyword">is</span> <span class="hljs-number">0.1202</span>
+time std over epochs <span class="hljs-keyword">is</span> <span class="hljs-number">0.0033</span>
+average iter time: <span class="hljs-number">0.1271</span> s/iter</code></pre></div>
+
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%EF%BC%88Object-Detection%EF%BC%89/">目标检测（Object Detection）</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/PyTorch/">PyTorch</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/10/10/%E5%BC%80%E5%88%9B%E6%80%A7%E7%9A%84YOLO/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">开创性的YOLO</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/09/30/MMDetection%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%80%EF%BC%89%E6%95%B0%E6%8D%AE%E6%B5%8B%E8%AF%95/">
+                        <span class="hidden-mobile">MMDetection教程（一）数据测试</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    function loadValine() {
+      addScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "6rS38oXgbqlO5KI3Wx39pRKE-gzGzoHsz",
+          app_key: "jAT77piz4ukjWTMHISbSLW0x",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    }
+    waitElementVisible('vcomments', loadValine);
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://valine.js.org" target="_blank" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+    <!-- APlayer 音乐播放器 -->
+    <div id="aplayer"></div>
+    <script defer src="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.js" ></script>
+<link  rel="stylesheet" href="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css" />
+<script type="text/javascript">
+  var oldLoadAp = window.onload;
+  window.onload = function () {
+    oldLoadAp && oldLoadAp();
+
+    new APlayer({
+      container: document.getElementById('aplayer'),
+      fixed: true,
+      autoplay: 'false' === 'true',
+      loop: 'all',
+      order: 'random',
+      theme: '#b7daff',
+      preload: 'none',
+      audio: [{"name":"让我留在你身边 (原唱作版)","artist":"唐汉霄","url":"/songs/让我留在你身边 (原唱作版).mp3","cover":"/img/cover/让我留在你身边.jpg"},{"name":"Shape of You","artist":"Ed Sheeran","url":"/songs/Ed Sheeran - Shape of You.mp3","cover":"/img/cover/shapeofyou.jpg"},{"name":"1845","artist":"Hotbloods","url":"/songs/1845.mp3","cover":"/img/cover/1845.jpg"},{"name":"月牙湾","artist":"F.I.R.飞儿乐团","url":"/songs/F.I.R.飞儿乐团-月牙湾.mp3","cover":"/img/cover/月牙湾.jpg"},{"name":"Walk Thru Fire","artist":"Vicetone / Meron Ryan","url":"/songs/Walk Thru Fire.mp3","cover":"/img/cover/wsf.jpg"},{"name":"Wrap Me In Plastic","artist":"CHROMANCE","url":"/songs/Wrap Me In Plastic - CHROMANCE.m4a","cover":"/img/cover/wmip.jpg"},{"name":"飞鸟和蝉","artist":"任然","url":"/songs/飞鸟和蝉-任然.m4a","cover":"/img/cover/飞鸟和蝉.jpg"},{"name":"可惜没如果","artist":"林俊杰","url":"/songs/林俊杰-可惜没如果.mp3","cover":"/img/cover/可惜没如果.jpg"},{"name":"莫问归期","artist":"蒋雪儿","url":"/songs/莫问归期-蒋雪儿.m4a","cover":"/img/cover/莫问归期.jpg"},{"name":"失恋阵线联盟","artist":"草蜢","url":"/songs/失恋阵线联盟.mp3","cover":"/img/cover/失恋阵线联盟.jpg"},{"name":"大城小爱","artist":"王力宏","url":"/songs/王力宏-大城小爱.mp3","cover":"/img/cover/大城小爱.png"}]
+    });
+  }
+</script>
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "MMDetection教程（二）训练数据集并分析&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 200,
+      loop: true,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script>
+
+  
+
+
+
+  
+  
+    <script>
+      !function (e, t, a) {
+        function r() {
+          for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+          requestAnimationFrame(r)
+        }
+
+        function n() {
+          var t = "function" == typeof e.onclick && e.onclick;
+          e.onclick = function (e) {
+            t && t(), o(e)
+          }
+        }
+
+        function o(e) {
+          var a = t.createElement("div");
+          a.className = "heart", s.push({
+            el: a,
+            x: e.clientX - 5,
+            y: e.clientY - 5,
+            scale: 1,
+            alpha: 1,
+            color: c()
+          }), t.body.appendChild(a)
+        }
+
+        function i(e) {
+          var a = t.createElement("style");
+          a.type = "text/css";
+          try {
+            a.appendChild(t.createTextNode(e))
+          } catch (t) {
+            a.styleSheet.cssText = e
+          }
+          t.getElementsByTagName("head")[0].appendChild(a)
+        }
+
+        function c() {
+          return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+        }
+
+        var s = [];
+        e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+          setTimeout(e, 1e3 / 60)
+        }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
+      }(window, document);
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

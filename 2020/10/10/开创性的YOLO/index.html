@@ -1,0 +1,820 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/icon-small-black.png">
+  <link rel="icon" type="image/png" href="/img/icon-small-black.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="Lehi J.">
+  <meta name="author" content="Lehi Chiang">
+  <meta name="keywords" content="AI,Java,Python">
+  <title>开创性的YOLO - Lehi J.</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/gruvbox-dark.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Lehi J." type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Lehi J.</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/pass_img/yolooutputt.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      Lehi Chiang
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-10-10 18:10" pubdate>
+        2020年10月10日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      15
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">One-Stage目标检测算法——开创性的YOLO</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <style>
+    .center{
+        width: auto;
+        display: table;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .mine{
+       text-indent: 2em;
+          margin: 10px 0px;
+    }
+</style>
+
+<p class="note note-primary">
+    Faster R-CNN系列等两阶段（Two-Stage）的目标检测算法有较好的检测效果和较高的检测精度，但从速度上来讲满足不了实时检测的要求。基于回归方法的深度学习目标检测就显得尤为重要了。使用回归的思想，输入的图片经过网络直接计算出物体的分类，位置信息以达到目标检测的目的。
+</p>
+
+
+<p><strong>YOLO（You only look once：Unified ,Real-Time Object Detection）</strong>是基于回归的方法中最经典的算法之一。YOLO采用单个神经网络全图直接训练预测物品边界和类别概率，模型的最后直接输出Bounding-box 的坐标、 Bounding-box 中包含物体的置信度和物体的类别。从而实现真正意义上的端到端的物品检测。识别性能有了很大提升，在 Titan X 的 GPU 上能达到<strong>45 FPS</strong>，而在Fast YOLO(卷积层更少)中，可以达到155 FPS。<br>YOLO预测阶段的流程如下，流程图如图1所示：</p>
+<img src="/2020/10/10/%E5%BC%80%E5%88%9B%E6%80%A7%E7%9A%84YOLO/yolov1img2.png" srcset="/img/loading.gif" alt="YOLO网络结构" style="zoom:50%;display: flex;margin: 0 auto;">
+
+<div style="
+    color:grey;
+    text-align: center;
+    font-size: 0.8em;
+    margin: 20px 0 20px 0;">
+    图 1 YOLO网络结构，整个网络由24个卷积层和2个全连接层。网络先在224×224尺寸的ImageNet数据集上进行预训练分类任务，之后将图像尺寸翻倍进行检测任务。</div>
+
+
+<p>1)  将图像缩放到<code>448×448</code>尺寸作为卷积神经网络的输入，并对图像划分成<code>S×S</code>的网格。</p>
+<p>2)  经过CNN后到达FC层，最后一层的FC输出<code>4096</code>个神经元 </p>
+<p>3)  FC层的输出作为检测层（Detection层）的输入，在1）中将原图分为<code>7×7</code>的网格，对于每个网格，我们都预测<code>B</code>个Bounding-box，包括每个Bounding-box的<code>4</code>个位置信息，网格包含目标的置信度。另外每个网格还预测<code>C</code>个类别上的概率。最终得到<br>$$<br>S×S×(B×5+C)<br>$$<br>大小的特征图，输出的特征图结构如下。</p>
+<img src="/2020/10/10/%E5%BC%80%E5%88%9B%E6%80%A7%E7%9A%84YOLO/yolooutputt.png" srcset="/img/loading.gif" alt="YOLO网络结构" style="zoom:30%;display: flex;margin: 0 auto;">
+
+<div style="
+    color:grey;
+    text-align: center;
+    font-size: 0.8em;
+    margin: 20px 0 20px 0;">
+    图 2 输出的特征向量
+</div>
+
+<p>YOLO在PASCAL VOC数据集上进行评估，数据集中类别有<code>C=20</code>个。所以输出的特征向量大小为<br>$$<br>S×S×(B×5+C) = 7×7×(2×5+20)=(7,7,30)<br>$$</p>
+<div class="mine">
+    最后根据阈值去除分类概率比较低的目标窗口，最后使用NMS算法去除冗余窗口，得到最后的目标窗口。
+</div>
+
+<div class="mine">可以看到整个预测过程非常简单，不需要中间的**region proposal**找目标，直接回归便完成了位置和类别的判定。</div>
+
+<p>YOLO网络模型的架构思想如图3所示，我们将初始大小为<code>448×448</code>大小的图像分为<code>7×7</code>的网格，每个网格的大小为<code>64×64</code>。如果一个物体的中心点落在这个网格内，那么这个网格负责预测这个物体。每个网格预测两个Bounding-box，每个Bounding-box对应预测除了四个位置参数外，还有一个参数叫<strong>置信度(confidence)</strong>的值，表达式为如下所示：<br>$$<br>confidence= P_r (Object)×IOU(truth|pred)<br>$$</p>
+<div class="mine">其中，<img src="/2020/10/10/%E5%BC%80%E5%88%9B%E6%80%A7%E7%9A%84YOLO/clip_image002.png" srcset="/img/loading.gif" alt="YOLO" style="zoom:100%;display: inline;margin: 0 auto;">表示这个网格是否包含目标物体，若包含目标物体则<img src="/2020/10/10/%E5%BC%80%E5%88%9B%E6%80%A7%E7%9A%84YOLO/clip_image003.png" srcset="/img/loading.gif" alt="YOLO" style="zoom:100%;display: inline;margin: 0 auto;">，否则<img src="/2020/10/10/%E5%BC%80%E5%88%9B%E6%80%A7%E7%9A%84YOLO/clip_image004.png" srcset="/img/loading.gif" alt="YOLO" style="zoom:100%;display: inline;margin: 0 auto;">。<img src="/2020/10/10/%E5%BC%80%E5%88%9B%E6%80%A7%E7%9A%84YOLO/clip_image005.png" srcset="/img/loading.gif" alt="YOLO" style="zoom:100%;display: inline;margin: 0 auto;">表示ground truth和prediction的重叠率。还会预测出网格中存在目标物体的条件下属于那一类别物体的后验概率!<img src="/2020/10/10/%E5%BC%80%E5%88%9B%E6%80%A7%E7%9A%84YOLO/clip_image006.png" srcset="/img/loading.gif" alt="YOLO" style="zoom:100%;display: inline;margin: 0 auto;">。</div>
+
+<img src="/2020/10/10/%E5%BC%80%E5%88%9B%E6%80%A7%E7%9A%84YOLO/yolov1img1.png" srcset="/img/loading.gif" alt="YOLO网络结构" style="zoom:40%;display: flex;margin: 0 auto;">
+
+<div style="
+    color:grey;
+    text-align: center;
+    font-size: 0.8em;
+    margin: 20px 0 20px 0;">
+    图3 将图像分为S×S的网格，每个网格预测两个边界框和对应网格的类别概率，最后回归得到物体的边界框和分类</div>
+<div class="mine">
+    在预测分类时，每个Bounding-box的得分其实是confidence和后验概率的乘积。得分公式如下所示：
+</div>
+
+
+<p>$$<br>Score=confidence×P_r (Class_i |Object)=P_r (Class_i )×IOU(truth|pred)<br>$$</p>
+<div class="mine">
+    得到这个得分后再通过NMS算法过滤掉小于阈值的边界框，得到最终的边界框。    
+</div>
+
+<div class="mine">
+    YOLO网络的卷积层采取的是类似GoogLeNet的结构，采用1×1大小的卷积核减少计算量。在ImageNet数据集上的预训练中，采用的是前20层的卷积层后加一个全连接层的结构。在预训练完分类任务后，将网络结构转化为检测网络，在20层卷积后又添加了4个卷积层和两个全连接层来执行检测任务。因为检测的过程中需要图像中更加细粒度的信息，所以将原图像尺寸增加到448×448进行检测任务。根据图片的宽高将Bounding-box的宽高归一化到[0,1]之间，中心点坐标设置为网格左上角顶点的偏移量，使用多任务的损失函数直接回归边界框，物体类别，置信度等信息。
+</div>
+
+<div class="mine">
+    YOLO和其他的算法在Pascal VOC 2007数据集上的比较结果如下表：
+</div>
+
+<div class="center">
+    <table>
+<thead>
+<tr>
+<th>Real-Time Detectors</th>
+<th>Train</th>
+<th>mAP</th>
+<th>FPS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Fast YOLO</td>
+<td>2007+2012</td>
+<td>52.7</td>
+<td>155</td>
+</tr>
+<tr>
+<td>YOLO</td>
+<td>2007+2012</td>
+<td>63.4</td>
+<td>45</td>
+</tr>
+</tbody></table>
+</div>
+<div class="center">
+<table>
+<thead>
+<tr>
+<th>Less Than Real-Time</th>
+<th>Train</th>
+<th>mAP</th>
+<th>FPS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Fast R-CNN</td>
+<td>2007+2012</td>
+<td>70.0</td>
+<td>0.5</td>
+</tr>
+<tr>
+<td>Faster R-CNN VGG-16</td>
+<td>2007+2012</td>
+<td>73.2</td>
+<td>7</td>
+</tr>
+</tbody></table>
+</div>
+
+<div class="mine">
+    可以看到回归方法的目标检测的FPS是很高的，但精度还有待提高。同时YOLO算法还存在几点不足：
+</div>
+
+
+<ol>
+<li>YOLO的每一个网格只预测两个边界框，一种类别。这导致模型对相邻目标预测准确率下降。因此，YOLO对集群的目标或小的目标识别准确率较低。</li>
+<li>损失函数会同样的对待小边界框与大边界框的误差，导致了目标区域定位的误差偏大和召回率较低。</li>
+</ol>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%EF%BC%88Object-Detection%EF%BC%89/">目标检测（Object Detection）</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/YOLO/">YOLO</a>
+                    
+                      <a class="hover-with-bg" href="/tags/One-Stage/">One-Stage</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/10/14/%E6%9B%B4%E5%A5%BD%EF%BC%8C%E6%9B%B4%E5%BF%AB%EF%BC%8C%E6%9B%B4%E5%BC%BA%E5%A3%AE%E7%9A%84YOLOv2/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">更好，更快，更强壮的YOLOv2</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/09/30/MMDetection%E6%95%99%E7%A8%8B%EF%BC%88%E4%BA%8C%EF%BC%89%E8%AE%AD%E7%BB%83%E6%95%B0%E6%8D%AE%E9%9B%86%E5%B9%B6%E5%88%86%E6%9E%90/">
+                        <span class="hidden-mobile">MMDetection教程（二）训练数据集并分析</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    function loadValine() {
+      addScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "6rS38oXgbqlO5KI3Wx39pRKE-gzGzoHsz",
+          app_key: "jAT77piz4ukjWTMHISbSLW0x",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    }
+    waitElementVisible('vcomments', loadValine);
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://valine.js.org" target="_blank" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+    <!-- APlayer 音乐播放器 -->
+    <div id="aplayer"></div>
+    <script defer src="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.js" ></script>
+<link  rel="stylesheet" href="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css" />
+<script type="text/javascript">
+  var oldLoadAp = window.onload;
+  window.onload = function () {
+    oldLoadAp && oldLoadAp();
+
+    new APlayer({
+      container: document.getElementById('aplayer'),
+      fixed: true,
+      autoplay: 'false' === 'true',
+      loop: 'all',
+      order: 'random',
+      theme: '#b7daff',
+      preload: 'none',
+      audio: [{"name":"让我留在你身边 (原唱作版)","artist":"唐汉霄","url":"/songs/让我留在你身边 (原唱作版).mp3","cover":"/img/cover/让我留在你身边.jpg"},{"name":"Shape of You","artist":"Ed Sheeran","url":"/songs/Ed Sheeran - Shape of You.mp3","cover":"/img/cover/shapeofyou.jpg"},{"name":"1845","artist":"Hotbloods","url":"/songs/1845.mp3","cover":"/img/cover/1845.jpg"},{"name":"月牙湾","artist":"F.I.R.飞儿乐团","url":"/songs/F.I.R.飞儿乐团-月牙湾.mp3","cover":"/img/cover/月牙湾.jpg"},{"name":"Walk Thru Fire","artist":"Vicetone / Meron Ryan","url":"/songs/Walk Thru Fire.mp3","cover":"/img/cover/wsf.jpg"},{"name":"Wrap Me In Plastic","artist":"CHROMANCE","url":"/songs/Wrap Me In Plastic - CHROMANCE.m4a","cover":"/img/cover/wmip.jpg"},{"name":"飞鸟和蝉","artist":"任然","url":"/songs/飞鸟和蝉-任然.m4a","cover":"/img/cover/飞鸟和蝉.jpg"},{"name":"可惜没如果","artist":"林俊杰","url":"/songs/林俊杰-可惜没如果.mp3","cover":"/img/cover/可惜没如果.jpg"},{"name":"莫问归期","artist":"蒋雪儿","url":"/songs/莫问归期-蒋雪儿.m4a","cover":"/img/cover/莫问归期.jpg"},{"name":"失恋阵线联盟","artist":"草蜢","url":"/songs/失恋阵线联盟.mp3","cover":"/img/cover/失恋阵线联盟.jpg"},{"name":"大城小爱","artist":"王力宏","url":"/songs/王力宏-大城小爱.mp3","cover":"/img/cover/大城小爱.png"}]
+    });
+  }
+</script>
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "One-Stage目标检测算法——开创性的YOLO&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 200,
+      loop: true,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script>
+
+  
+
+
+
+  
+  
+    <script>
+      !function (e, t, a) {
+        function r() {
+          for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+          requestAnimationFrame(r)
+        }
+
+        function n() {
+          var t = "function" == typeof e.onclick && e.onclick;
+          e.onclick = function (e) {
+            t && t(), o(e)
+          }
+        }
+
+        function o(e) {
+          var a = t.createElement("div");
+          a.className = "heart", s.push({
+            el: a,
+            x: e.clientX - 5,
+            y: e.clientY - 5,
+            scale: 1,
+            alpha: 1,
+            color: c()
+          }), t.body.appendChild(a)
+        }
+
+        function i(e) {
+          var a = t.createElement("style");
+          a.type = "text/css";
+          try {
+            a.appendChild(t.createTextNode(e))
+          } catch (t) {
+            a.styleSheet.cssText = e
+          }
+          t.getElementsByTagName("head")[0].appendChild(a)
+        }
+
+        function c() {
+          return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+        }
+
+        var s = [];
+        e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+          setTimeout(e, 1e3 / 60)
+        }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
+      }(window, document);
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

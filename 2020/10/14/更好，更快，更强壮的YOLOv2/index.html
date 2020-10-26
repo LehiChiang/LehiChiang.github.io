@@ -1,0 +1,859 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/icon-small-black.png">
+  <link rel="icon" type="image/png" href="/img/icon-small-black.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="Lehi J.">
+  <meta name="author" content="Lehi Chiang">
+  <meta name="keywords" content="AI,Java,Python">
+  <title>更好，更快，更强壮的YOLOv2 - Lehi J.</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/gruvbox-dark.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Lehi J." type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Lehi J.</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/pass_img/yolov2banner.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      Lehi Chiang
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-10-14 19:59" pubdate>
+        2020年10月14日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      22
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">One-Stage目标检测算法——更好，更快，更强壮的YOLOv2</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <style>
+    .center{
+        width: auto;
+        display: table;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .mine{
+       text-indent: 2em;
+          margin: 10px 0px;
+    }
+    .markdown-body p > img, .markdown-body p > a > img {
+    box-shadow: none;
+}</style>
+
+
+<p class="note note-warning">
+    YOLO9000(YOLO9000：Better, Faster, Stronger)是YOLO算法的改进版，YOLOv2相对v1版本，在继续保持处理速度的基础上，从预测更准确（Better），速度更快（Faster），识别对象更多（Stronger）这三个方面进行了改进。其中识别更多对象也就是扩展到能够检测9000种不同对象，所以称之为YOLO9000。
+</p>
+
+
+
+<p>在保证目标召回率的同时，为了提高准确率和速度，<code>YOLOv2</code>并没有使用太深的网络这样也使得网络容易学习，主要做了以下几方面的改进：</p>
+<ol>
+<li><strong>Batch Normalization</strong>：在每个卷积层中加入批归一化，使<strong>mAP</strong>有了<code>2%</code>的提高。批归一化处理能够获得更好的收敛速度和收敛效果，减少过拟合的发生。</li>
+<li><strong>High Resolution Classifier</strong>：采用<img src="/2020/10/14/%E6%9B%B4%E5%A5%BD%EF%BC%8C%E6%9B%B4%E5%BF%AB%EF%BC%8C%E6%9B%B4%E5%BC%BA%E5%A3%AE%E7%9A%84YOLOv2/224.png" srcset="/img/loading.gif" alt style="zoom:100%;display: inline;margin: 0 auto;">图像进行分类模型预训练后，再采用<img src="/2020/10/14/%E6%9B%B4%E5%A5%BD%EF%BC%8C%E6%9B%B4%E5%BF%AB%EF%BC%8C%E6%9B%B4%E5%BC%BA%E5%A3%AE%E7%9A%84YOLOv2/448.png" srcset="/img/loading.gif" alt style="zoom:100%;display: inline;margin: 0 auto;">的高分辨率样本对分类模型进行<code>10</code>个<strong>epoch</strong>的微调，使网络特征逐渐适应<img src="/2020/10/14/%E6%9B%B4%E5%A5%BD%EF%BC%8C%E6%9B%B4%E5%BF%AB%EF%BC%8C%E6%9B%B4%E5%BC%BA%E5%A3%AE%E7%9A%84YOLOv2/448.png" srcset="/img/loading.gif" alt style="zoom:100%;display: inline;margin: 0 auto;">的分辨率。然后再使用<img src="/2020/10/14/%E6%9B%B4%E5%A5%BD%EF%BC%8C%E6%9B%B4%E5%BF%AB%EF%BC%8C%E6%9B%B4%E5%BC%BA%E5%A3%AE%E7%9A%84YOLOv2/448.png" srcset="/img/loading.gif" alt style="zoom:100%;display: inline;margin: 0 auto;">的检测样本进行训练，缓解了分辨率突然切换造成的影响。</li>
+<li><strong>Anchor Boxes</strong>：引入<strong>Anchor Boxes</strong>的思想后，使原来的每张图片预测<code>98</code>个<strong>Bounding-box</strong>增长到每张图片可以预测上千个<strong>Bounding-box</strong>。<strong>YOLOv2</strong>移除了全连接层、去掉了一个池化层，使网络卷积层输出具有更高的分辨率。同时减小输入图像的尺寸到<img src="/2020/10/14/%E6%9B%B4%E5%A5%BD%EF%BC%8C%E6%9B%B4%E5%BF%AB%EF%BC%8C%E6%9B%B4%E5%BC%BA%E5%A3%AE%E7%9A%84YOLOv2/416.png" srcset="/img/loading.gif" alt style="zoom:100%;display: inline;margin: 0 auto;">，这样在下采样因子为<code>32</code>的情况下，<img src="/2020/10/14/%E6%9B%B4%E5%A5%BD%EF%BC%8C%E6%9B%B4%E5%BF%AB%EF%BC%8C%E6%9B%B4%E5%BC%BA%E5%A3%AE%E7%9A%84YOLOv2/13.png" srcset="/img/loading.gif" alt style="zoom:100%;display: inline;margin: 0 auto;">的特征图能正好有一个网格在正中心。相对<strong>YOLOv1</strong>的<code>81%</code>的召回率，<strong>YOLOv2</strong>的召回率大幅提升到<code>88%</code>。同时<strong>mAP</strong>有<code>0.2%</code>的轻微下降。</li>
+<li><strong>Dimension Clusters</strong>：对训练集中标注的边框进行<code>k-means</code>聚类分析，设计出更符合样本中对象尺寸的先验框（Prior Boxes），这样就可以减少网络微调先验框到实际位置的难度。<strong>YOLOv2</strong>选择<img src="/2020/10/14/%E6%9B%B4%E5%A5%BD%EF%BC%8C%E6%9B%B4%E5%BF%AB%EF%BC%8C%E6%9B%B4%E5%BC%BA%E5%A3%AE%E7%9A%84YOLOv2/k=5.png" srcset="/img/loading.gif" alt style="zoom:100%;display: inline;margin: 0 auto;">作为边框数量与<code>IOU</code>的折中。如图1所示。</li>
+</ol>
+<img src="/2020/10/14/%E6%9B%B4%E5%A5%BD%EF%BC%8C%E6%9B%B4%E5%BF%AB%EF%BC%8C%E6%9B%B4%E5%BC%BA%E5%A3%AE%E7%9A%84YOLOv2/iou.png" srcset="/img/loading.gif" alt="k-means聚类得到的IOU" style="zoom:50%;display: flex;margin: 0 auto;">
+
+<div style="
+    color:grey;
+    text-align: center;
+    font-size: 0.8em;
+    margin: 20px 0 20px 0;">
+    图 1 k-means聚类得到的IOU</div>
+
+<p>对比手工选择的<strong>Anchor Boxes</strong>，使用<code>5</code>个聚类得到的<strong>Prior Boxes</strong>即可达到<code>61.0</code>的<strong>Avg IOU</strong>，相当于<code>9</code>个手工设置的<strong>Anchor Boxes</strong> <code>60.9</code>的<strong>Avg IOU</strong>。如下图2所示：</p>
+<img src="/2020/10/14/%E6%9B%B4%E5%A5%BD%EF%BC%8C%E6%9B%B4%E5%BF%AB%EF%BC%8C%E6%9B%B4%E5%BC%BA%E5%A3%AE%E7%9A%84YOLOv2/avgiou.png" srcset="/img/loading.gif" alt="k取不同值时的Avg IOU" style="zoom:70%;display: flex;margin: 0 auto;">
+
+<div style="
+    color:grey;
+    text-align: center;
+    font-size: 0.8em;
+    margin: 20px 0 20px 0;">
+    图 2 k取不同值时的Avg IOU
+</div>
+
+<ol start="5">
+<li><p><strong>Direct Location Prediction</strong>：在使用<strong>Anchor Box</strong>时出现了预测边框的中心可能出现在任何位置的情况，导致训练早期阶段不容易稳定。因此<strong>YOLO</strong>调整了预测公式，将预测边框的中心约束在特定<code>gird</code>网格内。预测边框的蓝色中心点被约束在蓝色背景的网格内。如图3所示，约束边框位置使得模型更容易学习，且预测更为稳定。这种方式将<strong>mAP</strong>提高了<code>5%</code>。</p>
+<img src="/2020/10/14/%E6%9B%B4%E5%A5%BD%EF%BC%8C%E6%9B%B4%E5%BF%AB%EF%BC%8C%E6%9B%B4%E5%BC%BA%E5%A3%AE%E7%9A%84YOLOv2/priorbox.png" srcset="/img/loading.gif" alt="利用Prior Box对预测框定位" style="zoom:30%;display: flex;margin: 0 auto;">
+
+<div style="
+    color:grey;
+    text-align: center;
+    font-size: 0.8em;
+    margin: 20px 0 20px 0;">
+    图3 利用Prior Box对预测框定位</div>
+</li>
+<li><p><strong>Passthrough Layer</strong>： 输入<img src="/2020/10/14/%E6%9B%B4%E5%A5%BD%EF%BC%8C%E6%9B%B4%E5%BF%AB%EF%BC%8C%E6%9B%B4%E5%BC%BA%E5%A3%AE%E7%9A%84YOLOv2/416.png" srcset="/img/loading.gif" alt style="zoom:100%;display: inline;margin: 0 auto;">经过卷积网络下采样最后输出是<img src="/2020/10/14/%E6%9B%B4%E5%A5%BD%EF%BC%8C%E6%9B%B4%E5%BF%AB%EF%BC%8C%E6%9B%B4%E5%BC%BA%E5%A3%AE%E7%9A%84YOLOv2/13.png" srcset="/img/loading.gif" alt style="zoom:100%;display: inline;margin: 0 auto;">，较小的对象可能特征已经不明显甚至被忽略掉了。为了更好的检测出一些比较小的对象，<strong>YOLOv2</strong>引入一种称为<code>passthrough</code>层的方法在特征图中保留上一次池化之前的<img src="/2020/10/14/%E6%9B%B4%E5%A5%BD%EF%BC%8C%E6%9B%B4%E5%BF%AB%EF%BC%8C%E6%9B%B4%E5%BC%BA%E5%A3%AE%E7%9A%84YOLOv2/26.png" srcset="/img/loading.gif" alt style="zoom:100%;display: inline;margin: 0 auto;">的特征。也就是说将<img src="/2020/10/14/%E6%9B%B4%E5%A5%BD%EF%BC%8C%E6%9B%B4%E5%BF%AB%EF%BC%8C%E6%9B%B4%E5%BC%BA%E5%A3%AE%E7%9A%84YOLOv2/26512.png" srcset="/img/loading.gif" alt style="zoom:100%;display: inline;margin: 0 auto;">的特征图转化为<img src="/2020/10/14/%E6%9B%B4%E5%A5%BD%EF%BC%8C%E6%9B%B4%E5%BF%AB%EF%BC%8C%E6%9B%B4%E5%BC%BA%E5%A3%AE%E7%9A%84YOLOv2/132048.png" srcset="/img/loading.gif" alt style="zoom:100%;display: inline;margin: 0 auto;">。然后直接传递到<code>pooling</code>后（并且又经过一组卷积）的特征图，两者叠加到一起作为输出<img src="/2020/10/14/%E6%9B%B4%E5%A5%BD%EF%BC%8C%E6%9B%B4%E5%BF%AB%EF%BC%8C%E6%9B%B4%E5%BC%BA%E5%A3%AE%E7%9A%84YOLOv2/133072.png" srcset="/img/loading.gif" alt style="zoom:100%;display: inline;margin: 0 auto;">的特征图，使得<strong>MAP</strong>提高了<code>1%</code>。</p>
+</li>
+<li><p><strong>Multi-Scale Training</strong>：为了能使<strong>YOLOv2</strong>在不同尺寸的图片上鲁棒性更强，这里加入了多尺度的图像训练。因为去掉了全连接层，<strong>YOLOv2</strong>可以输入任何尺寸的图像。因为整个网络下采样倍数是<code>32</code>，作者采用了<img src="/2020/10/14/%E6%9B%B4%E5%A5%BD%EF%BC%8C%E6%9B%B4%E5%BF%AB%EF%BC%8C%E6%9B%B4%E5%BC%BA%E5%A3%AE%E7%9A%84YOLOv2/seq.png" srcset="/img/loading.gif" alt style="zoom:100%;display: inline;margin: 0 auto;">等<strong>10</strong>种输入图像的尺寸，这些尺寸的输入图像对应输出的特征图宽和高是<img src="/2020/10/14/%E6%9B%B4%E5%A5%BD%EF%BC%8C%E6%9B%B4%E5%BF%AB%EF%BC%8C%E6%9B%B4%E5%BC%BA%E5%A3%AE%E7%9A%84YOLOv2/feaseq.png" srcset="/img/loading.gif" alt style="zoom:100%;display: inline;margin: 0 auto;">。训练时每<code>10</code>个<strong>batch</strong>就随机更换一种尺寸，使网络能够适应各种大小的对象检测。</p>
+</li>
+</ol>
+<div class="mine">
+   YOLOv2提出了Darknet-19（有19个卷积层和5个池化层）网络结构。Darknet-19比VGG-16小一些，精度不弱于VGG-16。YOLOv2的训练主要包括三个阶段：
+</div>
+
+<ul>
+<li><p>第一阶段就是先预训练<strong>Darknet-19</strong>，模型输入为<code>224×224</code>，共训练<code>160</code>个<strong>epochs</strong>。</p>
+</li>
+<li><p>第二阶段将网络的输入调整为<code>448×448</code>，继续<strong>finetune</strong>分类模型。</p>
+</li>
+<li><p>第三个阶段就是修改<strong>Darknet-19</strong>分类模型为检测模型，移除最后一个卷积层、<strong><em>global avg pooling</em></strong>层以及<strong><em>softmax</em></strong>层，并且新增了三个<img src="/2020/10/14/%E6%9B%B4%E5%A5%BD%EF%BC%8C%E6%9B%B4%E5%BF%AB%EF%BC%8C%E6%9B%B4%E5%BC%BA%E5%A3%AE%E7%9A%84YOLOv2/21024.png" srcset="/img/loading.gif" alt style="zoom:100%;display: inline;margin: 0 auto;">卷积层，同时增加了一个<strong>passthrough</strong>层，最后使用<img src="/2020/10/14/%E6%9B%B4%E5%A5%BD%EF%BC%8C%E6%9B%B4%E5%BF%AB%EF%BC%8C%E6%9B%B4%E5%BC%BA%E5%A3%AE%E7%9A%84YOLOv2/1.png" srcset="/img/loading.gif" alt style="zoom:100%;display: inline;margin: 0 auto;">卷积层输出预测结果，输出的<strong>channels</strong>数为：<img src="/2020/10/14/%E6%9B%B4%E5%A5%BD%EF%BC%8C%E6%9B%B4%E5%BF%AB%EF%BC%8C%E6%9B%B4%E5%BC%BA%E5%A3%AE%E7%9A%84YOLOv2/channel.png" srcset="/img/loading.gif" alt style="zoom:100%;display: inline;margin: 0 auto;">。由于<strong>Anchors</strong>数为<code>5</code>，对于<strong>VOC</strong>数据集（20种分类对象）输出的<strong>channels</strong>数就是<code>125</code>，最终的输出的特征大小为:</p>
+</li>
+</ul>
+<p>$$<br>(13, 13, 5,25)<br>$$</p>
+<div class="mine">
+   YOLOv2和其他的算法在Pascal VOC 2007数据集上的比较结果如下表：
+</div>
+
+<div class="center">
+    <table>
+<thead>
+<tr>
+<th>Detection Frameworks</th>
+<th>Train</th>
+<th>mAP</th>
+<th>FPS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>YOLO</td>
+<td>2007+2012</td>
+<td>63.4</td>
+<td>45</td>
+</tr>
+<tr>
+<td>Fast R-CNN</td>
+<td>2007+2012</td>
+<td>70.0</td>
+<td>0.5</td>
+</tr>
+<tr>
+<td>Faster R-CNN VGG-16</td>
+<td>2007+2012</td>
+<td>73.2</td>
+<td>7</td>
+</tr>
+<tr>
+<td>YOLOv2 288×288</td>
+<td>2007+2012</td>
+<td>69.0</td>
+<td>91</td>
+</tr>
+<tr>
+<td>YOLOv2 352×352</td>
+<td>2007+2012</td>
+<td>73.7</td>
+<td>81</td>
+</tr>
+<tr>
+<td>YOLOv2 416×416</td>
+<td>2007+2012</td>
+<td>76.8</td>
+<td>67</td>
+</tr>
+<tr>
+<td>YOLOv2 480×480</td>
+<td>2007+2012</td>
+<td>77.8</td>
+<td>59</td>
+</tr>
+<tr>
+<td>YOLOv2 544×544</td>
+<td>2007+2012</td>
+<td>78.6</td>
+<td>40</td>
+</tr>
+</tbody></table>
+</div>
+
+<div style="
+    color:grey;
+    text-align: center;
+    font-size: 0.8em;
+    margin: 20px 0 20px 0;">
+    表1 YOLOv2与其他算法的性能比较</div>
+
+<div class="mine">
+    为了能够使模型检测出更多的分类，作者又提出了一种对COCO数据集和ImageNet数据集上联合训练的方式可以检测出9000个类别的物体的YOLO9000，使得YOLOv2即使没有学过很多对象的检测样本，也能检测出这些对象。
+</div>
+
+<div class="mine">
+    由于ImageNet的对象类别与COCO的对象类别不是互斥的。这样就不适合用单个softmax来做对象分类，而是要采用一种多标签分类模型。将ImageNet和COCO中的名词对象一起构建了一个WordTree，以physical object为根节点，各名词依据相互间的关系构建树枝、树叶，节点间的连接表达了对象概念之间的蕴含关系。
+</div>
+
+<img src="/2020/10/14/%E6%9B%B4%E5%A5%BD%EF%BC%8C%E6%9B%B4%E5%BF%AB%EF%BC%8C%E6%9B%B4%E5%BC%BA%E5%A3%AE%E7%9A%84YOLOv2/wordtree.png" srcset="/img/loading.gif" alt="利用Prior Box对预测框定位" style="zoom:50%;display: flex;margin: 0 auto;">
+
+<div style="
+    color:grey;
+    text-align: center;
+    font-size: 0.8em;
+    margin: 20px 0 20px 0;">
+    图4 WordTree名词关系树</div>
+
+<p>对于单个节点，属于它的所有子节点之间是互斥关系，所以计算上可以进行<strong><em>softmax</em></strong>操作。实际中每个节点下的所有子节点都会进行<strong><em>softmax</em></strong>.</p>
+<p>有标签的样本对应的<strong>WordTree</strong>中，该对象节点到根节点的所有节点概率都是<code>1</code>，其它节点概率是<code>0</code>。根据训练标签的设置，其实模型学习的是各节点的条件概率。</p>
+<br>
+
+<p>$$<br>Pr⁡(Norfolk terrier)=Pr⁡(Norfolk terrier│terrier)×Pr⁡(terrier│hunting dog)<br>$$</p>
+<p>$$<br>×…×Pr⁡(mammal│animal)×Pr(animal|physical object)<br>$$<br>为了计算简便，从根节点开始向下遍历，对每一个节点，在它的所有子节点中，选择概率最大的那个，一直向下遍历直到某个节点的子节点概率低于设定的阈值，或达到叶子节点，那么该节点就是该<strong><em>WordTree</em></strong>对应的对象。</p>
+<p><strong>YOLO9000</strong>依然采用<strong>YOLOv2</strong>的网络结构，使用<code>3</code>个先验框，现在<strong>YOLO9000</strong>的输出是<img src="/2020/10/14/%E6%9B%B4%E5%A5%BD%EF%BC%8C%E6%9B%B4%E5%BF%AB%EF%BC%8C%E6%9B%B4%E5%BC%BA%E5%A3%AE%E7%9A%84YOLOv2/hahah.png" srcset="/img/loading.gif" alt style="zoom:100%;display: inline;margin: 0 auto;">。由于对象分类改成<strong>WordTree</strong>的形式，相应的误差计算也需要一些调整。对一个检测样本，其分类误差只包含该标签节点以及到根节点的所有节点的误差。对于分类样本，则只计算分类误差。<strong>YOLO9000</strong>总共输出<img src="/2020/10/14/%E6%9B%B4%E5%A5%BD%EF%BC%8C%E6%9B%B4%E5%BF%AB%EF%BC%8C%E6%9B%B4%E5%BC%BA%E5%A3%AE%E7%9A%84YOLOv2/preboc.png" srcset="/img/loading.gif" alt style="zoom:100%;display: inline;margin: 0 auto;">个预测框，计算它们对样本标签的预测概率，选择概率最大的那个框负责预测该样本的对象，即计算其<strong>WordTree</strong>的误差。</p>
+<p>总的来说，<strong>YOLOv2</strong>通过一些改进明显提升了预测准确性，同时继续保持其运行速度快的优势。<strong>YOLO9000</strong>则开创性的提出联合使用分类样本和检测样本的训练方法，使对象检测能够扩展到缺乏检测样本的对象。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%EF%BC%88Object-Detection%EF%BC%89/">目标检测（Object Detection）</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/YOLO/">YOLO</a>
+                    
+                      <a class="hover-with-bg" href="/tags/One-Stage/">One-Stage</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/10/17/%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E9%A1%B9%E7%9B%AE%EF%BC%9A%E6%B3%B0%E5%9D%A6%E5%B0%BC%E5%85%8B%E5%8F%B7%E7%9A%84%E5%B9%B8%E5%AD%98%E8%80%85/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">机器学习项目（一）：泰坦尼克号的幸存者</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/10/10/%E5%BC%80%E5%88%9B%E6%80%A7%E7%9A%84YOLO/">
+                        <span class="hidden-mobile">开创性的YOLO</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    function loadValine() {
+      addScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "6rS38oXgbqlO5KI3Wx39pRKE-gzGzoHsz",
+          app_key: "jAT77piz4ukjWTMHISbSLW0x",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    }
+    waitElementVisible('vcomments', loadValine);
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://valine.js.org" target="_blank" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+    <!-- APlayer 音乐播放器 -->
+    <div id="aplayer"></div>
+    <script defer src="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.js" ></script>
+<link  rel="stylesheet" href="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css" />
+<script type="text/javascript">
+  var oldLoadAp = window.onload;
+  window.onload = function () {
+    oldLoadAp && oldLoadAp();
+
+    new APlayer({
+      container: document.getElementById('aplayer'),
+      fixed: true,
+      autoplay: 'false' === 'true',
+      loop: 'all',
+      order: 'random',
+      theme: '#b7daff',
+      preload: 'none',
+      audio: [{"name":"让我留在你身边 (原唱作版)","artist":"唐汉霄","url":"/songs/让我留在你身边 (原唱作版).mp3","cover":"/img/cover/让我留在你身边.jpg"},{"name":"Shape of You","artist":"Ed Sheeran","url":"/songs/Ed Sheeran - Shape of You.mp3","cover":"/img/cover/shapeofyou.jpg"},{"name":"1845","artist":"Hotbloods","url":"/songs/1845.mp3","cover":"/img/cover/1845.jpg"},{"name":"月牙湾","artist":"F.I.R.飞儿乐团","url":"/songs/F.I.R.飞儿乐团-月牙湾.mp3","cover":"/img/cover/月牙湾.jpg"},{"name":"Walk Thru Fire","artist":"Vicetone / Meron Ryan","url":"/songs/Walk Thru Fire.mp3","cover":"/img/cover/wsf.jpg"},{"name":"Wrap Me In Plastic","artist":"CHROMANCE","url":"/songs/Wrap Me In Plastic - CHROMANCE.m4a","cover":"/img/cover/wmip.jpg"},{"name":"飞鸟和蝉","artist":"任然","url":"/songs/飞鸟和蝉-任然.m4a","cover":"/img/cover/飞鸟和蝉.jpg"},{"name":"可惜没如果","artist":"林俊杰","url":"/songs/林俊杰-可惜没如果.mp3","cover":"/img/cover/可惜没如果.jpg"},{"name":"莫问归期","artist":"蒋雪儿","url":"/songs/莫问归期-蒋雪儿.m4a","cover":"/img/cover/莫问归期.jpg"},{"name":"失恋阵线联盟","artist":"草蜢","url":"/songs/失恋阵线联盟.mp3","cover":"/img/cover/失恋阵线联盟.jpg"},{"name":"大城小爱","artist":"王力宏","url":"/songs/王力宏-大城小爱.mp3","cover":"/img/cover/大城小爱.png"}]
+    });
+  }
+</script>
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "One-Stage目标检测算法——更好，更快，更强壮的YOLOv2&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 200,
+      loop: true,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script>
+
+  
+
+
+
+  
+  
+    <script>
+      !function (e, t, a) {
+        function r() {
+          for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+          requestAnimationFrame(r)
+        }
+
+        function n() {
+          var t = "function" == typeof e.onclick && e.onclick;
+          e.onclick = function (e) {
+            t && t(), o(e)
+          }
+        }
+
+        function o(e) {
+          var a = t.createElement("div");
+          a.className = "heart", s.push({
+            el: a,
+            x: e.clientX - 5,
+            y: e.clientY - 5,
+            scale: 1,
+            alpha: 1,
+            color: c()
+          }), t.body.appendChild(a)
+        }
+
+        function i(e) {
+          var a = t.createElement("style");
+          a.type = "text/css";
+          try {
+            a.appendChild(t.createTextNode(e))
+          } catch (t) {
+            a.styleSheet.cssText = e
+          }
+          t.getElementsByTagName("head")[0].appendChild(a)
+        }
+
+        function c() {
+          return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+        }
+
+        var s = [];
+        e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+          setTimeout(e, 1e3 / 60)
+        }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
+      }(window, document);
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
