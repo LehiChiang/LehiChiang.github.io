@@ -4,33 +4,6 @@
   
   
   <entry>
-    <title>demo</title>
-    <link href="/2020/10/27/demo/"/>
-    <url>/2020/10/27/demo/</url>
-    
-    <content type="html"><![CDATA[<div style="color:white"></div><p style="text-indent: 2em;"></p>" srcset="/img/loading.gif<img src alt="image-20200716153831941" style="zoom:50%;display: flex;margin: 0 auto;"><p class="note note-primary">标签</p>]]></content>
-    
-    
-    <categories>
-      
-      <category>深度学习</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>PyTorch</tag>
-      
-      <tag>python</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>划分字母区间问题</title>
     <link href="/2020/10/24/%E5%88%92%E5%88%86%E5%AD%97%E6%AF%8D%E5%8C%BA%E9%97%B4%E9%97%AE%E9%A2%98/"/>
     <url>/2020/10/24/%E5%88%92%E5%88%86%E5%AD%97%E6%AF%8D%E5%8C%BA%E9%97%B4%E9%97%AE%E9%A2%98/</url>
