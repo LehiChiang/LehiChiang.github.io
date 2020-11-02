@@ -4,6 +4,37 @@
   
   
   <entry>
+    <title>两个数组的交集</title>
+    <link href="/2020/11/02/%E4%B8%A4%E4%B8%AA%E6%95%B0%E7%BB%84%E7%9A%84%E4%BA%A4%E9%9B%86/"/>
+    <url>/2020/11/02/%E4%B8%A4%E4%B8%AA%E6%95%B0%E7%BB%84%E7%9A%84%E4%BA%A4%E9%9B%86/</url>
+    
+    <content type="html"><![CDATA[<p class="note note-primary">求解两个数组的交集问题有很多种写法，这里主要介绍两种方法。还有其他的编程语言特色的求解方法。</p><h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><div class="notranslate"><p>给定两个数组，编写一个函数来计算它们的交集。</p><p>&nbsp;</p><p><strong>示例 1：</strong></p><div class="hljs"><pre><div style="color:white"><strong>输入：</strong>nums1 = [1,2,2,1], nums2 = [2,2]<strong>输出：</strong>[2]</div></pre></div><p><strong>示例 2：</strong></p><div class="hljs"><pre><div style="color:white"><strong>输入：</strong>nums1 = [4,9,5], nums2 = [9,4,9,8,4]<strong>输出：</strong>[9,4]</div></pre></div><p>&nbsp;</p><p><strong>说明：</strong></p><ul>    <li>输出结果中的每个元素一定是唯一的。</li>    <li>我们可以不考虑输出结果的顺序。</li></ul><h1 id="方法一（借助哈希）"><a href="#方法一（借助哈希）" class="headerlink" title="方法一（借助哈希）"></a>方法一（借助哈希）</h1><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>要求解两个数组中的交集，首先我们可以去除掉各自列表中的重复元素。去除重复元素这一过程，可以使用<code>set()</code>集合的性质（不能存储重复元素）进行操作。</p><p>得到精简后的数组后，就可以进行元素级别的比较了。遍历长度较小的数组，然后在另一个数组中查找是否存在其中。这种方法有点还是可以有提升的地方。我们可以将查找的时间复杂度降低。即使用Hash来查找。所以在上一步的操作中，可以使用<code>Java</code>的<code>HashSet()</code>去重的同时，来减少查找的时间复杂度。</p><p>最后一步，定义一个结果变量，如果较短数组中的元素在另外一个数组中，则可以直接将元素添加到结果变量中，直到遍历完整个较短数组。</p><h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><div class="hljs"><pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">intersection</span><span class="hljs-params">(self, nums1: List[int], nums2: List[int])</span> -&gt; List[int]:</span>        nums1 = set(nums1)        nums2 = set(nums2)        <span class="hljs-keyword">if</span> len(nums1) &lt; len(nums2):            <span class="hljs-keyword">return</span> [x <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> nums1 <span class="hljs-keyword">if</span> x <span class="hljs-keyword">in</span> nums2]        <span class="hljs-keyword">else</span>:            <span class="hljs-keyword">return</span> [x <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> nums2 <span class="hljs-keyword">if</span> x <span class="hljs-keyword">in</span> nums1]</code></pre></div><h2 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h2><ul><li><p>时间复杂度：<code>O(m+n)</code>，其中 <code>m</code> 和 <code>n</code> 分别是两个数组的长度。使用两个集合分别存储两个数组中的元素需要 <code>O(m+n)</code> 的时间，遍历较小的集合并判断元素是否在另一个集合中需要 <code>O(min(m,n))</code> 的时间，因此总时间复杂度是 <code>O(m+n)</code>。</p></li><li><p>空间复杂度：<code>O(m+n)</code>，其中 <code>m</code> 和 <code>n</code> 分别是两个数组的长度。空间复杂度主要取决于两个集合。</p></li></ul><h1 id="方法二（排序-双指针）"><a href="#方法二（排序-双指针）" class="headerlink" title="方法二（排序+双指针）"></a>方法二（排序+双指针）</h1><h2 id="解题思路-1"><a href="#解题思路-1" class="headerlink" title="解题思路"></a>解题思路</h2><p>这种方法的解题思路就比较直接了。借助合并两个有序链表的思想，设置两个指针<code>i</code>和<code>j</code>分别指向两个数组<code>nums1</code>和<code>nums2</code>，如果<code>nums1[i] == nums2[j]</code>那么就是两个列表的交集元素。将元素放到无重复元素的<code>set()</code>中。两个元素不相等的情况下，元素小的那个指针往前移一位，直到两个指针越界。</p><h2 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h2><div class="hljs"><pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">intersection</span><span class="hljs-params">(self, nums1: List[int], nums2: List[int])</span> -&gt; List[int]:</span>        nums1.sort()        nums2.sort()        res = set()        i, j = <span class="hljs-number">0</span>, <span class="hljs-number">0</span>        <span class="hljs-keyword">while</span> i&lt;len(nums1) <span class="hljs-keyword">and</span> j&lt;len(nums2):            <span class="hljs-keyword">if</span> nums1[i] &lt; nums2[j]:                i += <span class="hljs-number">1</span>            <span class="hljs-keyword">elif</span> nums1[i] &gt; nums2[j]:                j += <span class="hljs-number">1</span>            <span class="hljs-keyword">elif</span> nums1[i] == nums2[j]:                res.add(nums1[i])                i += <span class="hljs-number">1</span>                j += <span class="hljs-number">1</span>        <span class="hljs-keyword">return</span> res</code></pre></div><h2 id="复杂度分析-1"><a href="#复杂度分析-1" class="headerlink" title="复杂度分析"></a>复杂度分析</h2><ul><li><p>时间复杂度：<code>O(nlogn)</code>，其中 <code>m</code> 和 <code>n</code> 分别是两个数组的长度。排序的时间复杂度级别是 <code>O(nlogn)</code>，双指针寻找交集元素的时间复杂度级别是 <code>O(n)</code>，因此总时间复杂度是 <code>O(nlogn)</code>。</p></li><li><p>空间复杂度：<code>O(n)</code>，其中 <code>n</code> 是数组的长度。在最坏的情况下，两数组的元素都一样。</p></li></ul><h1 id="其他代码示例"><a href="#其他代码示例" class="headerlink" title="其他代码示例"></a>其他代码示例</h1><h2 id="Python-amp-运算符"><a href="#Python-amp-运算符" class="headerlink" title="Python &amp; 运算符"></a>Python &amp; 运算符</h2><div class="hljs"><pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">intersection</span><span class="hljs-params">(self, nums1: List[int], nums2: List[int])</span> -&gt; List[int]:</span>        <span class="hljs-keyword">return</span> list(set(nums1) &amp; set(nums2))</code></pre></div><p>Python语言中的&amp;运算符可以直接求出两列表的交集</p><h2 id="Java-retainAll-方法"><a href="#Java-retainAll-方法" class="headerlink" title="Java retainAll()方法"></a>Java retainAll()方法</h2><div class="hljs"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] intersection(<span class="hljs-keyword">int</span>[] nums1, <span class="hljs-keyword">int</span>[] nums2) &#123;    HashSet&lt;Integer&gt; set1 = <span class="hljs-keyword">new</span> HashSet&lt;&gt;();    HashSet&lt;Integer&gt; set2 = <span class="hljs-keyword">new</span> HashSet&lt;&gt;();    List&lt;Integer&gt; list = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i:nums1)&#123;        list.add(i);    &#125;    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i:nums2)&#123;        set2.add(i);    &#125;    list.retainAll(set2);    set1.addAll(list);    <span class="hljs-keyword">return</span> set1.stream().mapToInt(i-&gt;i).toArray();&#125;</code></pre></div><p><code>A.retainAll(B)</code>方法的含义：移除<code>A</code>中，不包含在<code>B</code>中的元素。</p></div>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+      <category>初级</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>数组</tag>
+      
+      <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>数组中的最长山脉</title>
     <link href="/2020/10/27/%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9C%80%E9%95%BF%E5%B1%B1%E8%84%89/"/>
     <url>/2020/10/27/%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9C%80%E9%95%BF%E5%B1%B1%E8%84%89/</url>
