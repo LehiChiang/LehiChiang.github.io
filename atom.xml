@@ -6,7 +6,7 @@
   <link href="http://yoursite.com/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-11-02T03:24:25.529Z</updated>
+  <updated>2020-11-04T04:06:46.137Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>插入区间</title>
+    <link href="http://yoursite.com/2020/11/04/%E6%8F%92%E5%85%A5%E5%8C%BA%E9%97%B4/"/>
+    <id>http://yoursite.com/2020/11/04/%E6%8F%92%E5%85%A5%E5%8C%BA%E9%97%B4/</id>
+    <published>2020-11-04T03:12:31.000Z</published>
+    <updated>2020-11-04T04:06:46.137Z</updated>
+    
+    <content type="html"><![CDATA[<p class="note note-primary">区间类问题有很多种：区间合并， 区间交集， 区间插入等等。 区间类问题只要的重难点就是找好区间直接重叠或不相交的条件。</p><h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><div class="notranslate"><p>给出一个<em>无重叠的 ，</em>按照区间起始端点排序的区间列表。</p><p>在列表中插入一个新的区间，你需要确保列表中的区间仍然有序且不重叠（如果有必要的话，可以合并区间）。</p><p>&nbsp;</p><p><strong>示例&nbsp;1：</strong></p><div class="hljs"><pre><div style="color:white"><strong>输入：</strong>intervals = [[1,3],[6,9]], newInterval = [2,5]<strong>输出：</strong>[[1,5],[6,9]]</div></pre></div><p><strong>示例&nbsp;2：</strong></p><div class="hljs"><pre><div style="color:white"><strong>输入：</strong>intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]<strong>输出：</strong>[[1,2],[3,10],[12,16]]<strong>解释：</strong>这是因为新的区间 [4,8] 与 [3,5],[6,7],[8,10]&nbsp;重叠。</div></pre></div><p>&nbsp;</p><h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><p>刚刚拿到这一题目，我的第一反应是想用之前解决区间问题的思路来解决这一问题。在这一题中，我们要新增一个区间，那么就会有两者插入情况：</p><ol><li>新插入的区间与原数组中的任何一个区间都不重叠，那么这个时候就要找出需要插入的位置；</li><li>薪插入的区间与原数组中的某些区间有重叠，那么这个时候就要考虑区间合并的问题。</li></ol><p>那么，这道题就好解了！设置好遍历区间和新增区间的三种位置关系，然后依次判断是否相交，然后按照区间合并的思路去做。</p><p>但是，当我真正用这种方法来套用这一题时，发现这么做的代码非常冗余，判断条件很多，稍不注意就会有遗漏的地方。归结到问题的本质还是要找出新区间与原区间的关系，确定好这个关系，问题就好解决了。</p><p><strong>下面来介绍一种新的方法。</strong></p><p><em>方法来源：</em></p><p class="note note-primary">    作者：LeetCode-Solution<br>    链接：<a href="https://leetcode-cn.com/problems/insert-interval/solution/cha-ru-qu-jian-by-leetcode-solution/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/insert-interval/solution/cha-ru-qu-jian-by-leetcode-solution/</a><br>    来源：力扣（LeetCode）<br></p><p>由于题目中的区间列表已经是按照区间起始排好序的，所以每一个区间的起始都大于前一个期间的起始。那么如果新加入的区间起始大于当前区间的结束，那么说明当前区间与新区间没有交集。那么可以遍历下一个区间了。</p><p>如果新加入的区间起始小于当前区间的结束，那么说明这两个区间是有交集的了，如下图所示：</p><img src="/2020/11/04/%E6%8F%92%E5%85%A5%E5%8C%BA%E9%97%B4/merge.png" srcset="/img/loading.gif" alt="区间插入过程描述" style="zoom:40%;display: flex;margin: 0 auto;"><p><strong>那么我们就要修改新插入区间的区间范围！！！</strong></p><p>怎样修改？它们的交集即为：<br>$$<br>[min(l1, l2), min(r1, r2)]<br>$$<br>它们的并集为：<br>$$<br>[min(l1, l2), max(r1, r2)]<br>$$<br>那么直接就修改新插入的区间范围。</p><p>什么时候将新区间插入到区间列表中呢？当然是第一个满足新插入区间的结尾小于当前区间的起始的时候，说明它们两个无交集。这个时候就可以将新区间插入到列表中了！</p><h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><div class="hljs"><pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">insert</span><span class="hljs-params">(self, intervals: List[List[int]], newInterval: List[int])</span> -&gt; List[List[int]]:</span>        res = []        remove = <span class="hljs-literal">False</span>        left, right = newInterval        <span class="hljs-keyword">for</span> li, ri <span class="hljs-keyword">in</span> intervals:            <span class="hljs-comment"># 新区间和当前区间无交集，直接将当前区间加到结果中</span>            <span class="hljs-keyword">if</span> left &gt; ri:                res.append([li, ri])            <span class="hljs-comment"># 判断新区间是否要插入到列表中的条件</span>            <span class="hljs-keyword">elif</span> li &gt; right:                <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> remove:                    res.append([left, right])                    remove = <span class="hljs-literal">True</span>                res.append([li, ri])            <span class="hljs-comment"># 新区间和当前区间有交集，进行新区间范围合并</span>            <span class="hljs-keyword">else</span>:                left = min(li, left)                right = max(ri, right)        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> remove:            res.append([left, right])        <span class="hljs-keyword">return</span> res</code></pre></div><p><strong>复杂度分析</strong></p><ul><li>时间复杂度：<code>O(n)</code>，其中 <code>n</code> 是数组 <code>intervals</code> 的长度，即给定的区间个数。</li><li>空间复杂度：<code>O(n)</code>，除了存储返回答案的空间以外，我们只需要额外的常数空间即可。</li></ul><h1 id="其他方法"><a href="#其他方法" class="headerlink" title="其他方法"></a>其他方法</h1><p>还可以不另外创造新的存储空间，直接对原列表进行原地修改。</p><p>从头到尾找到重叠的区间，记录重叠区间的索引，方便后续的切片替换。当区间不重叠的时候就可以直接替换掉重复的区间段了。</p><p>代码实现如下：</p><div class="hljs"><pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">insert</span><span class="hljs-params">(self, intervals: List[List[int]], newInterval: List[int])</span> -&gt; List[List[int]]:</span>        <span class="hljs-comment"># 初始状况判断</span>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> newInterval:            <span class="hljs-keyword">return</span> intervals        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> intervals:            <span class="hljs-keyword">return</span> [newInterval]        <span class="hljs-comment"># 已经是起点有序的了</span>        i = <span class="hljs-number">0</span>        intervalsLen = len(intervals)        <span class="hljs-keyword">while</span> i &lt; intervalsLen <span class="hljs-keyword">and</span> intervals[i][<span class="hljs-number">1</span>] &lt; newInterval[<span class="hljs-number">0</span>]:            i += <span class="hljs-number">1</span>        <span class="hljs-comment"># 保存删除之前的位置，最后在这个位置上插入</span>        tempI = i        <span class="hljs-keyword">while</span> i &lt; intervalsLen <span class="hljs-keyword">and</span> intervals[i][<span class="hljs-number">0</span>] &lt;= newInterval[<span class="hljs-number">1</span>]:            newInterval[<span class="hljs-number">0</span>] = min(newInterval[<span class="hljs-number">0</span>], intervals[i][<span class="hljs-number">0</span>])            newInterval[<span class="hljs-number">1</span>] = max(newInterval[<span class="hljs-number">1</span>], intervals[i][<span class="hljs-number">1</span>])            i += <span class="hljs-number">1</span>        <span class="hljs-keyword">del</span> intervals[tempI:i]        intervals.insert(tempI, newInterval)        <span class="hljs-keyword">return</span> intervals</code></pre></div></div>]]></content>
+    
+    
+    <summary type="html">又是一道区间问题。</summary>
+    
+    
+    
+    <category term="算法" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    <category term="困难" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95/%E5%9B%B0%E9%9A%BE/"/>
+    
+    
+    <category term="数组" scheme="http://yoursite.com/tags/%E6%95%B0%E7%BB%84/"/>
+    
+    <category term="区间" scheme="http://yoursite.com/tags/%E5%8C%BA%E9%97%B4/"/>
+    
+  </entry>
   
   <entry>
     <title>两个数组的交集</title>
@@ -466,31 +491,6 @@
     <category term="java" scheme="http://yoursite.com/tags/java/"/>
     
     <category term="学习路线" scheme="http://yoursite.com/tags/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>[LeetCode-初级]对称的二叉树</title>
-    <link href="http://yoursite.com/2020/07/31/LeetCode-%E5%88%9D%E7%BA%A7-%E5%AF%B9%E7%A7%B0%E7%9A%84%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
-    <id>http://yoursite.com/2020/07/31/LeetCode-%E5%88%9D%E7%BA%A7-%E5%AF%B9%E7%A7%B0%E7%9A%84%E4%BA%8C%E5%8F%89%E6%A0%91/</id>
-    <published>2020-07-31T13:52:43.000Z</published>
-    <updated>2020-07-31T14:45:30.497Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><div class="notranslate"><p>请实现一个函数，用来判断一棵二叉树是不是对称的。如果一棵二叉树和它的镜像一样，那么它是对称的。</p><p>例如，二叉树&nbsp;[1,2,2,3,4,4,3] 是对称的。</p><p><code>&nbsp; &nbsp; 1<br>&nbsp; &nbsp;/ \<br>&nbsp; 2 &nbsp; 2<br>&nbsp;/ \ / \<br>3 &nbsp;4 4 &nbsp;3</code><br>但是下面这个&nbsp;[1,2,2,null,3,null,3] 则不是镜像对称的:</p><p><code>&nbsp; &nbsp; 1<br>&nbsp; &nbsp;/ \<br>&nbsp; 2 &nbsp; 2<br>&nbsp; &nbsp;\ &nbsp; \<br>&nbsp; &nbsp;3 &nbsp; &nbsp;3</code></p><p>&nbsp;</p><p><strong>示例 1：</strong></p><div class="hljs"><pre><div style="color:white"><strong>输入：</strong>root = [1,2,2,3,4,4,3]<strong>输出：</strong>true</div></pre></div><p><strong>示例 2：</strong></p><div class="hljs"><pre><div style="color:white"><strong>输入：</strong>root = [1,2,2,null,3,null,3]<strong>输出：</strong>false</div></pre></div><p>&nbsp;</p><p><strong>限制：</strong></p><p><code>0 &lt;= 节点个数 &lt;= 1000</code></p><h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><p>这道题的做法可以采用递归实现。</p><p>对称二叉树定义： 对于树中 任意两个对称节点 <code>LL</code> 和 <code>RR</code> ，一定有：</p><ul><li><code>L.val</code> = <code>R.val</code> ：即此两对称节点值相等。</li><li><code>L.left.val</code> = <code>R.right.val</code>：即 <code>LL</code> 的 左子节点 和 <code>RR</code> 的 右子节点 对称；</li><li><code>L.right.val</code> = <code>R.left.val</code>：即 <code>LL</code> 的 右子节点 和 <code>RR</code> 的 左子节点 对称。</li></ul><p>根据以上规律，考虑从顶至底递归，判断每对节点是否对称，从而判断树是否为对称二叉树。</p><img src="/2020/07/31/LeetCode-%E5%88%9D%E7%BA%A7-%E5%AF%B9%E7%A7%B0%E7%9A%84%E4%BA%8C%E5%8F%89%E6%A0%91/systree.png" srcset="/img/loading.gif" alt="image-20200716153831941" style="zoom:40%;display: flex;margin: 0 auto;"><p>在python的语法中，我们可以用内部方法的方式来进行递归调用，代码如下：</p><h1 id="算法实现"><a href="#算法实现" class="headerlink" title="算法实现"></a>算法实现</h1><div class="hljs"><pre><code class="hljs python"><span class="hljs-comment"># Definition for a binary tree node.</span><span class="hljs-comment"># class TreeNode:</span><span class="hljs-comment">#     def __init__(self, x):</span><span class="hljs-comment">#         self.val = x</span><span class="hljs-comment">#         self.left = None</span><span class="hljs-comment">#         self.right = None</span><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">isSymmetric</span><span class="hljs-params">(self, root: TreeNode)</span> -&gt; bool:</span>        <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">recur</span><span class="hljs-params">(l, r)</span>:</span>            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> l <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> r: <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>            <span class="hljs-keyword">elif</span> <span class="hljs-keyword">not</span> l <span class="hljs-keyword">or</span> <span class="hljs-keyword">not</span> r <span class="hljs-keyword">or</span> l.val != r.val: <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>            <span class="hljs-keyword">else</span>:                <span class="hljs-keyword">return</span> recur(l.left, r.right) <span class="hljs-keyword">and</span> recur(l.right, r.left)        <span class="hljs-keyword">return</span> recur(root.left, root.right) <span class="hljs-keyword">if</span> root <span class="hljs-keyword">else</span> <span class="hljs-literal">True</span></code></pre></div><p>复杂度分析：</p><ul><li>时间复杂度 <code>O(N)</code> ： 其中 <code>N</code> 为二叉树的节点数量，每次执行 <code>recur()</code> 可以判断一对节点是否对称，因此最多调用 <code>N/2</code> 次 <code>recur()</code> 方法。</li><li>空间复杂度 <code>O(N)</code> ： 最差情况下，二叉树退化为链表，系统使用<code>O(N)</code> 大小的栈空间。</li></ul><h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p><a href="https://leetcode-cn.com/problems/dui-cheng-de-er-cha-shu-lcof/solution/mian-shi-ti-28-dui-cheng-de-er-cha-shu-di-gui-qing/" target="_blank" rel="noopener">面试题28. 对称的二叉树</a></p></div>]]></content>
-    
-    
-    <summary type="html">如何判断一棵树是否是对称的？</summary>
-    
-    
-    
-    <category term="算法" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95/"/>
-    
-    <category term="初级" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95/%E5%88%9D%E7%BA%A7/"/>
-    
-    
-    <category term="树" scheme="http://yoursite.com/tags/%E6%A0%91/"/>
-    
-    <category term="递归" scheme="http://yoursite.com/tags/%E9%80%92%E5%BD%92/"/>
     
   </entry>
   
