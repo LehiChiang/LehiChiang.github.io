@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>秒杀经典TopK问题</title>
+    <link href="/2020/11/09/%E7%A7%92%E6%9D%80%E7%BB%8F%E5%85%B8TopK%E9%97%AE%E9%A2%98/"/>
+    <url>/2020/11/09/%E7%A7%92%E6%9D%80%E7%BB%8F%E5%85%B8TopK%E9%97%AE%E9%A2%98/</url>
+    
+    <content type="html"><![CDATA[<p class="note note-primary">Top K问题是解决如何在数组中或者数据中获得前K个最大或者最小的元素，是面试时的高频问点。</p><p>问题的具体化形式包括但不限于以下几个：</p><ul><li><h4 id="215-数组中的第K个最大元素"><a href="#215-数组中的第K个最大元素" class="headerlink" title="215. 数组中的第K个最大元素"></a><a href="https://leetcode-cn.com/problems/kth-largest-element-in-an-array/" target="_blank" rel="noopener">215. 数组中的第K个最大元素</a></h4></li><li><h4 id="973-最接近原点的-K-个点"><a href="#973-最接近原点的-K-个点" class="headerlink" title="973. 最接近原点的 K 个点"></a><a href="https://leetcode-cn.com/problems/k-closest-points-to-origin/" target="_blank" rel="noopener">973. 最接近原点的 K 个点</a></h4></li><li><h4 id="剑指-Offer-40-最小的k个数"><a href="#剑指-Offer-40-最小的k个数" class="headerlink" title="剑指 Offer 40. 最小的k个数"></a><a href="https://leetcode-cn.com/problems/zui-xiao-de-kge-shu-lcof/" target="_blank" rel="noopener">剑指 Offer 40. 最小的k个数</a></h4></li></ul><p>解决这一类问题，我们通常有如下几种解题方法：</p><ul><li><p>排序法</p></li><li><p>堆</p></li><li><p>快速查找法</p></li></ul><p>下面对于每种方法给出解题思路，对于这一类问题可以直接套用。</p><div style="color:white"></div><p style="text-indent: 2em;"></p>" srcset="/img/loading.gif<img src alt="image-20200716153831941" style="zoom:50%;display: flex;margin: 0 auto;">]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+      <category>中级</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>排序</tag>
+      
+      <tag>堆</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>插入区间</title>
     <link href="/2020/11/04/%E6%8F%92%E5%85%A5%E5%8C%BA%E9%97%B4/"/>
     <url>/2020/11/04/%E6%8F%92%E5%85%A5%E5%8C%BA%E9%97%B4/</url>
