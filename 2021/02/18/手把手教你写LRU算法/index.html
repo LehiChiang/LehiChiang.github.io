@@ -1,0 +1,1076 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/icon-small-black.png">
+  <link rel="icon" type="image/png" href="/img/icon-small-black.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="Lehi J.">
+  <meta name="author" content="Lehi Chiang">
+  <meta name="keywords" content="AI,Java,Python">
+  <title>手把手教你写LRU算法 - Lehi J.</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/gruvbox-dark.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Lehi J." type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Lehi J.</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/pass_img/1_AH-jtC0ACtbuMl3z-XXZ1w.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      Lehi Chiang
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-02-18 21:26" pubdate>
+        2021年2月18日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      30
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">手把手教你写LRU算法</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <h2 id="一-介绍"><a href="#一-介绍" class="headerlink" title="一. 介绍"></a>一. 介绍</h2><p class="note note-primary">什么是缓存？ 我们为什么需要它？</p>
+
+
+<p>缓存是操作系统按顺序维护的页面缓冲区，以避免昂贵的内存访问操作。 通常，缓存比主内存快得多。 由于高速缓存的大小与主内存相比非常小，因此有可能需要在高速缓存和主内存之间交换页面。 每当在高速缓存中找不到需要从主存储器中导入的页面时，该页面就称为高速缓存未命中。 <code>LRU</code>缓存实现是一种<code>FIFO</code>策略，用于最大程度地减少缓存未命中。</p>
+<p>当引用了缓存中不存在的新页面时，如果缓存已满，则使用最近最少使用高速缓存方案来删除最近最少使用的页面。 如果页面在缓存中，则将其移到缓存的开头。 因此，缓存按引用顺序存储页面。</p>
+<img src="/2021/02/18/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E5%86%99LRU%E7%AE%97%E6%B3%95/1_AH-jtC0ACtbuMl3z-XXZ1w.png" srcset="/img/loading.gif" alt="区间插入过程描述" style="zoom:100%;display: flex;margin: 0 auto;">
+
+<p><code>LRU</code>缓存使用以下数据结构实现：</p>
+<ol>
+<li><p>双向链表：使用双向链表将高速缓存实现，链表大小就是缓存的大小。 最近使用的页面在链表的前端附近，最少使用的页面在链表的后端附近。</p>
+</li>
+<li><p><code>HashMap</code>：它将节点的地址存储在缓存中。 它有助于在<code>O(1)</code>时间中找到节点地址。</p>
+</li>
+</ol>
+<p>具体的使用方法如下：</p>
+<div class="hljs"><pre><code class="hljs java">CustomizedLRUCache cache = <span class="hljs-keyword">new</span> CustomizedLRUCache(<span class="hljs-number">2</span>);
+cache.put(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>); <span class="hljs-comment">// 缓存是 &#123;1=1&#125;</span>
+cache.put(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>); <span class="hljs-comment">// 缓存是 &#123;1=1, 2=2&#125;</span>
+cache.get(<span class="hljs-number">1</span>);    <span class="hljs-comment">// 返回 1</span>
+cache.put(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>); <span class="hljs-comment">// 该操作会使得关键字 2 作废，缓存是 &#123;1=1, 3=3&#125;</span>
+cache.get(<span class="hljs-number">2</span>);    <span class="hljs-comment">// 返回 -1 (未找到)</span>
+cache.put(<span class="hljs-number">4</span>, <span class="hljs-number">4</span>); <span class="hljs-comment">// 该操作会使得关键字 1 作废，缓存是 &#123;4=4, 3=3&#125;</span>
+cache.get(<span class="hljs-number">1</span>);    <span class="hljs-comment">// 返回 -1 (未找到)</span>
+cache.get(<span class="hljs-number">3</span>);    <span class="hljs-comment">// 返回 3</span>
+cache.get(<span class="hljs-number">4</span>);    <span class="hljs-comment">// 返回 4</span></code></pre></div>
+
+
+
+<p class="note note-primary">算法流程</p>
+
+
+<p>当引用页面时：</p>
+<ol>
+<li>检查页面是否在缓存中，如果页面在内存中，移除节点并将其置于链表的最前面。</li>
+<li>如果页面不在缓存中，如果队列未满，则在队列的前面添加一个新节点，并更新哈希中的相应节点地址。 如果队列已满，请从队列的后面移除节点，然后将新节点添加到队列的前面。</li>
+</ol>
+<h2 id="二-实现"><a href="#二-实现" class="headerlink" title="二. 实现"></a>二. 实现</h2><p>我们可以借助<code>Java</code>原有的数据结构<code>LinkedHashMap</code>来实现，也可以自定义数据结构来实现。当然对于后者，我是更推荐的！先来介绍一下自定义的数据结构实现方法。</p>
+<h3 id="1-DoubleLinkedList-HashMap"><a href="#1-DoubleLinkedList-HashMap" class="headerlink" title="(1) DoubleLinkedList + HashMap"></a>(1) DoubleLinkedList + HashMap</h3><p>这里我们将页面定义为<code>Node</code>类型的数据结构，其中<code>Node</code>类中包含键和值两个属性：</p>
+<div class="hljs"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Node</span> </span>&#123;
+    <span class="hljs-keyword">int</span> key, val;
+    Node pre, next;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Node</span><span class="hljs-params">(<span class="hljs-keyword">int</span> key, <span class="hljs-keyword">int</span> val)</span> </span>&#123;
+        <span class="hljs-keyword">this</span>.key = key;
+        <span class="hljs-keyword">this</span>.val = val;
+    &#125;
+&#125;</code></pre></div>
+
+<p>定义好了页面，我们现在来定义存储页面的链表，双向链表：</p>
+<div class="hljs"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DoubleLinkedList</span> </span>&#123;
+    <span class="hljs-keyword">private</span> Node head, tail;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> capacity;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">DoubleLinkedList</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">this</span>.head = <span class="hljs-keyword">new</span> Node(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>);
+        <span class="hljs-keyword">this</span>.tail = <span class="hljs-keyword">new</span> Node(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>);
+        <span class="hljs-keyword">this</span>.head.next = <span class="hljs-keyword">this</span>.tail;
+        <span class="hljs-keyword">this</span>.tail.pre = <span class="hljs-keyword">this</span>.head;
+        <span class="hljs-keyword">this</span>.capacity = <span class="hljs-number">0</span>;
+    &#125;
+
+    <span class="hljs-comment">// 在链表的最后添加节点</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">addLast</span><span class="hljs-params">(Node node)</span> </span>&#123;
+        node.pre = tail.pre;
+        node.next = tail;
+        tail.pre.next = node;
+        tail.pre = node;
+        capacity += <span class="hljs-number">1</span>;
+    &#125;
+
+    <span class="hljs-comment">// 删除某个节点</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">remove</span><span class="hljs-params">(Node node)</span> </span>&#123;
+        node.pre.next = node.next;
+        node.next.pre = node.pre;
+        capacity -= <span class="hljs-number">1</span>;
+    &#125;
+
+    <span class="hljs-comment">// 移除首节点（后续的换出最少使用的节点使用）</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Node <span class="hljs-title">removeFirst</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (head.next == tail)
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+        Node first = head.next;
+        remove(first);
+        <span class="hljs-keyword">return</span> first;
+    &#125;
+
+    <span class="hljs-comment">// 返回当前容器的大小</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">size</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">return</span> capacity;
+    &#125;
+&#125;</code></pre></div>
+
+<p>所以，我们有了基础的数据结构。有了双向链表的实现，我们只需要在 <code>LRU</code> 算法中把它和哈希表结合起来即可，先搭出代码框架：</p>
+<div class="hljs"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CustomizedLRUCache</span> </span>&#123;
+    <span class="hljs-keyword">private</span> DoubleLinkedList cache;
+    <span class="hljs-keyword">private</span> HashMap&lt;Integer, Node&gt; map;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> capacity;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">CustomizedLRUCache</span><span class="hljs-params">(<span class="hljs-keyword">int</span> capacity)</span> </span>&#123;
+        cache = <span class="hljs-keyword">new</span> DoubleLinkedList();
+        map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();
+        <span class="hljs-keyword">this</span>.capacity = capacity;
+    &#125;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * LRUCache的put()方法</span>
+<span class="hljs-comment">     *</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> key</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> value</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">put</span><span class="hljs-params">(<span class="hljs-keyword">int</span> key, <span class="hljs-keyword">int</span> value)</span> </span>&#123;
+        ...
+    &#125;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * LRUCache的get()方法</span>
+<span class="hljs-comment">     *</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> key</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">get</span><span class="hljs-params">(<span class="hljs-keyword">int</span> key)</span> </span>&#123;
+        ...
+    &#125;
+&#125;</code></pre></div>
+
+<p>先不慌去实现 <code>LRU</code> 算法的 <code>get</code> 和 <code>put</code> 方法。由于我们要同时维护一个双链表 <code>cache</code> 和一个哈希表 <code>map</code>，很容易漏掉一些操作，比如说删除某个 <code>key</code> 时，在 <code>cache</code> 中删除了对应的 <code>Node</code>，但是却忘记在 <code>map</code> 中删除 <code>key</code>。</p>
+<p><strong>解决这种问题的有效方法是：在这两种数据结构之上提供一层抽象 API</strong>。</p>
+<p>说的有点玄幻，实际上很简单，就是尽量让 LRU 的主方法 <code>get</code> 和 <code>put</code> 避免直接操作 <code>map</code> 和 <code>cache</code> 的细节。我们可以先实现下面几个函数：</p>
+<div class="hljs"><pre><code class="hljs java"><span class="hljs-comment">/**</span>
+<span class="hljs-comment">* 将已有的键刷新为访问过</span>
+<span class="hljs-comment">*</span>
+<span class="hljs-comment">* <span class="hljs-doctag">@param</span> key</span>
+<span class="hljs-comment">*/</span>
+<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">makeRecently</span><span class="hljs-params">(<span class="hljs-keyword">int</span> key)</span> </span>&#123;
+    Node x = map.get(key);
+    cache.remove(x);
+    cache.addLast(x);
+&#125;
+
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment">* 使新的节点变为最新访问</span>
+<span class="hljs-comment">*</span>
+<span class="hljs-comment">* <span class="hljs-doctag">@param</span> key</span>
+<span class="hljs-comment">* <span class="hljs-doctag">@param</span> val</span>
+<span class="hljs-comment">*/</span>
+<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">addRecently</span><span class="hljs-params">(<span class="hljs-keyword">int</span> key, <span class="hljs-keyword">int</span> val)</span> </span>&#123;
+    Node x = <span class="hljs-keyword">new</span> Node(key, val);
+    cache.addLast(x);
+    map.put(key, x);
+&#125;
+
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment">* 遍历当前map中的页面</span>
+<span class="hljs-comment">*/</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">currentState</span><span class="hljs-params">()</span> </span>&#123;
+    Iterator&lt;Integer&gt; iterator = map.keySet().iterator();
+    <span class="hljs-keyword">while</span> (iterator.hasNext()) &#123;
+        <span class="hljs-keyword">int</span> key = iterator.next();
+        Node node = map.get(key);
+        System.out.print(<span class="hljs-string">"["</span> + key + <span class="hljs-string">"-&gt;"</span> + node.val + <span class="hljs-string">"]"</span>);
+    &#125;
+    System.out.println();
+&#125;</code></pre></div>
+
+<p>然后我们就来实现<code>get</code>和<code>put</code>方法</p>
+<div class="hljs"><pre><code class="hljs java"><span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * LRUCache的get()方法</span>
+<span class="hljs-comment">     *</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> key</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span>
+<span class="hljs-comment">     */</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">get</span><span class="hljs-params">(<span class="hljs-keyword">int</span> key)</span> </span>&#123;
+    <span class="hljs-keyword">if</span> (!map.containsKey(key))
+        <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+    makeRecently(key);
+    <span class="hljs-keyword">return</span> map.get(key).val;
+&#125;</code></pre></div>
+
+<div class="hljs"><pre><code class="hljs java"><span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * LRUCache的put()方法</span>
+<span class="hljs-comment">     *</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> key</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> value</span>
+<span class="hljs-comment">     */</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">put</span><span class="hljs-params">(<span class="hljs-keyword">int</span> key, <span class="hljs-keyword">int</span> value)</span> </span>&#123;
+    <span class="hljs-comment">// 更新已有的键值</span>
+    <span class="hljs-keyword">if</span> (map.containsKey(key)) &#123;
+        Node x = map.get(key);
+        cache.remove(x);
+        map.remove(key);
+        addRecently(key, value);
+        <span class="hljs-keyword">return</span>;
+    &#125;
+    <span class="hljs-comment">// 缓存已满，置换出最少使用的键值对</span>
+    <span class="hljs-keyword">if</span> (capacity &lt;= cache.size()) &#123;
+        Node node = cache.removeFirst();
+        map.remove(node.key);
+    &#125;
+    <span class="hljs-comment">// 添加新的键值对</span>
+    addRecently(key, value);
+&#125;</code></pre></div>
+
+<p>最后将代码进行整合，得到如下代码：</p>
+<div class="hljs"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.util.HashMap;
+<span class="hljs-keyword">import</span> java.util.Iterator;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Node</span> </span>&#123;
+    <span class="hljs-keyword">int</span> key, val;
+    Node pre, next;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Node</span><span class="hljs-params">(<span class="hljs-keyword">int</span> key, <span class="hljs-keyword">int</span> val)</span> </span>&#123;
+        <span class="hljs-keyword">this</span>.key = key;
+        <span class="hljs-keyword">this</span>.val = val;
+    &#125;
+&#125;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DoubleLinkedList</span> </span>&#123;
+    <span class="hljs-keyword">private</span> Node head, tail;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> capacity;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">DoubleLinkedList</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">this</span>.head = <span class="hljs-keyword">new</span> Node(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>);
+        <span class="hljs-keyword">this</span>.tail = <span class="hljs-keyword">new</span> Node(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>);
+        <span class="hljs-keyword">this</span>.head.next = <span class="hljs-keyword">this</span>.tail;
+        <span class="hljs-keyword">this</span>.tail.pre = <span class="hljs-keyword">this</span>.head;
+        <span class="hljs-keyword">this</span>.capacity = <span class="hljs-number">0</span>;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">addLast</span><span class="hljs-params">(Node node)</span> </span>&#123;
+        node.pre = tail.pre;
+        node.next = tail;
+        tail.pre.next = node;
+        tail.pre = node;
+        capacity += <span class="hljs-number">1</span>;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">remove</span><span class="hljs-params">(Node node)</span> </span>&#123;
+        node.pre.next = node.next;
+        node.next.pre = node.pre;
+        capacity -= <span class="hljs-number">1</span>;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Node <span class="hljs-title">removeFirst</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (head.next == tail)
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+        Node first = head.next;
+        remove(first);
+        <span class="hljs-keyword">return</span> first;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">size</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">return</span> capacity;
+    &#125;
+&#125;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CustomizedLRUCache</span> </span>&#123;
+    <span class="hljs-keyword">private</span> DoubleLinkedList cache;
+    <span class="hljs-keyword">private</span> HashMap&lt;Integer, Node&gt; map;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> capacity;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">CustomizedLRUCache</span><span class="hljs-params">(<span class="hljs-keyword">int</span> capacity)</span> </span>&#123;
+        cache = <span class="hljs-keyword">new</span> DoubleLinkedList();
+        map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();
+        <span class="hljs-keyword">this</span>.capacity = capacity;
+    &#125;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * LRUCache的put()方法</span>
+<span class="hljs-comment">     *</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> key</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> value</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">put</span><span class="hljs-params">(<span class="hljs-keyword">int</span> key, <span class="hljs-keyword">int</span> value)</span> </span>&#123;
+        <span class="hljs-comment">// 更新已有的键值</span>
+        <span class="hljs-keyword">if</span> (map.containsKey(key)) &#123;
+            Node x = map.get(key);
+            cache.remove(x);
+            map.remove(key);
+            addRecently(key, value);
+            <span class="hljs-keyword">return</span>;
+        &#125;
+        <span class="hljs-comment">// 缓存已满，置换出最少使用的键值对</span>
+        <span class="hljs-keyword">if</span> (capacity &lt;= cache.size()) &#123;
+            Node node = cache.removeFirst();
+            map.remove(node.key);
+        &#125;
+        <span class="hljs-comment">// 添加新的键值对</span>
+        addRecently(key, value);
+    &#125;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * LRUCache的get()方法</span>
+<span class="hljs-comment">     *</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> key</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">get</span><span class="hljs-params">(<span class="hljs-keyword">int</span> key)</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (!map.containsKey(key))
+            <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+        makeRecently(key);
+        <span class="hljs-keyword">return</span> map.get(key).val;
+    &#125;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 将已有的键刷新为访问过</span>
+<span class="hljs-comment">     *</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> key</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">makeRecently</span><span class="hljs-params">(<span class="hljs-keyword">int</span> key)</span> </span>&#123;
+        Node x = map.get(key);
+        cache.remove(x);
+        cache.addLast(x);
+    &#125;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 使新的节点变为最新访问</span>
+<span class="hljs-comment">     *</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> key</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> val</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">addRecently</span><span class="hljs-params">(<span class="hljs-keyword">int</span> key, <span class="hljs-keyword">int</span> val)</span> </span>&#123;
+        Node x = <span class="hljs-keyword">new</span> Node(key, val);
+        cache.addLast(x);
+        map.put(key, x);
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">currentState</span><span class="hljs-params">()</span> </span>&#123;
+        Iterator&lt;Integer&gt; iterator = map.keySet().iterator();
+        <span class="hljs-keyword">while</span> (iterator.hasNext()) &#123;
+            <span class="hljs-keyword">int</span> key = iterator.next();
+            Node node = map.get(key);
+            System.out.print(<span class="hljs-string">"["</span> + key + <span class="hljs-string">"-&gt;"</span> + node.val + <span class="hljs-string">"]"</span>);
+        &#125;
+        System.out.println();
+    &#125;
+&#125;</code></pre></div>
+
+<p>编写<code>main</code>方法对算法进行测试：</p>
+<div class="hljs"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Main</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+        CustomizedLRUCache cache = <span class="hljs-keyword">new</span> CustomizedLRUCache(<span class="hljs-number">2</span>);
+        cache.put(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>);
+        cache.put(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>);
+        cache.currentState();
+        cache.put(<span class="hljs-number">1</span>, <span class="hljs-number">3</span>);
+        cache.currentState();
+        cache.put(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>);
+        cache.currentState();
+        cache.put(<span class="hljs-number">4</span>, <span class="hljs-number">4</span>);
+        cache.currentState();
+        cache.get(<span class="hljs-number">3</span>);
+        cache.put(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>);
+        cache.currentState();
+    &#125;
+&#125;</code></pre></div>
+
+<p>使用cache.currentState();来输出链表中的状态，这样可以实时看到链表中数据的变化。</p>
+<p>输出的结果我们可以看到：</p>
+<div class="hljs"><pre><code class="hljs java">[<span class="hljs-number">1</span>-&gt;<span class="hljs-number">1</span>][<span class="hljs-number">2</span>-&gt;<span class="hljs-number">2</span>]
+[<span class="hljs-number">1</span>-&gt;<span class="hljs-number">3</span>][<span class="hljs-number">2</span>-&gt;<span class="hljs-number">2</span>]
+[<span class="hljs-number">1</span>-&gt;<span class="hljs-number">3</span>][<span class="hljs-number">3</span>-&gt;<span class="hljs-number">3</span>]
+[<span class="hljs-number">3</span>-&gt;<span class="hljs-number">3</span>][<span class="hljs-number">4</span>-&gt;<span class="hljs-number">4</span>]
+[<span class="hljs-number">1</span>-&gt;<span class="hljs-number">1</span>][<span class="hljs-number">3</span>-&gt;<span class="hljs-number">3</span>]</code></pre></div>
+
+
+
+<h3 id="2-LinkedHashMap"><a href="#2-LinkedHashMap" class="headerlink" title="(2) LinkedHashMap"></a>(2) LinkedHashMap</h3><div class="hljs"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.util.LinkedHashMap;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LRUCache</span> </span>&#123;
+
+    <span class="hljs-keyword">private</span> LinkedHashMap&lt;Integer, Integer&gt; cache;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> capacity;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">LRUCache</span><span class="hljs-params">(<span class="hljs-keyword">int</span> capacity)</span> </span>&#123;
+        <span class="hljs-keyword">this</span>.capacity = capacity;
+        cache = <span class="hljs-keyword">new</span> LinkedHashMap&lt;&gt;();
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">get</span><span class="hljs-params">(<span class="hljs-keyword">int</span> key)</span> </span>&#123;
+        <span class="hljs-keyword">if</span>(!cache.containsKey(key))
+            <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+        makeRecently(key);
+        <span class="hljs-keyword">return</span> cache.get(key);
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">put</span><span class="hljs-params">(<span class="hljs-keyword">int</span> key, <span class="hljs-keyword">int</span> value)</span> </span>&#123;
+        <span class="hljs-keyword">if</span>(cache.containsKey(key))&#123;
+            cache.put(key, value);
+            makeRecently(key);
+            <span class="hljs-keyword">return</span>;
+        &#125;
+        <span class="hljs-keyword">if</span>(capacity &lt;= cache.size())&#123;
+            <span class="hljs-keyword">int</span> oldKey = cache.keySet().iterator().next();
+            cache.remove(oldKey);
+        &#125;
+        cache.put(key, value);
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">makeRecently</span><span class="hljs-params">(<span class="hljs-keyword">int</span> key)</span></span>&#123;
+        <span class="hljs-keyword">int</span> val = cache.get(key);
+        cache.remove(key);
+        cache.put(key, val);
+    &#125;
+&#125;</code></pre></div>
+
+<p>这个方法实现还是比较简单！</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%AE%97%E6%B3%95/%E4%B8%AD%E7%BA%A7/">中级</a>
+                    
+                  </div>
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/11/09/%E7%A7%92%E6%9D%80%E7%BB%8F%E5%85%B8TopK%E9%97%AE%E9%A2%98/">
+                        <span class="hidden-mobile">秒杀经典TopK问题</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    function loadValine() {
+      addScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "6rS38oXgbqlO5KI3Wx39pRKE-gzGzoHsz",
+          app_key: "jAT77piz4ukjWTMHISbSLW0x",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    }
+    waitElementVisible('vcomments', loadValine);
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://valine.js.org" target="_blank" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+    <!-- APlayer 音乐播放器 -->
+    <div id="aplayer"></div>
+    <script defer src="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.js" ></script>
+<link  rel="stylesheet" href="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css" />
+<script type="text/javascript">
+  var oldLoadAp = window.onload;
+  window.onload = function () {
+    oldLoadAp && oldLoadAp();
+
+    new APlayer({
+      container: document.getElementById('aplayer'),
+      fixed: true,
+      autoplay: 'false' === 'true',
+      loop: 'all',
+      order: 'random',
+      theme: '#b7daff',
+      preload: 'none',
+      audio: [{"name":"让我留在你身边 (原唱作版)","artist":"唐汉霄","url":"/songs/让我留在你身边 (原唱作版).mp3","cover":"/img/cover/让我留在你身边.jpg"},{"name":"Shape of You","artist":"Ed Sheeran","url":"/songs/Ed Sheeran - Shape of You.mp3","cover":"/img/cover/shapeofyou.jpg"},{"name":"1845","artist":"Hotbloods","url":"/songs/1845.mp3","cover":"/img/cover/1845.jpg"},{"name":"月牙湾","artist":"F.I.R.飞儿乐团","url":"/songs/F.I.R.飞儿乐团-月牙湾.mp3","cover":"/img/cover/月牙湾.jpg"},{"name":"Walk Thru Fire","artist":"Vicetone / Meron Ryan","url":"/songs/Walk Thru Fire.mp3","cover":"/img/cover/wsf.jpg"},{"name":"Wrap Me In Plastic","artist":"CHROMANCE","url":"/songs/Wrap Me In Plastic - CHROMANCE.m4a","cover":"/img/cover/wmip.jpg"},{"name":"飞鸟和蝉","artist":"任然","url":"/songs/飞鸟和蝉-任然.m4a","cover":"/img/cover/飞鸟和蝉.jpg"},{"name":"可惜没如果","artist":"林俊杰","url":"/songs/林俊杰-可惜没如果.mp3","cover":"/img/cover/可惜没如果.jpg"},{"name":"莫问归期","artist":"蒋雪儿","url":"/songs/莫问归期-蒋雪儿.m4a","cover":"/img/cover/莫问归期.jpg"},{"name":"失恋阵线联盟","artist":"草蜢","url":"/songs/失恋阵线联盟.mp3","cover":"/img/cover/失恋阵线联盟.jpg"},{"name":"大城小爱","artist":"王力宏","url":"/songs/王力宏-大城小爱.mp3","cover":"/img/cover/大城小爱.png"}]
+    });
+  }
+</script>
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "手把手教你写LRU算法&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 200,
+      loop: true,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script>
+
+  
+
+
+
+  
+  
+    <script>
+      !function (e, t, a) {
+        function r() {
+          for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+          requestAnimationFrame(r)
+        }
+
+        function n() {
+          var t = "function" == typeof e.onclick && e.onclick;
+          e.onclick = function (e) {
+            t && t(), o(e)
+          }
+        }
+
+        function o(e) {
+          var a = t.createElement("div");
+          a.className = "heart", s.push({
+            el: a,
+            x: e.clientX - 5,
+            y: e.clientY - 5,
+            scale: 1,
+            alpha: 1,
+            color: c()
+          }), t.body.appendChild(a)
+        }
+
+        function i(e) {
+          var a = t.createElement("style");
+          a.type = "text/css";
+          try {
+            a.appendChild(t.createTextNode(e))
+          } catch (t) {
+            a.styleSheet.cssText = e
+          }
+          t.getElementsByTagName("head")[0].appendChild(a)
+        }
+
+        function c() {
+          return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+        }
+
+        var s = [];
+        e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+          setTimeout(e, 1e3 / 60)
+        }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
+      }(window, document);
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
